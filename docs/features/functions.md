@@ -1,9 +1,9 @@
 ---
 id: functions
 title: Functions
-sidebar_label: Functions
+description: How to write functions in Sandstone.
 ---
-## Create a Minecraft function
+## Creating a Minecraft function
 
 As you saw earlier, you can create a Minecraft function using `mcfunction`:
 

@@ -1,7 +1,8 @@
 ---
 id: first-function
 title: Your First Function
-sidebar_label: Your First Function
+description: Write your first Sandstone function.
+hide_table_of_contents: true
 ---
 
 Let's write your first Minecraft function. Start VSCode, and open the folder you created. In the directory, create a new file named `helloworld.ts`, with the following content:

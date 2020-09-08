@@ -2,6 +2,7 @@
 id: reward
 title: "An example : Rewarding players"
 sidebar_label: Rewarding players
+description: An example of rewarding function with Sandstone.
 ---
 
 Let's write a small datapack that has only one purpose. When a `default:reward` function is called, it needs to reward all players with 1 diamond for each kill they made. For example, a player with 8 kills will get 8 diamonds.

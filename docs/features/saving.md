@@ -1,7 +1,7 @@
 ---
 id: saving
 title: Saving the datapack
-sidebar_label: Saving the datapack
+description: How to save your datapack with Sandstone.
 ---
 Using sandstone, you can choose to either save the datapack to the current directory, or to save it directly in one of your Minecraft world. The first argument to the `saveDatapack` method is the name of the datapack. If you only provide this argument, the datapack will be saved to your current directory.
 

@@ -1,7 +1,7 @@
 ---
 id: installation
 title: Installation
-sidebar_label: Installation
+description: How to install Sandstone.
 ---
 
 import Tabs from '@theme/Tabs';

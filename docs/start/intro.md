@@ -1,7 +1,7 @@
 ---
 id: intro
 title: Introduction
-sidebar_label: Introduction
+description: An introductiont to Sandstone.
 ---
 
 Sandstone is a Typescript library for Minecraft Datapacks. It allows easy creation, debug and sharing of Minecraft functions, loot tables, predicates etc...

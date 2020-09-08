@@ -62,8 +62,8 @@ function Home() {
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`${siteConfig.title} | A Typescript library for Minecraft Datapacks`}
+      description="Sandstone is a Typescript library used to create Minecraft datapacks. Featuring perfect autocompletion, while &amp; for loops, shared configurable libraries...">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
