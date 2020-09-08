@@ -1,6 +1,8 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3dc217bc-43db-44b6-9244-b53fdd62e74e/deploy-status)](https://app.netlify.com/sites/silly-stonebraker-62b1a0/deploys)
+
 # Website
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+This website is the documentation for the [Sandstone](https://github.com/TheMrZZ/) project. It is hosted on [sandstone.dev](https://www.sandstone.dev).
 
 ### Installation
 
