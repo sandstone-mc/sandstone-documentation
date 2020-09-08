@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Sandstone',
   tagline: 'A Minecraft Datapack library in Typescript',
-  url: 'https://www.sanstone.dev',
+  url: 'https://www.sandstone.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'favicon.ico',
