@@ -32,4 +32,4 @@ Sandstone is designed with developer experience in mind. The goal is to provide 
 
 If you want to support Sandstone, the simplest way is to star the repository [on Github](https://github.com/themrzz/sandstone)! It's very encouraging.
 
-![stars](../images/star.png)
+<a href="https://github.com/themrzz/sandstone"> <img src={require('../images/star.png').default} /> </a>
