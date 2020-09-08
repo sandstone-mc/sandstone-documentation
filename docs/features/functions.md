@@ -8,13 +8,15 @@ sidebar_label: Functions
 As you saw earlier, you can create a Minecraft function using `mcfunction`:
 
 ```js
-// Create a Minecraft function inside the default namespace, named "main.mcfunction"
+// Create a Minecraft function inside the default namespace, 
+// named "main.mcfunction"
 mcfunction('main', () => {...})
 ```
 
 By specifying only the function's name, it will be created inside the default namespace. However, you can specify it yourself:
 ```js
-// Create a Minecraft function inside the `mydatapack` namespace, named "main.mcfunction"
+// Create a Minecraft function inside the `mydatapack` namespace, 
+// named "main.mcfunction"
 mcfunction('mydatapack:main', () => {...})
 ```
 

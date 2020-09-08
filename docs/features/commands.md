@@ -1,9 +1,9 @@
 ---
-id: basics
-title: The Basics
-sidebar_label: The Basics
+id: commands
+title: Writing Commands
+sidebar_label: Writing commands
 ---
-## Writing a command
+## Basics
 
 In Sandstone, all commands can directly be imported from `sandstone`:
 
@@ -19,9 +19,30 @@ When typing a command or a subcommand, there are two possibilities:
 
 A command can have multiple subcommands, which all have arguments: `effect.give('@a', 'minecraft:speed', 30, 2)` or `effect.clear('@a', 'minecraft:night_vision')`.
 
-**Important**: A command is only written to the datapack if it has been called. For example, some commands do not have any arguments, like `/reload`. In Sandstone, you'd have to type `reload()`. Only typing `reload` will **not** call the command, and nothing will appear in your datapacK.
+:::caution
+A command is only written to the datapack if it has been called. For example, some commands do not have any arguments, like `/reload`. In Sandstone, you'd have to type `reload()`. Only typing `reload` will **not** call the command, and nothing will appear in your datapack.
+:::
 
-### Optional arguments
+### Example
+
+Here is the command to give 64 diamonds to all players:
+```js
+give('@a', 'minecraft:diamond', 64)
+```
+
+Here is the command to give Speed II to all players:
+```js
+effect.give('@a', 'minecraft:speed', 1)
+```
+
+Here is the command to grant all advancements to all players:
+```js
+advancement.grant('@a').everything()
+```
+
+Use VSCode autocompletion to show you what arguments/property should be used on each command.
+
+## Optional arguments
 
 In Minecraft, some commands have optional arguments. Let's stay with the `/effect give` command. According to the [Wiki](https://minecraft.gamepedia.com/Commands/effect#Syntax), It has 2 to 5 arguments:
 
@@ -39,7 +60,7 @@ On the left, you can see there are 4 different ways to call `effect.give`. The f
 
 It's telling you the third argument is the number of seconds. If you keep going (or type the Down arrow to display all possibilities), you will see that Sandstone allows what Minecraft allows. It's very useful: **you don't have to remember the syntax of all commands**, Sandstone does that for you.
 
-### Execute
+## Execute
 
 Sandstone has a special syntax for the `/execute` command. At its core, it looks just like Minecraft:
 
@@ -81,58 +102,3 @@ setblock ~ ~1 ~ minecraft:air
 ```
 
 As you can see, Sandstone automatically created a new mcfunction for you. It contains all your nested commands (all the setblocks), and is called by the `execute` command. Therefore, you achieve the desired effect **without managing several files youself**.
-
-## Saving the datapack
-
-Using sandstone, you can choose to either save the datapack to the current directory, or to save it directly in one of your Minecraft world. The first argument to the `saveDatapack` method is the name of the datapack. If you only provide this argument, the datapack will be saved to your current directory.
-
-```js
-// Save the datapack to the current directory
-saveDatapack('My datapack')
-```
-
-As a second argument, `saveDatapack` accepts options. They are listed below.
-
-| options | description |
-| ------- | ----------- |
-| verbose        | If true, the resulting commands will be displayed in the console.                                                                            |
-| world          | The name of the world to save your datapack into. If left unspecified, the datapack will be saved in the current directory.                  |
-| asRootDatapack | If `true`, then the resulting datapack will be saved to the `.minecraft/datapacks` folder.                                                   |
-| minecraftPath  | The location of the .minecraft folder. If left unspecified, it will be automatically discovered.                                             |
-| dryRun         | If true, then the datapack will not be saved to the file system. Combined with `verbose`, it allows to only show the results in the console. |
-
-As you can see, Sandstone can save your datapack directly in one of your world:
-```js
-import { saveDatapack } from 'sandstone/core'
-
-// Save the datapack in "An awesome world", with the "My datapack" name.
-saveDatapack('My datapack', {
-  world: 'An awesome world'
-})
-```
-
-To achieve this, Sandstone automatically detects where your `.minecraft` folder is located. If you modified your `.minecraft` location, Sandstone could fail to find it. In that case, Sandstone will give you a clear error message. You will then have to manually specify your `.minecraft` location:
-```js
-// Save the datapack in "An awesome world", in a custom .minecraft folder
-saveDatapack('My datapack', {
-  world : 'An awesome world',
-  minecraftPath: 'C:/Program Files/.minecraft'
-})
-```
-
-Sometimes, you might want direct feedback on the functions you're writing. The `verbose` option will display all functions & commands in your console.
-```js
-mcfunction('hello', () => {
-  say('Hello world!')
-})
-
-saveDatapack('My datapack', {
-  verbose: true
-})
-```
-
-Will output:
-```mcfunction
-# default:hello
-say Hello world!
-```
