@@ -63,7 +63,9 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.title} | A Typescript library for Minecraft Datapacks`}
-      description="Sandstone is a Typescript library used to create Minecraft datapacks. Featuring perfect autocompletion, while &amp; for loops, shared configurable libraries...">
+      description="Sandstone is a Typescript library used to create Minecraft datapacks. Featuring perfect autocompletion, while &amp; for loops, shared configurable libraries..."
+      keywords={['sandstone', 'minecraft', 'datapack', 'typescript', 'easy']}
+    >
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
