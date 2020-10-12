@@ -9,13 +9,13 @@ Sandstone is a Typescript library for Minecraft Datapacks. It allows easy creati
 
 ## Features
 
-### Perfect autocompletion
+### Perfect autocompletion & built-in Wiki
 
-Sandstone tells you what a command expects, and autocomplete complicated arguments for you.
+Sandstone tells you what a command expects, and autocomplete complicated arguments for you. It ships with the official Wiki documentation for all commands and resources.
 
 You don't need to remember commands syntax anymore.
 
-![autocomplete](../images/autocomplete.gif)
+![autocomplete](../images/autocompletion/command.gif)
 
 This autocompletion works for commands, predicates, loot tables, advancements...
 

@@ -40,7 +40,15 @@ Here is the command to grant all advancements to all players:
 advancement.grant('@a').everything()
 ```
 
-Use VSCode autocompletion to show you what arguments/property should be used on each command.
+### Documentation
+
+Use VSCode autocompletion to show you what arguments/property should be used on each command. 
+
+Sandstone includes the Wiki documentation on each command, and for each parameter: you can look it up to understand what a command or a parameter does.
+
+This example shows that Sandstone hints you what arguments are needed, and tell you what they actually do:
+
+![documentation](../images/autocompletion/command.gif)
 
 ## Optional arguments
 
@@ -52,27 +60,25 @@ As you can see, the `targets` and the `effect` arguments are **mandatory**. Mine
 
 In this aspect, Sandstone is identical to Minecraft. When typing `effect.give()`, your IDE will show you the possible arguments:
 
-![argumentshint1](../images/argumentshint1.png)
+![argumentshint1](../images/argumentshint.png)
 
-On the left, you can see there are 4 different ways to call `effect.give`. The first one is shown here: you can just give a target and an effect, and Minecraft will be happy. If you type them and try to enter a **third** argument, your IDE will automatically show the next possible argument:
+As you can see, the `targets` and the `effect` argument are not followed by a question mark `?`. It means they are mandatory, just like in Minecraft. However, the `seconds`, `amplifier` and `hideParticles` arguments are followed by a question mark `?`: Sandstone does not require them. 
 
-![argumentshint2](../images/argumentshint2.png).
-
-It's telling you the third argument is the number of seconds. If you keep going (or type the Down arrow to display all possibilities), you will see that Sandstone allows what Minecraft allows. It's very useful: **you don't have to remember the syntax of all commands**, Sandstone does that for you.
+This feature is very useful: **you don't have to remember the syntax of all commands**, Sandstone does that for you. Also, Sandstone gives you precise documentation on the behaviour of each command: you don't have to check the Wiki anymore!
 
 ## Execute
 
 Sandstone has a special syntax for the `/execute` command. At its core, it looks just like Minecraft:
 
 ```js
-execute.as("@a").at("@s")
+execute.as('@a').at('@s')
 ```
 
 The divergent part is the command call:
 
 ```js
 // Sets a block of dirt under all players
-execute.as("@a").at("@s").runOne.setblock('~ ~-1 ~', 'minecraft:dirt')
+execute.as('@a').at('@s').runOne.setblock('~ ~-1 ~', 'minecraft:dirt')
 ```
 
 This will result in `execute as @a at @s run setblock ~ ~-1 ~ minecraft:dirt`. As you can see, you **use runOne instead of run**. In Sandstone, `run` is used to execute *multiple commands*, and `runOne` to execute *only one* command.

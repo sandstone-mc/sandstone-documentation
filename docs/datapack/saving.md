@@ -3,7 +3,7 @@ id: saving
 title: Saving the datapack
 description: How to save your datapack with Sandstone.
 ---
-Using sandstone, you can choose to either save the datapack to the current directory, or to save it directly in one of your Minecraft world. The first argument to the `saveDatapack` method is the name of the datapack. If you only provide this argument, the datapack will be saved to your current directory.
+Using Sandstone, you can choose to either save the datapack to the current directory, or to save it directly in one of your Minecraft world. The first argument to the `saveDatapack` method is the name of the datapack. If you only provide this argument, the datapack will be saved to your current directory.
 
 ```js
 // Save the datapack to the current directory
@@ -12,13 +12,13 @@ saveDatapack('My datapack')
 
 As a second argument, `saveDatapack` accepts options. They are listed below.
 
-| options | description |
-| ------- | ----------- |
-| verbose        | If true, the resulting commands will be displayed in the console.                                                                            |
-| world          | The name of the world to save your datapack into. If left unspecified, the datapack will be saved in the current directory.                  |
-| asRootDatapack | If `true`, then the resulting datapack will be saved to the `.minecraft/datapacks` folder.                                                   |
-| minecraftPath  | The location of the .minecraft folder. If left unspecified, it will be automatically discovered.                                             |
-| dryRun         | If true, then the datapack will not be saved to the file system. Combined with `verbose`, it allows to only show the results in the console. |
+| option | type | description |
+| ------ | ---- | ----------- |
+| `verbose` | `boolean` | If true, the resulting commands will be displayed in the console. |
+| `world`| `string` |  The name of the world to save your datapack into. If left unspecified, the datapack will be saved in the current directory. Incompatible with `asRootDatapack`. |
+| `asRootDatapack` | `boolean` | Whether the datapack should be saved to the `.minecraft/datapacks` folder. Incompatible with `world`. |
+`minecraftPath` | `string`  | The location of the `.minecraft` folder. If left unspecified, it will be automatically discovered. |
+`dryRun` | `boolean` | If true, then the datapack will not be saved to the file system. Combined with `verbose`, it allows to only show the results in the console. |
 
 As you can see, Sandstone can save your datapack directly in one of your world:
 ```js

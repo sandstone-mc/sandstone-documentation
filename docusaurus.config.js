@@ -1,18 +1,21 @@
 module.exports = {
   title: 'Sandstone',
   tagline: 'A Minecraft Datapack library in Typescript',
-  url: 'https://www.sandstone.dev',
+  url: 'https://sanstone.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'favicon.ico',
   organizationName: 'TheMrZZ', // Usually your GitHub org/user name.
   projectName: 'sandstone-documentation', // Usually your repo name.
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark',
+    },
     navbar: {
       title: 'Sandstone',
       logo: {
         alt: 'Sandstone Logo',
-        src: 'img/logo.webp',
+        src: 'img/logo.png',
       },
       items: [
         {
@@ -49,5 +52,5 @@ module.exports = {
         },
       },
     ],
-  ]
+  ],
 };

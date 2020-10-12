@@ -1,6 +1,6 @@
 ---
 id: functions
-title: Functions
+title: Writing Functions
 description: How to write functions in Sandstone.
 ---
 ## Creating a Minecraft function
@@ -109,6 +109,16 @@ say This function is not used anywhere
 ```
 
 As you can see, the `useless` function has been created, because it is called from `main`. This feature is very useful to distribute lot of functions, in a library for example.
+
+## Minecraft function options
+
+You can specify different options, other than `lazy`, for your Minecraft functions.
+
+ option | type | description |
+--|--|--|
+`runEachTick` | `boolean` | Whether the function should run each tick. |
+`runOnLoad` | `boolean` | Whether the function should run when the datapack is loaded or reloaded. |
+`tags` | `string[]` | The function tags to apply to this function.
 
 ## Inline functions
 
