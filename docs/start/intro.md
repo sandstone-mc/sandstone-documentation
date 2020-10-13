@@ -19,10 +19,6 @@ You don't need to remember commands syntax anymore.
 
 This autocompletion works for commands, predicates, loot tables, advancements...
 
-:::note
-Custom loot tables, predicates and advancements are not yet implemented.
-:::
-
 ### Easy to share
 Sharing commands has **never been easier**. Just publish your functions on NPM, and everyone can use them to improve their own datapacks.
 
