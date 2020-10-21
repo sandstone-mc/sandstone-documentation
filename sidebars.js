@@ -13,6 +13,8 @@ module.exports = {
     "Features": [
       "features/selectors",
       "features/objectives",
+      "features/variables",
+      "features/coordinates",
     ],
     "Examples": [
       "examples/reward"
