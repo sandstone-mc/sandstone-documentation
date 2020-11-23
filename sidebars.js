@@ -15,6 +15,17 @@ module.exports = {
       "features/objectives",
       "features/variables",
       "features/coordinates",
+      "features/nbt",
+      {
+        "type": "category",
+        "label": "Resources",
+        "items": [
+          "features/resources/advancements",
+          "features/resources/loot_tables",
+          "features/resources/predicates",
+          "features/resources/recipes",
+        ]
+      }
     ],
     "Examples": [
       "examples/reward"

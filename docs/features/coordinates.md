@@ -29,6 +29,8 @@ In order to create coordinates from numbers, you can use one of the following fu
 
 You can use them in two ways: with a single number, or with several ones. A single number returns a single string. Several numbers will return an array of strings:
 ```ts
+import { abs, rel, loc } from 'sandstone/variables'
+
 // A single number
 abs(5) ➨ '5'
 rel(5) ➨ '~5'
