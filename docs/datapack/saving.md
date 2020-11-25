@@ -41,7 +41,7 @@ saveDatapack('My datapack', {
 
 Sometimes, you might want direct feedback on the functions you're writing. The `verbose` option will display all functions & commands in your console.
 ```js
-mcfunction('hello', () => {
+MCFunction('hello', () => {
   say('Hello world!')
 })
 

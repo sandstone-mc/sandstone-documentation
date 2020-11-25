@@ -32,7 +32,7 @@ There are two kind of variables: global variables, and scoped variables.
 
 ### Global variables
 
-Global variables are not declared inside any mcfunction. They will be initialized during the datapack loading. If an initial value has been given, each time the datapack is loaded, the variable will be set to this initial value.
+Global variables are not declared inside any MCFunction. They will be initialized during the datapack loading. If an initial value has been given, each time the datapack is loaded, the variable will be set to this initial value.
 
 ```ts
 // The number of entities will be set to 0 when the datapack loads
@@ -40,11 +40,11 @@ const numberOfEntities = Variable(0)
 ```
 
 ### Scoped variables
-Scoped variables are declared inside a given mcfunction. 
+Scoped variables are declared inside a given MCFunction. 
 **Each time the function is called**, the variable will be initialized and set to its initial value (if any).
 
 ```ts
-mcfunction('count_diamonds', () => {
+MCFunction('count_diamonds', () => {
   const totalDiamonds = Variable(0)
   
   execute.as('@a').run(() => {

@@ -41,3 +41,16 @@ As you can see, you must provide a list of pool. A pool is defined by a list of 
 
 All additional properties can be directly found via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Loot Tables](https://minecraft.gamepedia.com/Loot_table#Tags).
 
+## Usage
+
+Sandstone Loot Tables have several methods mimicking the `/loot` command:
+
+```ts
+// Give the item to the user
+myLootTable.give
+
+
+myLootTable.insert
+myLootTable.replaceBlock
+myLootTable.replaceEntity
+```

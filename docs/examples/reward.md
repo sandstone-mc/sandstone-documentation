@@ -14,9 +14,9 @@ We are going to save this datapack directly in a world named `My Test World`. **
 First, we will write the actual structure of the datapack, without writing any command.
 
 ```js
-import { mcfunction, saveDatapack } from 'sandstone/core'
+import { MCFunction, saveDatapack } from 'sandstone/core'
 
-mcfunction('reward', () => {
+MCFunction('reward', () => {
    // Nothing for the moment
 })
 
@@ -34,12 +34,12 @@ The datapack will be created, even though it's actually empty. We did 2 things h
 We will now create the score that tracks the number of kills done by players.
 
 ```js {4}
-import { mcfunction, saveDatapack } from 'sandstone/core'
+import { MCFunction, saveDatapack } from 'sandstone/core'
 import { createObjective } from 'sandstone/variables'
 
 const kills = createObjective('kills', 'playerKills', 'Current Player Kills')
 
-mcfunction('reward', () => {
+MCFunction('reward', () => {
   // Nothing for the moment
 })
 
@@ -53,7 +53,7 @@ Look at the highlighted lines to see which lines changed.
 This time, we created an objective named `kills`, tracking the `playerKills` criterion. In order to achieve this, we imported `createObjective` from `sandstone/variables`. 
 
 :::note
-You can notice that, in the outputted log, the `__init__` mcfunction now automatically creates the `kills` objective for you.
+You can notice that, in the outputted log, the `__init__` MCFunction now automatically creates the `kills` objective for you.
 :::
 
 ### Executing commands as all players
@@ -65,13 +65,13 @@ We want to check
 Now, we are going to reward **one** diamond if the player has **at least one kill**. We will then remove one kill from him. While it is not our objective, it's a nice intermediate step.
 
 ```js
-import { mcfunction, saveDatapack, _ } from 'sandstone/core'
+import { MCFunction, saveDatapack, _ } from 'sandstone/core'
 import { createObjective } from 'sandstone/variables'
 import { give } from 'sandstone/commands'
 
 const kills = createObjective('kills', 'playerKills', 'Current Player Kills')
 
-mcfunction('reward', () => {
+MCFunction('reward', () => {
   // Execute on each player
   execute.as('@a').run(() => {
     // Get the player's kills

@@ -74,16 +74,16 @@ Sandstone has a special syntax for the `/execute` command. At its core, it looks
 execute.as('@a').at('@s')
 ```
 
-The divergent part is the command call:
+Calling a single command looks similar too:
 
 ```js
 // Sets a block of dirt under all players
-execute.as('@a').at('@s').runOne.setblock('~ ~-1 ~', 'minecraft:dirt')
+execute.as('@a').at('@s').run.setblock('~ ~-1 ~', 'minecraft:dirt')
 ```
 
-This will result in `execute as @a at @s run setblock ~ ~-1 ~ minecraft:dirt`. As you can see, you **use runOne instead of run**. In Sandstone, `run` is used to execute *multiple commands*, and `runOne` to execute *only one* command.
+This will result in `execute as @a at @s run setblock ~ ~-1 ~ minecraft:dirt`. In Sandstone, `run` is used to execute *single multiple commands*.
 
-For example, here is how you could execute multiple commands with `run`:
+Here is how you could execute multiple commands with `run`:
 
 ```js
 execute.as('@a').at('@s').run(() => {
@@ -95,16 +95,16 @@ execute.as('@a').at('@s').run(() => {
 })
 ```
 
-If you try running such commands, under a mcfunction named "main" with verbose saving, you'll have the following results:
+If you try running such commands, under a MCFunction named "main" with verbose saving, you'll have the following results:
 
 ```mcfunction
-# default:main
+# Function default:main
 execute as @a at @s run function default:main/execute_as
 
-# default:main/execute_as
+# Function default:main/execute_as
 setblock ~ ~-1 ~ minecraft:dirt
 setblock ~ ~ ~ minecraft:air
 setblock ~ ~1 ~ minecraft:air
 ```
 
-As you can see, Sandstone automatically created a new mcfunction for you. It contains all your nested commands (all the setblocks), and is called by the `execute` command. Therefore, you achieve the desired effect **without managing several files youself**.
+As you can see, Sandstone automatically created a new MCFunction for you. It contains all your nested commands (all the setblocks), and is called by the `execute` command. Therefore, you achieve the desired effect **without managing several files youself**.

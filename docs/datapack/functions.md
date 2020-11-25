@@ -5,19 +5,19 @@ description: How to write functions in Sandstone.
 ---
 ## Creating a Minecraft function
 
-As you saw earlier, you can create a Minecraft function using `mcfunction`:
+As you saw earlier, you can create a Minecraft function using `MCFunction`:
 
 ```js
 // Create a Minecraft function inside the default namespace, 
 // named "main.mcfunction"
-mcfunction('main', () => {...})
+MCFunction('main', () => {...})
 ```
 
 By specifying only the function's name, it will be created inside the default namespace. However, you can specify it yourself:
 ```js
 // Create a Minecraft function inside the `mydatapack` namespace, 
 // named "main.mcfunction"
-mcfunction('mydatapack:main', () => {...})
+MCFunction('mydatapack:main', () => {...})
 ```
 
 Here, your function will be created inside the `mydatapack` namespace.
@@ -26,15 +26,15 @@ Here, your function will be created inside the `mydatapack` namespace.
 
 One of the goal of Sandstone is to promote reusable block of commands. To make this possible, you have the ability to call other functions.
 
-Your first possibility is to call another Minecraft function, just like you would in a normal Minecraft Datapack. To achieve this, you need to assign your mcfunction to a variable:
+Your first possibility is to call another Minecraft function, just like you would in a normal Minecraft Datapack. To achieve this, you need to assign your MCFunction to a variable:
 
 ```js
-const main = mcfunction('main', () => {
+const main = MCFunction('main', () => {
   say("This is the main function.")
   give('@a', 'minecraft:diamond')
 })
 
-mcfunction('callMainThreeTimes', () => {
+MCFunction('callMainThreeTimes', () => {
   main()
   main()
   main()
@@ -73,11 +73,11 @@ The first drawback can be solved using **lazy functions**, and the second one us
 
 To prevent Sandstone creating functions when not mandatory, you can use lazy functions. A lazy function will be created **only if another function calls it**. A lazy function that isn't called won't even be present in the datapack:
 ```js
-const useless = mcfunction('useless', () => {
+const useless = MCFunction('useless', () => {
   say('This function is not used anywhere')
 }, { lazy: true })
 
-mcfunction('main', () => {
+MCFunction('main', () => {
   say('Main function')
 })
 ```
@@ -89,11 +89,11 @@ say Main function
 
 As you can see, the `useless` function has not been created. Let's call it from the `main function`:
 ```js
-const useless = mcfunction('useless', () => {
+const useless = MCFunction('useless', () => {
   say('This function is not used anywhere')
 }, { lazy: true })
 
-mcfunction('main', () => {
+MCFunction('main', () => {
   say('Calling "useless"...')
   useless()
 })
@@ -122,7 +122,7 @@ You can specify different options, other than `lazy`, for your Minecraft functio
 
 ## Inline functions
 
-Inline functions are normal, Javascript functions. They group up related commands in a reusable, readable piece of code. **Inline functions do not create additional mcfunctions**. They are inlined when they are called.
+Inline functions are normal, Javascript functions. They group up related commands in a reusable, readable piece of code. **Inline functions do not create additional MCFunctions**. They are inlined when they are called.
 
 Let's take a simple example using inline functions:
 ```js
@@ -131,7 +131,7 @@ function giveDiamonds(count: number) {
   say('I gave', count, 'diamonds to everyone!')
 }
 
-mcfunction('main', () => {
+MCFunction('main', () => {
   giveDiamonds(64)
   giveDiamonds(32)
 })
@@ -148,4 +148,4 @@ say I gave 32 diamonds to everyone!
 
 As you can see, the commands from the `giveDiamonds` function are directly written inside `main`. Inline functions are a very efficient way to group up related commands, which helps writing a **clean** and **logical** datapack.
 
-Inline functions can do everything a normal function does: using commands, calling mcfunctions, calling other lazy functions...
+Inline functions can do everything a normal function does: using commands, calling MCFunctions, calling other lazy functions...

@@ -62,10 +62,22 @@ summon('minecraft:armor_stand', rel(0, 0, 0), {
 
 Here is a summary of all units and their corresponding methods.
 
-type   |  unit   | method
--------|---------|-------------
-float  |  `'f'`  | `NBT.float` 
-double |  `'d'`  | `NBT.double`
-byte   |  `'b'`  | `NBT.byte`
-short  |  `'s'`  | `NBT.short`
-long   |  `'l'`  | `NBT.long`
+type       |  unit   | method
+-----------|---------|-------------
+float      |  `'f'`  | `NBT.float` 
+double     |  `'d'`  | `NBT.double`
+byte       |  `'b'`  | `NBT.byte`
+short      |  `'s'`  | `NBT.short`
+long       |  `'l'`  | `NBT.long`
+int array  |  `'I;'` | `NBT.integerArray`
+long array |  `'L;'` | `NBT.longArray`
+
+Integer array and Long array are **different** from arrays of integers and arrays of longs. These types were added recently, and are use in a few specific places. They are represented this way:
+```py
+{ Test: [I; 0, 1, 2 ] } # Integer array
+{ Test: [L; 0, 1, 2 ] } # Long array
+```
+
+Integer arrays are used in [custom player heads IDs](https://minecraft.gamepedia.com/Head#Item_data), and in [several Villager NBTs](https://minecraft.gamepedia.com/Mob/ED) storing locations.
+
+Long arrays are used to store [chunk data](https://minecraft.gamepedia.com/Chunk_format#NBT_structure).
