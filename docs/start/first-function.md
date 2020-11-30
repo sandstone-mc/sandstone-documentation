@@ -13,13 +13,13 @@ You can copy the code by clicking on the top-right corner of the code block!
 
 ```ts title="helloworld.ts"
 import { say } from 'sandstone/commands'
-import { MCFunction, saveDatapack } from 'sandstone/core'
+import { MCFunction, savePack } from 'sandstone/core'
 
 MCFunction('hello', () => {
   say('Hello world!')
 })
 
-saveDatapack('My datapack', { verbose: true })
+savePack('My datapack', { verbose: true })
 ```
 To run this file, type the following command in your terminal:
 
@@ -45,9 +45,9 @@ Let's do a line-by-line explanation.
 
 ```js
 import { say } from 'sandstone/commands'
-import { MCFunction, saveDatapack } from 'sandstone/core'
+import { MCFunction, savePack } from 'sandstone/core'
 ```
-This line tells Sandstone what we need to use. Here, we need one command, `say`, and two Sandstone functions, `MCFunction` and `saveDatapack`. The commands are located in `sandstone/commands`, the Sandstone functions are located in `sandstone/core`.
+This line tells Sandstone what we need to use. Here, we need one command, `say`, and two Sandstone functions, `MCFunction` and `savePack`. The commands are located in `sandstone/commands`, the Sandstone functions are located in `sandstone/core`.
 
 
 ```ts
@@ -64,7 +64,7 @@ Inside the curly brackets `{...}`, we will specify the commands we want to write
 This line tells Sandstone that we want to write the `/say` command in the current MCFunction, with the `Hello world!` argument. It will result in the command `say Hello world!`.
 
 ```ts
-saveDatapack('My datapack', {
+savePack('My datapack', {
   verbose: true
 })
 ```
