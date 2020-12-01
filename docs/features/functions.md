@@ -1,6 +1,6 @@
 ---
 id: functions
-title: Writing Functions
+title: Minecraft Functions
 description: How to write functions in Sandstone.
 ---
 ## Creating a Minecraft function

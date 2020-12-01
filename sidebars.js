@@ -1,34 +1,45 @@
 module.exports = {
-  "mainSidebar": {
-    "Getting Started": [
-      "start/intro",
-      "start/installation",
-      "start/first-function"
-    ],
-    "Creating a datapack": [
-      "datapack/commands",
-      "datapack/functions",
-      "datapack/saving",
-    ],
-    "Features": [
-      "features/selectors",
-      "features/objectives",
-      "features/variables",
-      "features/coordinates",
-      "features/nbt",
-      {
-        "type": "category",
-        "label": "Resources",
-        "items": [
-          "features/resources/advancements",
-          "features/resources/loot_tables",
-          "features/resources/predicates",
-          "features/resources/recipes",
-        ]
-      }
-    ],
-    "Examples": [
-      "examples/reward"
-    ],
-  }
+  "mainSidebar": [
+    {
+      "type": "category",
+      "label": "Getting Started",
+      "items": [
+        "start/intro",
+        "start/installation",
+        "start/first-function"
+      ] 
+    },
+    {
+      "type": "category",
+      "label": "Features",
+      "collapsed": false,
+      "items": [
+        "features/commands",
+        "features/functions",
+        "features/selectors",
+        "features/objectives",
+        "features/variables",
+        "features/coordinates",
+        "features/nbt",
+        {
+          "type": "category",
+          "label": "Resources",
+          "collapsed": false,
+          "items": [
+            "features/resources/advancements",
+            "features/resources/loot_tables",
+            "features/resources/predicates",
+            "features/resources/recipes",
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Examples",
+      "items": [
+        "examples/reward"
+      ]
+    }
+  ]
 };

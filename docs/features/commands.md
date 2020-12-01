@@ -1,6 +1,6 @@
 ---
 id: commands
-title: Writing Commands
+title: Commands
 description: How to write commands in Sandstone.
 ---
 ## Basics

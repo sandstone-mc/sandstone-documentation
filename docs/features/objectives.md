@@ -69,6 +69,12 @@ myKills.multiply(winnerKills)
 myKills.divide(4)
 // Divide my kills by the number of kills of the winner
 myKills.divide(winnerKills)
+
+/* Modulo */
+// Set my kills to my kills modulo 4
+myKills.modulo(4)
+// Set my kills to my kills modulo the number of kills of the winner
+myKills.modulo(winnerKills)
 ```
 
 There are two more inline operation:
@@ -128,7 +134,27 @@ const killsProduct = myKills.times(winnerKills)
 const killsDividedBy4 = myKills.dividedBy(4)
 // Get the ratio of my kills divided by the number of kills of the winner
 const killsRatio = myKills.dividedBy(winnerKills)
+
+/* Modulo */
+// Get my kills to my kills modulo 4
+myKills.moduloBy(4)
+// Get my kills to my kills modulo the number of kills of the winner
+myKills.moduloBy(winnerKills)
 ```
+
+### Mathematics
+
+All these operations can be chained together: they allow you to write complex operation without complexity.
+
+```ts
+// Set myKills to (myKills + 1) * 2
+myKills.add(1).multiply(2)
+
+// Get myKills + (winnerKills / 2)
+const result = myKills.plus(winnerKills.dividedBy(2))
+```
+
+Since the result of operations are another `PlayerScore`, you can also chain comparisons after operations.
 
 ### Comparison
 
