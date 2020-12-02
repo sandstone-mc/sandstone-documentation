@@ -7,7 +7,7 @@ description: How to install Sandstone.
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The first step is to install [Node.JS](https://nodejs.org/en/). You will then need a code editor: I personnaly recommend [Visual Studio Code](https://code.visualstudio.com/Download).
+The first step is to install [Node.js](https://nodejs.org/en/). You will then need a code editor: I personnaly recommend [Visual Studio Code](https://code.visualstudio.com/Download).
 
 Create an empty folder named "Sandstone Projects": it will contain all your future Sandstone projects. Inside this folder, open a terminal then run the following commands:
 

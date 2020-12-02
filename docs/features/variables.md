@@ -6,7 +6,7 @@ description: How to use dynamic variables in Sandstone.
 
 ## Introduction
 
-Sometime, you want a single numerical variable that is not tied to a specific objective. For example:
+Sometimes, you want a single numerical variable that is not tied to a specific objective. For example:
 - A `counter` variable, that just counts from a number to another one.
 - A `numberOfEntities` variable, that counts the number of entities in the game.
 - Any variable that does not require a whole objective.

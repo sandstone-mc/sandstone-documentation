@@ -14,13 +14,13 @@ We are going to save this datapack directly in a world named `My Test World`. **
 First, we will write the actual structure of the datapack, without writing any command.
 
 ```js
-import { MCFunction, saveDatapack } from 'sandstone/core'
+import { MCFunction, savePack } from 'sandstone/core'
 
 MCFunction('reward', () => {
    // Nothing for the moment
 })
 
-saveDatapack('Kills Rewarding Datapack', { verbose: true, world: 'My Test World' })
+savePack('Kills Rewarding Datapack', { verbose: true, world: 'My Test World' })
 ```
 
 The datapack will be created, even though it's actually empty. We did 2 things here:
@@ -34,7 +34,7 @@ The datapack will be created, even though it's actually empty. We did 2 things h
 We will now create the score that tracks the number of kills done by players.
 
 ```js {4}
-import { MCFunction, saveDatapack } from 'sandstone/core'
+import { MCFunction, savePack } from 'sandstone/core'
 import { createObjective } from 'sandstone/variables'
 
 const kills = createObjective('kills', 'playerKills', 'Current Player Kills')
@@ -43,7 +43,7 @@ MCFunction('reward', () => {
   // Nothing for the moment
 })
 
-saveDatapack('Kills Rewarding Datapack', { verbose: true, world: 'My Test World' })
+savePack('Kills Rewarding Datapack', { verbose: true, world: 'My Test World' })
 ```
 
 :::tip
@@ -65,7 +65,7 @@ We want to check
 Now, we are going to reward **one** diamond if the player has **at least one kill**. We will then remove one kill from him. While it is not our objective, it's a nice intermediate step.
 
 ```js
-import { MCFunction, saveDatapack, _ } from 'sandstone/core'
+import { MCFunction, savePack, _ } from 'sandstone/core'
 import { createObjective } from 'sandstone/variables'
 import { give } from 'sandstone/commands'
 
@@ -85,5 +85,5 @@ MCFunction('reward', () => {
   })
 })
 
-saveDatapack('Kills Rewarding Datapack', { verbose: true, world: 'My Test World' })
+savePack('Kills Rewarding Datapack', { verbose: true, world: 'My Test World' })
 ```
