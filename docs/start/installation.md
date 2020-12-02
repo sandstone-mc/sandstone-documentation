@@ -11,44 +11,62 @@ The first step is to install [Node.js](https://nodejs.org/en/). You will then ne
 
 Create an empty folder named "Sandstone Projects": it will contain all your future Sandstone projects. Inside this folder, open a terminal then run the following commands:
 
+```sh
+npx sandstone-cli create <my-project>
+```
+
+:::note
+Replace `<my-project>` with your project's name. It will only be the name of the project folder, not the name of the data pack.
+
+Example: `npx sandstone-cli create my-first-sandstone-project`
+:::
+
+Answer the different questions. Congratulations, you created your first Sandstone project!
+
+To build the data pack, run the following command:
 <Tabs
   groupId="package-manager"
   defaultValue="npm"
   values={[
     {label: 'Npm', value: 'npm'},
     {label: 'Yarn', value: 'yarn'},
+    {label: 'Sand', value: 'sand'},
   ]}>
   <TabItem value="npm">
 
-    npm init
+    npm run build
   </TabItem>
   <TabItem value="yarn">
 
-    yarn init
+    yarn build
+  </TabItem>
+
+  <TabItem value="sand">
+
+    sand build
   </TabItem>
 </Tabs>
 
-Answer the different questions. Then add the needed packages:
-
+The downside of `build` is that it only builds your data pack once. To build then rebuild on each change, run:
 <Tabs
   groupId="package-manager"
   defaultValue="npm"
   values={[
     {label: 'Npm', value: 'npm'},
     {label: 'Yarn', value: 'yarn'},
+    {label: 'Sand', value: 'sand'},
   ]}>
   <TabItem value="npm">
 
-    npm install typescript ts-node sandstone
-    npx tsc --init
+    npm run watch
   </TabItem>
   <TabItem value="yarn">
 
-    yarn add typescript ts-node sandstone
-    npx tsc --init
+    yarn watch
+  </TabItem>
+  
+  <TabItem value="sand">
+
+    sand watch
   </TabItem>
 </Tabs>
-
-Open the newly created `tsconfig.json` file, and change `"target": "es5"` to `"target": "es2019"`.
-
-You've now installed Sandstone, congratulations!

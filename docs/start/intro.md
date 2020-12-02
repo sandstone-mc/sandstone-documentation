@@ -23,7 +23,13 @@ This autocompletion works for commands, predicates, loot tables, advancements...
 Sharing commands has **never been easier**. Just publish your functions on NPM, and everyone can use them to improve their own datapacks.
 
 ### Designed for developers
-Sandstone is designed with developer experience in mind. The goal is to provide a beautiful library, easy to understand and to use, with enough abstractions to empower Datapack creators. Sandstone does not force its abstractions on you: you can fine-tune your functions for performance, just like you would in vanilla Minecraft functions - but with all Sandstone advantages!
+Sandstone is designed with developer experience in mind. The goal is to provide a beautiful library, easy to understand and to use, with enough abstractions to empower Datapack creators. 
+
+Sandstone comes with a built-in Command Line Interface (CLI), named `sand`: it allows you to build your data pack, rebuild on change, without even thinking about it.
+
+Sandstone **does not force its abstractions** on you:
+- Most of the time, you can use Sandstone abstractions: they are efficient and configurable, which allows you to quickly develop performant data packs.
+- When performance and behavior need to be fine-tuned, you can use all vanilla commands without any of Sandstone abstraction. You will still get autocompletion, build-time and run-time checks, to ensure your data pack runs as expected!
 
 ## Supporting Sandstone
 

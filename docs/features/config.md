@@ -4,4 +4,5 @@ title: Configuration
 description: "How to configure Sandstone: everything you need to know about sandstone.config.ts."
 ---
 
-Sandstone allow
+## Introduction
+Sandstone comes with a `sandstone.config.ts` file, used to configure the resulting data pack. You can
