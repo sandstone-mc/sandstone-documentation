@@ -63,11 +63,11 @@ This approach has several advantages:
 
 However, it has three drawbacks:
 
-1. It will create a `.mcfunction` file, even if it's never called. Therefore, it makes it hard to share your functions with other peoples: if your library contains 100 helper functions, all datapacks using your library will include those 100 functions - even if they only use one.
+1. It will create a `.mcfunction` file for each functions, even if they are never called. Therefore, it makes it hard to share your functions with other peoples: if your library contains 100 helper functions, all datapacks using your library will include those 100 functions - even if they only use one.
 
-2. It cannot take parameters. If you want to have a generic function, this is not possible.
+2. It cannot take parameters. If you want to have a generic set of commands, that changes depending on some parameters, this is not possible.
 
-The first drawback can be solved using **lazy functions**, and the second one using **parametrized functions** or **inline functions**.
+The first drawback can be solved using **lazy functions**, and the second one using **inline functions**.
 
 ## Lazy Minecraft Functions
 
@@ -119,6 +119,8 @@ You can specify different options, other than `lazy`, for your Minecraft functio
 `runEachTick` | `boolean` | Whether the function should run each tick. |
 `runOnLoad` | `boolean` | Whether the function should run when the datapack is loaded or reloaded. |
 `tags` | `string[]` | The function tags to apply to this function.
+`lazy` | `boolean` | If true, then the function will only be created if it is called from another function.
+``
 
 ## Inline functions
 
@@ -149,3 +151,64 @@ say I gave 32 diamonds to everyone!
 As you can see, the commands from the `giveDiamonds` function are directly written inside `main`. Inline functions are a very efficient way to group up related commands, which helps writing a **clean** and **logical** datapack.
 
 Inline functions can do everything a normal function does: using commands, calling MCFunctions, calling other lazy functions...
+
+## Waiting between commands
+
+### The basics
+
+Sandstone allows you to wait a fixed amount of time between some commands, without having to manually declare a new function each time. This has several purpose: dialogs, event scheduling, animations etc... Under the hood, this uses the `/schedule` command: however, all the complexity is abstracted away.
+
+### Basic syntax
+
+To wait a specific time between commands, there are two things to do:
+
+1. Change your function to an asynchronous function, by adding the `async` keyword
+
+2. Add the `await sleep(delay)` line between your commands.
+
+`delay` can be a number of ticks, or a time string like `'1t'`, `'1s'`, `'1d'`...
+
+Here is a minimal syntax:
+```ts
+MCFunction('minimal', async () => {
+  say('This command runs now')
+  await sleep('5s')
+  say('This command runs 5s later')
+})
+```
+
+There are two things to notice. First, our function is now asynchronous. They `async` keyword has been added before the parameters list:
+```ts
+MCFunction('minimal', async () => {...})
+```
+
+Second, we await the `sleep` function
+
+### Example
+
+You could simulate a dialog like this:
+```ts
+MCFunction('council', async () => {
+  tellraw('@a', '[Aragorn] - You have my sword.')
+  await sleep(10) // sleep 10 ticks, half a second.
+
+  tellraw('@a', '[Legolas] - And my bow.')
+  await sleep('1s') // sleep 1 second
+
+  tellraw('@a', '[Gimly] - AND MY AXE!')
+})
+```
+
+This example would compile to the following resources:
+```mcfunction
+## Function default:council
+tellraw @a "[Aragorn] - You have my sword."
+schedule function default:council/__sleep 10 replace
+schedule function default:council/__sleep_2 1s replace
+
+## Function default:council/__sleep
+tellraw @a "[Legolas] - And my bow."
+
+## Function default:council/__sleep_2
+tellraw @a "[Gimly] - AND MY AXE!"
+```
