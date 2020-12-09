@@ -34,6 +34,6 @@ Sandstone **does not force its abstractions** on you:
 ## Supporting Sandstone
 
 If you want to support Sandstone, the simplest way is to star the repository [on Github](https://github.com/themrzz/sandstone)! It's very encouraging.
-w
+
 <!-- This is the star button -->
 <GitHubButton href="https://github.com/TheMrZZ/sandstone" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-show-count="true" data-size="large" aria-label="Star TheMrZZ/sandstone on GitHub">Star</GitHubButton>
