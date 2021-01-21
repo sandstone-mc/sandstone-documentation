@@ -120,7 +120,6 @@ You can specify different options, other than `lazy`, for your Minecraft functio
 `runOnLoad` | `boolean` | Whether the function should run when the datapack is loaded or reloaded. |
 `tags` | `string[]` | The function tags to apply to this function.
 `lazy` | `boolean` | If true, then the function will only be created if it is called from another function.
-``
 
 ## Inline functions
 
