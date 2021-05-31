@@ -100,7 +100,7 @@ myKills.add(1).multiply(2)
 Effect-free operations are operations that create a whole new score to store the result. Therefore, the base score is never updated.
 
 For example, `myKills.plus(2)` would compile in something like:
-```haskell
+```mcfunction
 # First, copy the base score to a new one
 scoreboard players set operation anonymous_1 sandstone_anon = @s kills
 

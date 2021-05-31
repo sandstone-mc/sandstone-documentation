@@ -47,7 +47,7 @@ This will build the data pack, rebuild on each change, and will log the results 
 First, you should see the following output in your console:
 ```mcfunction
 ## Function default:hello
-say Hello world!
+say "Hello world!"
 ```
 
 You can check the resulting data pack, which will be built in the folder you specified when creating the project. As you can see, it is a valid data pack. Try opening a world and run your first function!
@@ -75,5 +75,5 @@ Inside the curly brackets `{...}`, we will specify the commands we want to write
 ```ts
   say('Hello world!')
 ```
-This line tells Sandstone that we want to write the `/say` command in the current MCFunction, with the `Hello world!` argument. It will result in the command `say Hello world!`.
+This line tells Sandstone that we want to write the `/say` command in the current MCFunction, with the `Hello world!` argument. It will result in the command `"say "Hello world!"`.
 

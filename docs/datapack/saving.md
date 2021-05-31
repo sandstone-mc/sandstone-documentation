@@ -53,5 +53,5 @@ savePack('My datapack', {
 Will output:
 ```mcfunction
 # default:hello
-say Hello world!
+say "Hello world!"
 ```

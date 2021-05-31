@@ -44,7 +44,7 @@ MCFunction('callMainThreeTimes', () => {
 This will result in the following functions:
 ```mcfunction
 # default:main
-say This is the main function
+say "This is the main function"
 give @a minecraft:diamond
 
 # default:callMainThreeTimes
@@ -84,7 +84,7 @@ MCFunction('main', () => {
 Results in:
 ```mcfunction
 # default:main
-say Main function
+say "Main function"
 ```
 
 As you can see, the `useless` function has not been created. Let's call it from the `main function`:
@@ -94,18 +94,18 @@ const useless = MCFunction('useless', () => {
 }, { lazy: true })
 
 MCFunction('main', () => {
-  say('Calling "useless"...')
+  say("Calling 'useless'...")
   useless()
 })
 ```
 Results in:
 ```mcfunction
 # default:main
-say Calling "useless"...
+say "Calling 'useless'..."
 function default:useless
 
 # default:useless
-say This function is not used anywhere
+say "This function is not used anywhere"
 ```
 
 As you can see, the `useless` function has been created, because it is called from `main`. This feature is very useful to distribute lot of functions, in a library for example.
@@ -141,9 +141,9 @@ This results in:
 ```mcfunction
 ## Function default:main
 give @a minecraft:diamond 64
-say I gave 64 diamonds to everyone!
+say "I gave 64 diamonds to everyone!"
 give @a minecraft:diamond 32
-say I gave 32 diamonds to everyone!
+say "I gave 32 diamonds to everyone!"
 ```
 
 As you can see, the commands from the `giveDiamonds` function are directly written inside `main`. Inline functions are a very efficient way to group up related commands, which helps writing a **clean** and **logical** datapack.
