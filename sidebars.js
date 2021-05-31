@@ -33,13 +33,6 @@ module.exports = {
           ]
         }
       ]
-    },
-    {
-      "type": "category",
-      "label": "Examples",
-      "items": [
-        "examples/reward"
-      ]
     }
   ]
 };
