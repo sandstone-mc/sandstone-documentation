@@ -13,7 +13,7 @@ Sandstone features fully-typed predicates. Like for all resources, you need to p
 
 The minimal syntax for predicates is the following:
 ```ts
-import { Predicate } from 'sandstone/core'
+import { Predicate } from 'sandstone'
 
 Predicate('predicate_name', {
   condition: '<condition type>',
@@ -25,7 +25,7 @@ As you can see, you must provide the `condition` of the predicate. Depending on 
 
 ### Example
 
-![Example of Predicate autocompletion](../../images/autocompletion/predicate.gif)
+![Example of Predicate autocompletion](/img/autocompletion/predicate.gif)
 
 ## Additional properties
 

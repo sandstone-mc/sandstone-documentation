@@ -15,7 +15,7 @@ Sandstone has special autocompletion for Recipes: for shapeless & shaped recipes
 
 The minimal syntax for custom recipes is the following:
 ```ts
-import { Recipe } from 'sandstone/core'
+import { Recipe } from 'sandstone'
 
 Recipe('recipe_name', {
   type: '<type>',
@@ -29,11 +29,11 @@ As you can see, you must provide the `type` of the recipe. Depending on this con
 
 #### Shaped autocompletion
 
-![Example of Recipe autocompletion](../../images/autocompletion/recipe.gif)
+![Example of Recipe autocompletion](/img/autocompletion/recipe.gif)
 
 #### Normal autocompletion
 
-![Second example of Recipe autocompletion](../../images/autocompletion/recipe2.gif)
+![Second example of Recipe autocompletion](/img/autocompletion/recipe2.gif)
 
 ## Additional properties
 

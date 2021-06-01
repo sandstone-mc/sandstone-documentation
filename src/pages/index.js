@@ -4,12 +4,13 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import styles from './styles.module.css';
+import styles from './index.module.css';
+import '../theme/prism-include-languages'
 
 const features = [
   {
     title: <>Easy to Use</>,
-    imageUrl: 'img/computer.png',
+    imageUrl: '/img/icons/computer.png',
     style: styles.featureImage2,
     description: (
       <>
@@ -20,7 +21,7 @@ const features = [
   },
   {
     title: <>Focus on What Matters</>,
-    imageUrl: 'img/dirt.png',
+    imageUrl: '/img/icons/dirt.png',
     style: styles.featureImage1,
     description: (
       <>
@@ -31,7 +32,7 @@ const features = [
   },
   {
     title: <>Powered by Typescript</>,
-    imageUrl: 'img/ts.png',
+    imageUrl: '/img/icons/ts.png',
     style: styles.featureImage3,
     description: (
       <>
@@ -43,12 +44,11 @@ const features = [
 ];
 
 function Feature({ imageUrl, title, description, style }) {
-  const imgUrl = useBaseUrl(imageUrl);
   return (
     <div className={clsx('col col--4', styles.feature)}>
-      {imgUrl && (
+      {imageUrl && (
         <div className="text--center">
-          <img className={style} src={imgUrl} alt={title} />
+          <img className={style} src={imageUrl} alt={title} />
         </div>
       )}
       <h3>{title}</h3>

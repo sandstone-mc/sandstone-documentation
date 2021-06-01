@@ -12,7 +12,7 @@ You can use Sandstone to create any selector, in an easy and type-safe way.
 
 To create a selector, you need to provide the target and the arguments to `Selector`:
 ```ts
-import { Selector } from 'sandstone/variables'
+import { Selector } from 'sandstone'
 
 Selector('@a', { /** Arguments */ })
 ```

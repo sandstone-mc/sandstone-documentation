@@ -19,7 +19,7 @@ module.exports = {
       title: 'Sandstone',
       logo: {
         alt: 'Sandstone Logo',
-        src: 'img/logo.png',
+        src: '/img/icons/logo.png',
       },
       items: [
         {
@@ -44,8 +44,6 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          // It is recommended to set document id as docs home page (`docs/` path).
-          homePageId: 'start/intro',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:

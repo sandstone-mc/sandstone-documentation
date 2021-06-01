@@ -7,8 +7,8 @@ description: How to write commands in Sandstone.
 
 In Sandstone, all commands can directly be imported from `sandstone`:
 
-```ts
-import { advancement, execute, kill, say, scoreboard } from 'sandstone/commands'
+```jsx
+import { advancement, execute, kill, say, scoreboard } from 'sandstone'
 ```
 
 When typing a command or a subcommand, there are two possibilities:
@@ -26,17 +26,17 @@ A command is only written to the datapack if it has been called. For example, so
 ### Example
 
 Here is the command to give 64 diamonds to all players:
-```js
+```ts
 give('@a', 'minecraft:diamond', 64)
 ```
 
 Here is the command to give Speed II to all players:
-```js
+```ts
 effect.give('@a', 'minecraft:speed', 1)
 ```
 
 Here is the command to grant all advancements to all players:
-```js
+```ts
 advancement.grant('@a').everything()
 ```
 
@@ -48,7 +48,7 @@ Sandstone includes the Wiki documentation on each command, and for each paramete
 
 This example shows that Sandstone hints you what arguments are needed, and tell you what they actually do:
 
-![documentation](../images/autocompletion/command.gif)
+![documentation](/img/autocompletion/command.gif)
 
 ## Optional arguments
 
@@ -60,7 +60,7 @@ As you can see, the `targets` and the `effect` arguments are **mandatory**. Mine
 
 In this aspect, Sandstone is identical to Minecraft. When typing `effect.give()`, your IDE will show you the possible arguments:
 
-![argumentshint1](../images/argumentshint.png)
+![argumentshint1](/img/hints/give.png)
 
 As you can see, the `targets` and the `effect` argument are not followed by a question mark `?`. It means they are mandatory, just like in Minecraft. However, the `seconds`, `amplifier` and `hideParticles` arguments are followed by a question mark `?`: Sandstone does not require them. 
 
@@ -70,13 +70,13 @@ This feature is very useful: **you don't have to remember the syntax of all comm
 
 Sandstone has a special syntax for the `/execute` command. At its core, it looks just like Minecraft:
 
-```js
+```ts
 execute.as('@a').at('@s')
 ```
 
 Calling a single command looks similar too:
 
-```js
+```ts
 // Sets a block of dirt under all players
 execute.as('@a').at('@s').run.setblock('~ ~-1 ~', 'minecraft:dirt')
 ```
@@ -85,7 +85,7 @@ This will result in `execute as @a at @s run setblock ~ ~-1 ~ minecraft:dirt`. I
 
 Here is how you could execute multiple commands with `run`:
 
-```js
+```ts
 execute.as('@a').at('@s').run(() => {
   // All this commands are executed "as @a at @s".
   // Sets a block of dirt under all players, and air on their body & head.

@@ -3,6 +3,7 @@ id: first-function
 title: Your First Function
 description: Write your first Sandstone function.
 hide_table_of_contents: true
+sidebar_position: 3
 ---
 
 Let's write your first Minecraft function. Start VSCode, and open the project folder. In the `src` directory, create a new file named `helloworld.ts`, with the following content:
@@ -12,8 +13,7 @@ You can copy the code by clicking on the top-right corner of the code block!
 :::
 
 ```ts title="helloworld.ts"
-import { say } from 'sandstone/commands'
-import { MCFunction } from 'sandstone/core'
+import { say, MCFunction } from 'sandstone'
 
 MCFunction('hello', () => {
   say('Hello world!')
@@ -34,7 +34,7 @@ To build the data pack, type the following command in your terminal:
   ]}>
   <TabItem value="npm">
 
-    npm run watch --verbose
+    npm run watch -- --verbose
   </TabItem>
   <TabItem value="yarn">
 
@@ -47,23 +47,23 @@ This will build the data pack, rebuild on each change, and will log the results 
 First, you should see the following output in your console:
 ```mcfunction
 ## Function default:hello
-say "Hello world!"
+say Hello world!
 ```
 
 You can check the resulting data pack, which will be built in the folder you specified when creating the project. As you can see, it is a valid data pack. Try opening a world and run your first function!
 
-:::hint
+:::note
 If you forgot where you saved your data pack, or want to change the location, you can modify the `saveOptions` specified in `sandstone.config.ts`.
 :::
+
 
 ### Explanation
 Let's do a line-by-line explanation.
 
-```js
-import { say } from 'sandstone/commands'
-import { MCFunction } from 'sandstone/core'
+```ts
+import { say, MCFunction } from 'sandstone'
 ```
-This line tells Sandstone what we need to use. Here, we need one command, `say`, and one Sandstone resource, `MCFunction`. All commands are located in `sandstone/commands`, while all Sandstone resources are located in `sandstone/core`.
+This line tells Sandstone what we need to use. Here, we need one command, `say`, and one Sandstone resource, `MCFunction`.
 
 
 ```ts
@@ -75,5 +75,5 @@ Inside the curly brackets `{...}`, we will specify the commands we want to write
 ```ts
   say('Hello world!')
 ```
-This line tells Sandstone that we want to write the `/say` command in the current MCFunction, with the `Hello world!` argument. It will result in the command `"say "Hello world!"`.
+This line tells Sandstone that we want to write the `/say` command in the current MCFunction, with the `Hello world!` argument. It will result in the command `say Hello world!`.
 

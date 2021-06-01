@@ -6,12 +6,12 @@ description: How to handle scoreboard objectives with Sandstone.
 
 ## The basics
 
-Sandstone can handle the lifetime of scoreboard objectives for you. By calling `createObjective`, Sandstone will create the specified objective when the datapack loads, and will return an `Objective` object with convenient methods.
+Sandstone can handle the lifetime of scoreboard objectives for you. By calling `Objective.create`, Sandstone will create the specified objective when the datapack loads, and will return an `Objective` object with convenient methods. By calling `Objective.get`, Sandstone will not create the objective, but will still return an `Objective` object. This is useful when the objective has already been created outside of Sandstone.
 
 ```ts
-import { createObjective } from 'sandstone/variables'
+import { Objective } from 'sandstone'
 
-const kills = createObjective('kills', 'playerKillCount', [{text: 'Player Kills'}])
+const kills = Objective.create('kills', 'playerKillCount', [{text: 'Player Kills'}])
 ```
 
 ## Scores Holders
@@ -20,20 +20,20 @@ const kills = createObjective('kills', 'playerKillCount', [{text: 'Player Kills'
 
 In Minecraft, scores can be applied to 2 kind of things : fake players, and entities. They are called *Score Holders*.
 
-In Sandstone, to get the value of an objective for a given score holder, you must use the `.ScoreHolder()` method.
+In Sandstone, to get the value of an objective for a given score holder, you can directly call the objective with the selector.
 
 ```ts
 // Get the number of kills of the executor
-const myKills = kills.ScoreHolder('@s')
+const myKills = kills('@s')
 
 // Get the number of kills of a random player
-const randomPlayerKills = kills.ScoreHolder('@r')
+const randomPlayerKills = kills('@r')
 
 // Get the number of kills of all players
-const allPlayersKills = kills.ScoreHolder('@a')
+const allPlayersKills = kills('@a')
 
 // Get the number of kills of the winner
-const winnerKills = kills.ScoreHolder(Selector('@p', { tag: 'winner' }))
+const winnerKills = kills(Selector('@p', { tag: 'winner' }))
 ```
 
 ### Operations
@@ -100,7 +100,7 @@ myKills.add(1).multiply(2)
 Effect-free operations are operations that create a whole new score to store the result. Therefore, the base score is never updated.
 
 For example, `myKills.plus(2)` would compile in something like:
-```mcfunction
+```haskell
 # First, copy the base score to a new one
 scoreboard players set operation anonymous_1 sandstone_anon = @s kills
 
@@ -158,9 +158,9 @@ Since the result of operations are another `PlayerScore`, you can also chain com
 
 ### Comparison
 
-Scores are easy to compare against another value, and integrate perfectly with Sandstone's [flow statements](/features/flow.md).
+Scores are easy to compare against another value, and integrate perfectly with Sandstone's [flow statements](/docs/features/flow/if).
 
-There is 5 comparison methods, that all accepts both a number and another player's score: `lowerOrEqualThan`, `lowerThan`, `equalTo`, `greaterOrEqualThan`, and `greaterThan`.
+There are 5 comparison methods, that all accepts both a number or another player's score: `lessOrEqualThan`, `lessThan`, `equalTo`, `greaterOrEqualThan`, and `greaterThan`.
 
 You can use them in any flow statement:
 ```ts
@@ -182,7 +182,7 @@ _.forScore(myKills, myKills.greaterThan(0), () => myKills.remove(1), () => {
 
 // If the player has between 10 and 20 kills, tell everyone he's a hero
 const player = Selector('@s')
-_.if(_.and(myKills.greaterOrEqualThan(10), myKills.lowerThan(20)), () => {
+_.if(_.and(myKills.greaterOrEqualThan(10), myKills.lessThan(20)), () => {
   tellraw('@a', [player, ' is a hero!'])
 })
 

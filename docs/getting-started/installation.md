@@ -2,6 +2,7 @@
 id: installation
 title: Installation
 description: How to install Sandstone.
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -12,13 +13,13 @@ The first step is to install [Node.js](https://nodejs.org/en/). You will then ne
 Create an empty folder named "Sandstone Projects": it will contain all your future Sandstone projects. Inside this folder, open a terminal then run the following commands:
 
 ```sh
-npx sandstone-cli create <my-project>
+npx sandstone-cli@latest create <my-project>
 ```
 
 :::note
 Replace `<my-project>` with your project's name. It will only be the name of the project folder, not the name of the data pack.
 
-Example: `npx sandstone-cli create my-first-sandstone-project`
+Example: `npx sandstone-cli@latest create my-first-sandstone-project`
 :::
 
 Answer the different questions. Congratulations, you created your first Sandstone project!

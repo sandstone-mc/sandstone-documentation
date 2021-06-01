@@ -12,8 +12,9 @@ Sandstone features fully-typed loot tables. Like for all resources, you need to 
 ### Minimal
 
 The minimal syntax for loot table is the following:
+
 ```ts
-import { LootTable } from 'sandstone/core'
+import { LootTable } from 'sandstone'
 
 LootTable('loot_table_name', {
   /** The rewards for this loot table */
@@ -35,7 +36,7 @@ As you can see, you must provide a list of pool. A pool is defined by a list of 
 
 ### Example
 
-![Example of Loot Table autocompletion](../../images/autocompletion/loottable.gif)
+![Example of Loot Table autocompletion](/img/autocompletion/loottable.gif)
 
 ### Additional properties
 

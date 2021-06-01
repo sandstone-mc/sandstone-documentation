@@ -1,9 +1,12 @@
 ---
 id: intro
 title: Introduction
-description: An introductiont to Sandstone.
+description: An introduction to Sandstone.
+slug: /
+sidebar_position: 1
 ---
 import GitHubButton from 'react-github-btn'
+import { CodeOutput } from '../../src/components'
 
 Sandstone is a Typescript library for Minecraft Datapacks. It allows easy creation, debug and sharing of Minecraft functions, loot tables, predicates etc...
 
@@ -15,7 +18,7 @@ Sandstone tells you what a command expects, and autocomplete complicated argumen
 
 You don't need to remember commands syntax anymore.
 
-![autocomplete](../images/autocompletion/command.gif)
+![autocomplete](/img/autocompletion/command.gif)
 
 This autocompletion works for commands, predicates, loot tables, advancements...
 

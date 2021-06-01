@@ -13,7 +13,7 @@ Sandstone features fully-typed advancements. Like for all resources, you need to
 
 The minimal syntax for advancements is the following:
 ```ts
-import { Advancement } from 'sandstone/core'
+import { Advancement } from 'sandstone'
 
 Advancement('advancement_name', {
   criteria: {
@@ -31,7 +31,7 @@ As you can see, you must provide at least 1 criteria. It must have a name, and a
 
 ### Example
 
-![Example of Advancement autocompletion](../../images/autocompletion/advancement.gif)
+![Example of Advancement autocompletion](/img/autocompletion/advancement.gif)
 
 ### Additional properties
 

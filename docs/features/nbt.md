@@ -30,27 +30,27 @@ With this command, you get the expected result:
 /summon minecraft:armor_stand ~ ~ ~ {Rotation: [90.0f, 0.0f]}
 ```
 
-![Result 90°](../images/nbts/90.png)
+![Result 90°](/img/nbts/90.png)
 
 Omit the unit, and the armor stand rotation will be wrong:
 ```
 /summon minecraft:armor_stand ~ ~ ~ {Rotation: [90.0, 0.0]}
 ```
 
-![Result 90°](../images/nbts/0.png)
+![Result 90°](/img/nbts/0.png)
 
 
 Here, specifying that the values are floats is mandatory. However, this isn't possible to do it with a normal JavaScript object.
 
-### Syntax
+### Unit Syntax
 
-To specify a unit, you must call the corresponding method under the `NBT` object. For all units, there is 2 possible calls:
+To specify a unit, you must call the corresponding method under the `NBT` object. For all units, there are 2 possible calls:
 - With a single number. It will add the given unit to the number.
 - With an array of numbers. It will add the given unit to all numbers in the array.
 
 For example, to summon an armor stand with `Invisible: 1b` and `Rotation: [90f, 0f]`, you must write:
 ```ts
-import { NBT } from 'sandstone/variables'
+import { NBT } from 'sandstone'
 
 summon('minecraft:armor_stand', rel(0, 0, 0), {
   Invisible: NBT.byte(1),       // => Invisible: 1b
@@ -81,3 +81,31 @@ Integer array and Long array are **different** from arrays of integers and array
 Integer arrays are used in [custom player heads IDs](https://minecraft.gamepedia.com/Head#Item_data), and in [several Villager NBTs](https://minecraft.gamepedia.com/Mob/ED) storing locations.
 
 Long arrays are used to store [chunk data](https://minecraft.gamepedia.com/Chunk_format#NBT_structure).
+
+### Unit-free Syntax
+
+Another syntax exists. It's more compact, easier to read, but has absolutely no type safety and no validation. It uses the template string syntax:
+```ts
+import { NBT } from 'sandstone'
+
+summon('minecraft:armor_stand', rel(0, 0, 0), {
+  Invisible: NBT`1b`,       // => Invisible: 1b
+  Rotation: NBT`[90f, 0f]`, // => Rotation: [90f, 0f]
+}) 
+// => /summon minecraft:armor_stand ~ ~ ~ {Invisible:1b, Rotation:[90f, 0f]}
+```
+
+:::caution
+Please note than no validation is performed. For example, missing a bracket will result in an invalid command.
+```ts
+summon('minecraft:armor_stand', rel(0, 0, 0), {
+  Rotation: NBT`[90f, 0f`, // Notice the missing square bracket
+})
+```
+
+The above snippet results in the following **invalid** command:
+```mcfunction
+summon minecraft:armor_stand ~ ~ ~ {Rotation:[90f, 0f}
+```
+
+:::

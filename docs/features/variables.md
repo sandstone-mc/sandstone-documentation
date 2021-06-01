@@ -17,7 +17,7 @@ Sandstone allows you to directly write those variables, without creating the obj
 
 To create a variable, the following syntax can be used:
 ```ts
-import { Variable } from 'sandstone/variables'
+import { Variable } from 'sandstone'
 
 // Create a variable initialized to 0
 const myCounter = Variable(0)
