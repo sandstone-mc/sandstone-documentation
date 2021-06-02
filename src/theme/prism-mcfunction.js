@@ -57,7 +57,7 @@ var mcfunction = {
     alias: 'number',
   },
   'namespaced-resource': {
-    pattern: /\w+[:\.]\w+/,
+    pattern: /\w+[:\.][\w/]+/,
     alias: 'string',
   },
   'command': {

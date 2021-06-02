@@ -12,7 +12,7 @@ The first step is to install [Node.js](https://nodejs.org/en/). You will then ne
 
 Create an empty folder named "Sandstone Projects": it will contain all your future Sandstone projects. Inside this folder, open a terminal then run the following commands:
 
-```sh
+```batch
 npx sandstone-cli@latest create <my-project>
 ```
 
@@ -32,23 +32,29 @@ To build the data pack, run the following command:
     {label: 'Npm', value: 'npm'},
     {label: 'Yarn', value: 'yarn'},
     {label: 'Sand', value: 'sand'},
-  ]}>
-  <TabItem value="npm">
+]}>
+<TabItem value="npm">
 
-    npm run build
-  </TabItem>
-  <TabItem value="yarn">
+```batch
+npm run build
+```
+</TabItem>
+<TabItem value="yarn">
 
-    yarn build
-  </TabItem>
+```batch
+yarn build
+```
+</TabItem>
 
-  <TabItem value="sand">
+<TabItem value="sand">
 
-    sand build
-  </TabItem>
+```batch
+sand build
+```
+</TabItem>
 </Tabs>
 
-The downside of `build` is that it only builds your data pack once. To build then rebuild on each change, run:
+The downside of `build` is that it only builds your data pack once. To build then rebuild on each change, run `watch` instead:
 <Tabs
   groupId="package-manager"
   defaultValue="npm"
@@ -56,18 +62,24 @@ The downside of `build` is that it only builds your data pack once. To build the
     {label: 'Npm', value: 'npm'},
     {label: 'Yarn', value: 'yarn'},
     {label: 'Sand', value: 'sand'},
-  ]}>
-  <TabItem value="npm">
+]}>
+<TabItem value="npm">
 
-    npm run watch
-  </TabItem>
-  <TabItem value="yarn">
+```batch
+npm run watch
+```
+</TabItem>
+<TabItem value="yarn">
 
-    yarn watch
-  </TabItem>
-  
-  <TabItem value="sand">
+```batch
+yarn watch
+```
+</TabItem>
 
-    sand watch
-  </TabItem>
+<TabItem value="sand">
+
+```batch
+sand watch
+```
+</TabItem>
 </Tabs>

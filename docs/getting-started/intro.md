@@ -40,3 +40,8 @@ If you want to support Sandstone, the simplest way is to star the repository [on
 
 <!-- This is the star button -->
 <GitHubButton href="https://github.com/TheMrZZ/sandstone" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-show-count="true" data-size="large" aria-label="Star TheMrZZ/sandstone on GitHub">Star</GitHubButton>
+
+## Community
+
+Need some help, or want to discuss with the community? Join our [Discord](https://discord.gg/4tzM5aXDRe):
+[![Discord](https://invidget.switchblade.xyz/4tzM5aXDRe)](https://discord.gg/4tzM5aXDRe)

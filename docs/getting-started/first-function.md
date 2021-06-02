@@ -6,6 +6,29 @@ hide_table_of_contents: true
 sidebar_position: 3
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { InteractiveSnippet } from '../../src/components/InteractiveSnippet'
+
+<InteractiveSnippet height={350} code={`
+const kills = Objective.create("kills")
+const myKills = kills("@s")\n
+MCFunction('test', () => {
+  _.if(myKills.greaterOrEqualThan(0), () => {
+    say('Hey!')
+  })
+})
+`}/>
+<InteractiveSnippet height={350} code={`
+const kills = Objective.create("kills")
+const myKills = kills("@s")\n
+MCFunction('test', () => {
+  _.if(myKills.greaterOrEqualThan(0), () => {
+    say('Hey!')
+  })
+})
+`}/>
+
 Let's write your first Minecraft function. Start VSCode, and open the project folder. In the `src` directory, create a new file named `helloworld.ts`, with the following content:
 
 :::note Hint
@@ -25,22 +48,36 @@ You can delete the `display.ts` file.
 :::
 
 To build the data pack, type the following command in your terminal:
+
 <Tabs
   groupId="package-manager"
   defaultValue="npm"
   values={[
     {label: 'Npm', value: 'npm'},
     {label: 'Yarn', value: 'yarn'},
-  ]}>
-  <TabItem value="npm">
+    {label: 'Sand', value: 'sand'},
+]}>
+<TabItem value="npm">
 
-    npm run watch -- --verbose
-  </TabItem>
-  <TabItem value="yarn">
+```batch
+npm run watch -- --verbose
+```
+</TabItem>
+<TabItem value="yarn">
 
-    yarn watch --verbose
-  </TabItem>
+```batch
+yarn watch --verbose
+```
+</TabItem>
+
+<TabItem value="sand">
+
+```batch
+sand watch --verbose
+```
+</TabItem>
 </Tabs>
+
 
 This will build the data pack, rebuild on each change, and will log the results each time the data pack is built. The `--verbose` option logs the result in your console.
 

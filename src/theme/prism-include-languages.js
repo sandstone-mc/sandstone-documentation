@@ -16,6 +16,7 @@ const prismIncludeLanguages = (PrismObject) => {
     additionalLanguages.forEach((lang) => {
       require(`prismjs/components/prism-${lang}`); // eslint-disable-line
     });
+    require('prismjs/components/prism-batch');
     require('./prism-mcfunction')
     delete window.Prism;
   }

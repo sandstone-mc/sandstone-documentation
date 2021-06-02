@@ -14,11 +14,21 @@
     "@docusaurus/core": "^2.0.0-beta.0",
     "@docusaurus/preset-classic": "^2.0.0-beta.0",
     "@mdx-js/react": "^1.6.21",
+    "@monaco-editor/react": "^4.1.3",
+    "@types/lodash": "^4.14.170",
+    "buffer": "^6.0.3",
     "clsx": "^1.1.1",
+    "constants-browserify": "^1.0.0",
+    "lodash": "^4.17.21",
+    "monaco-editor": "^0.23.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-github-btn": "^1.2.0",
-    "sandstone": "^0.12.9"
+    "sandstone": "^0.12.10",
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.4"
   },
   "browserslist": {
     "production": [

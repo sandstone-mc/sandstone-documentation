@@ -8,7 +8,13 @@ export type CustomHandlerFileObject = (Parameters<Required<SaveOptions>['customF
 
 const theme = require('../../docusaurus.config').themeConfig.prism.theme.default
 
-export const CodeOutput = ({ files }: { files: CustomHandlerFileObject[] }) => {
+export const CodeOutput = ({ files }: { files: CustomHandlerFileObject[] | undefined }) => {
+  if (!files.length) {
+    return <></>
+  }
+
+  console.log('GOT', files)
+
   const filesExtended = files.map(f => {
     // Remove the 3 first folders
     const name = f.relativePath.split('/').slice(3).join('/')

@@ -5,6 +5,11 @@
  * work well for content-centric websites.
  */
 
+@font-face {
+  font-family: "JetBrains Mono Regular";
+  src: url('/static/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #25c2a0;
@@ -15,6 +20,7 @@
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
+  --ifm-font-family-monospace: 'JetBrains Mono Regular', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace
 }
 
 .docusaurus-highlight-code-line {

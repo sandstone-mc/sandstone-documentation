@@ -39,6 +39,10 @@ module.exports = {
       theme: require('prism-react-renderer/themes/vsDark'),
     },
   },
+  plugins: [
+    require.resolve('./src/plugins/custom-webpack'),
+    require.resolve('./src/plugins/get-sandstone-files'),
+  ],
   presets: [
     [
       '@docusaurus/preset-classic',
