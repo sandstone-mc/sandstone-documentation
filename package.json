@@ -26,7 +26,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-github-btn": "^1.2.0",
-    "sandstone": "^0.12.10",
+    "sandstone": "^0.12.11",
     "stream-browserify": "^3.0.0",
     "util": "^0.12.4"
   },

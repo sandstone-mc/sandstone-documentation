@@ -31,14 +31,26 @@ export async function compileDataPack(tsCode: string) {
 
 	const sandstoneExports = Object.keys(sandstone)
 
-	eval(`
-		const {${ sandstoneExports.join(',') }} = require('sandstone');
+	const imports: Set<string> = new Set()
+
+	const realCode = `
+		const {${ sandstoneExports.map(e => `${e}: ___${e}___`).join(',') }} = require('sandstone');
+		${
+			sandstoneExports.map(e => `const ${e} = new Proxy((...args) => { imports.add('${e}'); ___${e}___(...args) }, {
+		get: (_, p) => {
+			imports.add('${e}')
+			return ___${e}___[p]
+		}
+	});`).join('\n')
+		}
 		(() => {
 			var exports = {};
 			var window = undefined;
 			var document = undefined;
 		${jsCode}
-	})()`)
+	})()`
+
+	eval(realCode)
 	
 	const files: CustomHandlerFileObject[] = []
 
@@ -49,6 +61,10 @@ export async function compileDataPack(tsCode: string) {
 		indentation: 2,
 	})
 
-	return files
+	return {
+		result: files,
+		imports,
+	}
 
 }
+

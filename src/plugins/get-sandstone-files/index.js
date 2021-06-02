@@ -33,7 +33,7 @@ module.exports = function (context) {
         declare global {
           ${sandstoneExports.map(e => `const ${e}: type__${e}`).join('\n  ')}
         }
-      `, 'node_modules/sandstone/@types/global.d.ts'])
+      `, 'node_modules/sandstone/@types/globalTypes.d.ts'])
 
       return {
         sandstoneFiles,

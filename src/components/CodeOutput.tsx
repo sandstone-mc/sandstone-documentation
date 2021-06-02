@@ -12,9 +12,6 @@ export const CodeOutput = ({ files }: { files: CustomHandlerFileObject[] | undef
   if (!files.length) {
     return <></>
   }
-
-  console.log('GOT', files)
-
   const filesExtended = files.map(f => {
     // Remove the 3 first folders
     const name = f.relativePath.split('/').slice(3).join('/')
