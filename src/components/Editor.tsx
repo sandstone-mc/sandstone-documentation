@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import MonacoEditor, { Monaco } from '@monaco-editor/react'
 import type { editor, Position } from 'monaco-editor'
 import { useComponentId } from '../utils/getUniqueId'
-import { Tab } from './Tab'
+import { FileTab } from './FileTab'
 
 export function Editor({ onError, onReady, sandstoneFiles, value, setValue, height }: { sandstoneFiles: [content: string, fileName: string][], onError?: ((markers: editor.IMarker[]) => void), onReady?: (() => void), value: string, setValue: (value: string) => void, height: number }) {
   const currentEditorID = useComponentId()

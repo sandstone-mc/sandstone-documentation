@@ -4,7 +4,7 @@ import { Editor } from './Editor'
 import { CustomHandlerFileObject, compileDataPack } from '../utils/compiler'
 import type { editor } from 'monaco-editor'
 import { CodeOutput } from './CodeOutput'
-import { Tab } from './Tab'
+import { FileTab } from './FileTab'
 
 function getCodeWithoutImports(code: string) {
   return code.split('\n').slice(3).join('\n')
@@ -69,7 +69,7 @@ ${code}`
       display: 'flex',
       flexFlow: 'column nowrap',
     }}>
-      {props.filename ? <Tab name={props.filename} /> : <></>}
+      {props.filename ? <FileTab name={props.filename} /> : <></>}
       <Editor sandstoneFiles={sandstoneFiles} value={editorValue} setValue={setEditorValue} height={props.height} onError={setEditorErrors} />
     </div>
     <CodeOutput files={compiledDataPack} />
