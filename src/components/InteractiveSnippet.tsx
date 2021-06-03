@@ -1,22 +1,27 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { usePluginData } from '@docusaurus/useGlobalData'
-import { Editor } from './Editor';
-import { CustomHandlerFileObject, compileDataPack } from '../utils/compiler';
-import type { editor } from 'monaco-editor';
-import { debounce } from 'lodash';
-import { CodeOutput } from './CodeOutput';
+import { Editor } from './Editor'
+import { CustomHandlerFileObject, compileDataPack } from '../utils/compiler'
+import type { editor } from 'monaco-editor'
+import { CodeOutput } from './CodeOutput'
+import { Tab } from './Tab'
 
-export const InteractiveSnippet = (props: { height: number, code: string }) => {
-  const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] };
-  const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([]);
-  const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([]);
-  const [previousCode, setPreviousCode] = useState('');
+function getCodeWithoutImports(code: string) {
+  return code.split('\n').slice(3).join('\n')
+}
+
+export const InteractiveSnippet = (props: { height: number, code: string, filename?: string }) => {
+  const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] }
+  const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([])
+  const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([])
 
   const [editorValue, setEditorValue] = useState(`
 //@ts-ignore
 import {} from 'sandstone'
 
-${props.code}`.trim());
+${props.code.trim()}`.trim())
+
+  const [previousCode, setPreviousCode] = useState('props.code.trim()')
 
   const compile = (code: string, errors: typeof editorErrors) => {
     if (previousCode === code.trim()) {
@@ -32,38 +37,41 @@ ${props.code}`.trim());
           ...(error.owner === 'typescript' ? {
             content: `${reduced.content}[${error.startLineNumber}:${error.startColumn}] ${error.message}\n`
           } : {})
-        }), { type: 'errors', relativePath: 'Failed to Compile:', key: 0, content: '' })]);
-        return;
+        }), { type: 'errors', relativePath: 'Failed to Compile:', key: 0, content: '' })])
+        return
       }
     }
-
-    const result = compileDataPack(code)
-
-    result.then(({ result, imports }) => {
-      setCompiledDataPack(result)
-      const newEditorValue = `//@ts-ignore
+    compileDataPack(code)
+      .then(({ result, imports }) => {
+        setCompiledDataPack(result)
+        const newEditorValue = `//@ts-ignore
 import { ${Array.from(imports).join(', ')} } from 'sandstone'
 
 ${code}`
-      console.log('gogogo')
-      if (newEditorValue !== editorValue) {
-        setEditorValue(editorValue)
-      }
-    })
+        if (newEditorValue !== editorValue) {
+          setEditorValue(newEditorValue)
+        }
+      })
       .catch((e) => {
         console.log('Got error', e)
       })
   }
 
   useEffect(() => {
-    compile(editorValue.split('\n').slice(3).join('\n'), editorErrors)
+    compile(getCodeWithoutImports(editorValue), editorErrors)
   }, [editorValue, editorErrors])
 
   return <div style={{
     display: 'flex',
     flexFlow: 'column nowrap',
   }}>
-    <Editor sandstoneFiles={sandstoneFiles} value={editorValue} setValue={setEditorValue} height={props.height} onError={setEditorErrors} />
+    <div style={{
+      display: 'flex',
+      flexFlow: 'column nowrap',
+    }}>
+      {props.filename ? <Tab name={props.filename} /> : <></>}
+      <Editor sandstoneFiles={sandstoneFiles} value={editorValue} setValue={setEditorValue} height={props.height} onError={setEditorErrors} />
+    </div>
     <CodeOutput files={compiledDataPack} />
   </div>
 }

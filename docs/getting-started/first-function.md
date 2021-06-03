@@ -8,44 +8,22 @@ sidebar_position: 3
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { InteractiveSnippet } from '../../src/components/InteractiveSnippet'
-
-<InteractiveSnippet height={350} code={`
-const kills = Objective.create("kills")
-const myKills = kills("@s")\n
-MCFunction('test', () => {
-  _.if(myKills.greaterOrEqualThan(0), () => {
-    say('Hey!')
-  })
-})
-`}/>
-<InteractiveSnippet height={350} code={`
-const kills = Objective.create("kills")
-const myKills = kills("@s")\n
-MCFunction('test', () => {
-  _.if(myKills.greaterOrEqualThan(0), () => {
-    say('Hey!')
-  })
-})
-`}/>
+import { InteractiveSnippet } from '../../src/components'
 
 Let's write your first Minecraft function. Start VSCode, and open the project folder. In the `src` directory, create a new file named `helloworld.ts`, with the following content:
 
-:::note Hint
-You can copy the code by clicking on the top-right corner of the code block!
-:::
-
-```ts title="helloworld.ts"
-import { say, MCFunction } from 'sandstone'
-
+<InteractiveSnippet height={140} filename="helloworld.ts" code={`
 MCFunction('hello', () => {
   say('Hello world!')
 })
-```
+`} />
 
-:::note
-You can delete the `display.ts` file.
+:::note Hints
+• You can delete the `display.ts` file.<br />
+• You can change the above code, and see the result in live.
 :::
+
+## Building the data pack
 
 To build the data pack, type the following command in your terminal:
 
@@ -94,7 +72,7 @@ If you forgot where you saved your data pack, or want to change the location, yo
 :::
 
 
-### Explanation
+## Explanation
 Let's do a line-by-line explanation.
 
 ```ts

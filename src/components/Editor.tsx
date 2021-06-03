@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import MonacoEditor, { Monaco } from '@monaco-editor/react'
-import type { editor } from 'monaco-editor'
+import type { editor, Position } from 'monaco-editor'
 import { useComponentId } from '../utils/getUniqueId'
-
+import { Tab } from './Tab'
 
 export function Editor({ onError, onReady, sandstoneFiles, value, setValue, height }: { sandstoneFiles: [content: string, fileName: string][], onError?: ((markers: editor.IMarker[]) => void), onReady?: (() => void), value: string, setValue: (value: string) => void, height: number }) {
   const currentEditorID = useComponentId()
 
-  function handleEditorDidMount(editor: editor.IStandaloneCodeEditor, monaco: Monaco) {
+  const handleEditorDidMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
       target: monaco.languages.typescript.ScriptTarget.ES2016,
       allowNonTsExtensions: true,
@@ -39,8 +39,18 @@ export function Editor({ onError, onReady, sandstoneFiles, value, setValue, heig
       })
     }
 
-    const readonlyRange = new monaco.Range(0, 0, 4, 0)
-
+    let cursorPos: Position
+    editor.onDidChangeCursorPosition((p) => {
+      // Prevents model changes to move the cursor to the end of the block of code
+      if (p.source === 'modelChange') {
+        if (cursorPos && !p.position.equals(cursorPos)) {
+          editor.setPosition(cursorPos)
+        }
+      }
+      else {
+        cursorPos = p.position
+      }
+    })
     editor.onKeyDown(e => {
       // First, if the 1st line is selected, deselect it, since it's //@ts-ignore
       const primarySelection = editor.getSelection()
@@ -48,17 +58,20 @@ export function Editor({ onError, onReady, sandstoneFiles, value, setValue, heig
         editor.setSelection(new monaco.Range(2, 0, primarySelection.endLineNumber, primarySelection.endColumn))
       }
 
+      // If the user tries to modify the first 3 lines, stop him
+      const readonlyRange = new monaco.Range(0, 0, 4, 0)
       const contains = editor.getSelections().find(range => readonlyRange.intersectRanges(range)) !== undefined
       if (
         contains
         && (e.browserEvent.key.length === 1 || ['enter', 'backspace'].includes(e.browserEvent.key.toLowerCase()))
-        && !(e.browserEvent.key.toLowerCase() === 'c' && e.ctrlKey) // Let Ctrl+C pass
+        && !(['c', 'a'].includes(e.browserEvent.key.toLowerCase()) && e.ctrlKey) // Let Ctrl+C & Ctrl+A pass
       ) {
         e.stopPropagation()
         e.preventDefault()
         return
       }
 
+      // If the user is on the start of the 4th line & hits backspace, prevent him
       const backspaceContains = editor.getSelections().find(range => range.endLineNumber === 4 && range.endColumn === 1) !== undefined
       if (backspaceContains && e.browserEvent.key.toLowerCase() === 'backspace') {
         e.stopPropagation()
@@ -66,42 +79,39 @@ export function Editor({ onError, onReady, sandstoneFiles, value, setValue, heig
       }
     });
 
+    // Hide the 1st line (@ts-ignore) to the user
     (editor as any).setHiddenAreas([new monaco.Range(0, 0, 1, 0)])
   }
 
   return (
-    <>
-      <p>{currentEditorID}</p>
-      <MonacoEditor
-        height={height}
-        defaultLanguage="typescript"
-        value={value}
-        defaultPath={currentEditorID + "/main" + currentEditorID + ".ts"}
-        theme="vs-dark"
-        onChange={setValue}
-        onMount={handleEditorDidMount}
-        options={{
-          folding: true,
-          fontFamily: "var(--ifm-font-family-monospace)",
-          fontLigatures: false,
-          theme: 'vs-dark',
-          tabCompletion: 'on',
-          fontSize: 15.2,
-          minimap: {
-            enabled: false,
-          },
-          lineNumbers: 'off',
-          automaticLayout: true,
-          scrollBeyondLastLine: false,
-          padding: {
-            top: 18,
-          },
-          scrollbar: {
-            alwaysConsumeMouseWheel: false,
-          }
-        }}
-      />
-    </>
+    <MonacoEditor
+      height={height}
+      defaultLanguage="typescript"
+      value={value}
+      defaultPath={"main" + currentEditorID + ".ts"}
+      theme="vs-dark"
+      onChange={setValue}
+      onMount={handleEditorDidMount}
+      options={{
+        folding: true,
+        fontFamily: "var(--ifm-font-family-monospace)",
+        fontLigatures: false,
+        tabCompletion: 'on',
+        fontSize: 15.2,
+        minimap: {
+          enabled: false,
+        },
+        lineNumbers: 'off',
+        automaticLayout: true,
+        scrollBeyondLastLine: false,
+        padding: {
+          top: 18,
+        },
+        scrollbar: {
+          alwaysConsumeMouseWheel: false,
+        }
+      }}
+    />
   )
 }
 

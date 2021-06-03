@@ -8,6 +8,14 @@ sidebar_position: 2
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+## Locally
+
+:::note
+All snippets of this documentation can be edited, and you can preview the resulting data pack. If you want to quickly see what Sandstone can offer, **there is no need to install anything.** Just edit the snippets, and see the results in live.
+
+If you want to use Sandstone to create data packs, a local installation will be necessary.
+:::
+
 The first step is to install [Node.js](https://nodejs.org/en/). You will then need a code editor: I personnaly recommend [Visual Studio Code](https://code.visualstudio.com/Download).
 
 Create an empty folder named "Sandstone Projects": it will contain all your future Sandstone projects. Inside this folder, open a terminal then run the following commands:

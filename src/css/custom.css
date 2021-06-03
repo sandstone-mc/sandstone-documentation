@@ -19,6 +19,7 @@
   --ifm-color-primary-light: rgb(70, 203, 174);
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-color-secondary: #7c9dd1;
   --ifm-code-font-size: 95%;
   --ifm-font-family-monospace: 'JetBrains Mono Regular', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace
 }

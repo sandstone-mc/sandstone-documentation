@@ -1,10 +1,12 @@
-// Some code from the `util` module use process.env, we must manually mock it
-if (!window.process) {
-	// @ts-expect-error
-	window.process = {}
-}
-if (!window.process.env) {
-	window.process.env = {}
+if (typeof window !== 'undefined') {
+	// Some code from the `util` module use process.env, we must manually mock it
+	if (!window.process) {
+		// @ts-expect-error
+		window.process = {}
+	}
+	if (!window.process.env) {
+		window.process.env = {}
+	}
 }
 
 import { transpile } from 'typescript';

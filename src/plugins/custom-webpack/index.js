@@ -26,6 +26,11 @@ module.exports = function (context) {
               assert: false,
             }
           },
+
+          module: {
+            // Prevent errors / warnings from Webpack
+            noParse: [require.resolve('typescript/lib/typescript.js')],
+          }
         };
       },
     };
