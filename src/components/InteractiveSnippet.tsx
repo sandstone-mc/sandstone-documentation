@@ -5,30 +5,29 @@ import { CustomHandlerFileObject, compileDataPack } from '../utils/compiler'
 import type { editor } from 'monaco-editor'
 import { CodeOutput } from './CodeOutput'
 import { FileTab } from './FileTab'
+import { debounce } from 'lodash'
 
 function getCodeWithoutImports(code: string) {
   return code.split('\n').slice(3).join('\n')
 }
 
-export const InteractiveSnippet = (props: { height: number, code: string, filename?: string }) => {
+export const InteractiveSnippet = (props: { height: number, code: string, filename?: string, baseImports?: string[] }) => {
   const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] }
   const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([])
   const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([])
 
   const [editorValue, setEditorValue] = useState(`
 //@ts-ignore
-import {} from 'sandstone'
+import { ${(props.baseImports ?? []).join(', ')} } from 'sandstone'
 
 ${props.code.trim()}`.trim())
 
   const [previousCode, setPreviousCode] = useState('props.code.trim()')
 
-  const compile = (code: string, errors: typeof editorErrors) => {
+  const compile = useCallback(debounce((code: string, errors: typeof editorErrors) => {
     if (previousCode === code.trim()) {
       return
     }
-
-    setPreviousCode(code.trim())
 
     for (const error of errors) {
       if (error.owner === 'typescript' && error.severity > 1) {
@@ -48,6 +47,7 @@ ${props.code.trim()}`.trim())
 import { ${Array.from(imports).join(', ')} } from 'sandstone'
 
 ${code}`
+        setPreviousCode(code.trim())
         if (newEditorValue !== editorValue) {
           setEditorValue(newEditorValue)
         }
@@ -55,7 +55,7 @@ ${code}`
       .catch((e) => {
         console.log('Got error', e)
       })
-  }
+  }, 500, { leading: false, trailing: true   }), [setEditorValue, setPreviousCode, previousCode])
 
   useEffect(() => {
     compile(getCodeWithoutImports(editorValue), editorErrors)

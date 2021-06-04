@@ -1,4 +1,4 @@
-import React, { useState, cloneElement, Children, ReactElement } from 'react';
+import React, { useState, cloneElement, Children, ReactElement, useEffect, useLayoutEffect } from 'react';
 import useUserPreferencesContext from '@theme/hooks/useUserPreferencesContext';
 import clsx from 'clsx';
 
@@ -19,10 +19,15 @@ const keys = {
 function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, values?: any, groupId?: string, className?: string, children: any }): JSX.Element {
   const { lazy, block, defaultValue, values, groupId, className } = props;
   const { tabGroupChoices, setTabGroupChoices } = useUserPreferencesContext();
-  const [selectedValue, setSelectedValue] = useState(defaultValue);
   const children = Children.toArray(
     props.children,
   ) as ReactElement<any>[];
+  
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
+
+  const defaultValueIndex: number = children.map((c, i) => [c.props.value, i]).find(([v, i]) => v === defaultValue)[1]
+  const [selectedIndex, setSelectedIndex] = useState(defaultValueIndex);
+
   const tabRefs: (HTMLLIElement | null)[] = [];
 
   if (groupId != null) {
@@ -32,19 +37,21 @@ function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, v
       relevantTabGroupChoice !== selectedValue &&
       values.some((value) => value.value === relevantTabGroupChoice)
     ) {
+      const index = values.map(({ value }, i) => ({value, i})).find(({ value }) => value === relevantTabGroupChoice).i
       setSelectedValue(relevantTabGroupChoice);
+      setSelectedIndex(index)
     }
   }
 
   const handleTabChange = (
     event: React.FocusEvent<HTMLLIElement> | React.MouseEvent<HTMLLIElement>,
-    index: number,
   ) => {
     const selectedTab = event.currentTarget;
     const selectedTabIndex = tabRefs.indexOf(selectedTab);
     const selectedTabValue = values[selectedTabIndex].value;
 
     setSelectedValue(selectedTabValue);
+    setSelectedIndex(selectedTabIndex)
 
     if (groupId != null) {
       setTabGroupChoices(groupId, selectedTabValue);
@@ -89,9 +96,40 @@ function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, v
     focusElement?.focus();
   };
 
-  const noSelect = !children.find(c => c.props.value === selectedValue)
-  if (noSelect && children.length) {
-    setSelectedValue(children[0].props.value)
+  function getIndexToDisplay(): number {
+    // If the tab externally changed, maybe the order changed. Update the index to reflect this change.
+    if (selectedIndex < values.length && values[selectedIndex].value !== selectedValue) {
+      const index = values.findIndex(({ value }) => value === selectedValue)
+      if (index > -1) {
+        // We found a tab with the same name, but at a different index. Display it.
+        return index
+      }
+    }
+    
+    // If the tab selected doesn't exist anymore, go to the tab with the nearest index
+    if (!values.some(({ value }) => value === selectedValue)) {
+      // No tab with identical name exists
+    
+      if (values.length > selectedIndex) {
+        // Another tab with same index exists => tab might has been renamed, or delete & another one took its place
+        setSelectedValue(values[selectedIndex].value)
+        return selectedIndex
+      }
+
+      // The selected tab has been removed, and we're out of bounds now. Go to the last tab.
+      const index = values.length - 1
+      setSelectedValue(values[index].value)
+
+      return index
+    }
+
+    return selectedIndex
+  }
+
+  const indexToDisplay = getIndexToDisplay()
+
+  if (indexToDisplay !== selectedIndex) {
+    setSelectedIndex(indexToDisplay)
   }
 
   return (
@@ -109,15 +147,15 @@ function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, v
         {values.map(({ value, label }, i) => (
           <li
             role="tab"
-            tabIndex={selectedValue === value ? 0 : -1}
-            aria-selected={selectedValue === value}
+            tabIndex={i === indexToDisplay ? 0 : -1}
+            aria-selected={i === indexToDisplay}
             className={clsx('tabs__item', styles.tabItem, {
-              'tabs__item--active': selectedValue === value,
+              'tabs__item--active': i === indexToDisplay,
             })}
             key={value}
             ref={(tabControl) => tabRefs.push(tabControl)}
             onKeyDown={handleKeydown}
-            onFocus={() => handleTabChange()}
+            onFocus={handleTabChange}
             onClick={handleTabChange}>
             {label}
           </li>
@@ -127,7 +165,7 @@ function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, v
       {lazy ? (
         cloneElement(
           children.filter(
-            (tabItem) => tabItem.props.value === selectedValue,
+            (tabItem, i) => i === indexToDisplay,
           )[0],
           { className: 'margin-vert--md' },
         )
@@ -135,8 +173,8 @@ function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, v
         <div className="margin-vert--md">
           {children.map((tabItem, i) =>
             cloneElement(tabItem, {
-              key: i,
-              hidden: tabItem.props.value !== selectedValue,
+              key: tabItem.props.value,
+              hidden: i !== indexToDisplay,
             }),
           )}
         </div>

@@ -12,7 +12,7 @@ import { InteractiveSnippet } from '../../src/components'
 
 Let's write your first Minecraft function. Start VSCode, and open the project folder. In the `src` directory, create a new file named `helloworld.ts`, with the following content:
 
-<InteractiveSnippet height={140} filename="helloworld.ts" code={`
+<InteractiveSnippet height={140} filename="helloworld.ts" baseImports={['MCFunction', 'say']} code={`
 MCFunction('hello', () => {
   say('Hello world!')
 })

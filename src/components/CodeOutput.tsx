@@ -9,7 +9,7 @@ export type CustomHandlerFileObject = (Parameters<Required<SaveOptions>['customF
 
 const theme = require('../../docusaurus.config').themeConfig.prism.theme.default
 
-export const CodeOutput = ({ files }: { files: CustomHandlerFileObject[] | undefined }) => {
+const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }) => {
   if (!files.length) {
     return <></>
   }
@@ -65,3 +65,5 @@ export const CodeOutput = ({ files }: { files: CustomHandlerFileObject[] | undef
     </div>
   )
 }
+
+export const CodeOutput = React.memo(CodeOutput_)
