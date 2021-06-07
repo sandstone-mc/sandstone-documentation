@@ -3,6 +3,8 @@ id: commands
 title: Commands
 description: How to write commands in Sandstone.
 ---
+import { InteractiveSnippet } from '../../src/components'
+
 ## Basics
 
 In Sandstone, all commands can directly be imported from `sandstone`:
@@ -23,7 +25,7 @@ A command can have multiple subcommands, which all have arguments: `effect.give(
 A command is only written to the datapack if it has been called. For example, some commands do not have any arguments, like `/reload`. In Sandstone, you'd have to type `reload()`. Only typing `reload` will **not** call the command, and nothing will appear in your datapack.
 :::
 
-### Example
+### Examples
 
 Here is the command to give 64 diamonds to all players:
 ```ts
@@ -39,6 +41,16 @@ Here is the command to grant all advancements to all players:
 ```ts
 advancement.grant('@a').everything()
 ```
+
+#### Try it out
+
+<InteractiveSnippet height={200} imports={['MCFunction', 'give', 'effect', 'advancement']} code={`
+MCFunction('example', () => {
+  give('@a', 'minecraft:diamond', 64)
+  effect.give('@a', 'minecraft:speed', 1)
+  advancement.grant('@a').everything()
+})
+`} />
 
 ### Documentation
 
@@ -66,7 +78,21 @@ As you can see, the `targets` and the `effect` argument are not followed by a qu
 
 This feature is very useful: **you don't have to remember the syntax of all commands**, Sandstone does that for you. Also, Sandstone gives you precise documentation on the behaviour of each command: you don't have to check the Wiki anymore!
 
+#### Try it out
+
+<InteractiveSnippet height={250} imports={['MCFunction', 'effect']} code={`
+MCFunction('optional_arguments', () => {
+  // effect.give('@a') -> Invalid!
+  effect.give('@a', 'minecraft:haste')
+  effect.give('@a', 'minecraft:haste', 10)
+  effect.give('@a', 'minecraft:haste', 10, 1)
+  effect.give('@a', 'minecraft:haste', 10, 1, true)
+})
+`} />
+
 ## Execute
+
+### Single command
 
 Sandstone has a special syntax for the `/execute` command. At its core, it looks just like Minecraft:
 
@@ -78,10 +104,24 @@ Calling a single command looks similar too:
 
 ```ts
 // Sets a block of dirt under all players
-execute.as('@a').at('@s').run.setblock('~ ~-1 ~', 'minecraft:dirt')
+execute.as('@a').at('@s').run.setblock(relative(0, 0, 0), 'minecraft:dirt')
 ```
 
-This will result in `execute as @a at @s run setblock ~ ~-1 ~ minecraft:dirt`. In Sandstone, `run` is used to execute *single multiple commands*.
+This will result in `execute as @a at @s run setblock ~ ~ ~ minecraft:dirt`. 
+
+#### Try it out:
+<InteractiveSnippet height={280} imports={['MCFunction', 'execute', 'relative']} code={`
+MCFunction('single_execute', () => {
+  // Make a random player say Hello
+  execute.as('@r').run.say('Hello!')\n
+  // Put a block of dirt on a random player
+  execute.as('@r').at('@s').run.setblock(relative(0, 0, 0), 'minecraft:dirt')\n
+  // Summon a TNT on all players!
+  execute.as('@a').at('@s').run.summon('minecraft:tnt', relative(0, 0, 0))
+})
+`} />
+
+In Sandstone, `run` is used to execute *single **and** multiple commands*.
 
 Here is how you could execute multiple commands with `run`:
 
@@ -95,16 +135,17 @@ execute.as('@a').at('@s').run(() => {
 })
 ```
 
-If you try running such commands, under a MCFunction named "main" with verbose saving, you'll have the following results:
+Let's see a live example to understand what Sandstone does under the hood.
+<InteractiveSnippet height={250} imports={[]} code={`
+MCFunction('main', () => {
+  execute.as('@a').at('@s').run(() => {
+    // All this commands are executed "as @a at @s".
+    // Sets a block of dirt under all players, and air on their body & head.
+    setblock(rel(0, -1, 0), 'minecraft:dirt')
+    setblock(rel(0,  0, 0), 'minecraft:air')
+    setblock(rel(0, +1, 0), 'minecraft:air')
+  })
+})
+`} />
 
-```mcfunction
-# Function default:main
-execute as @a at @s run function default:main/execute_as
-
-# Function default:main/execute_as
-setblock ~ ~-1 ~ minecraft:dirt
-setblock ~ ~ ~ minecraft:air
-setblock ~ ~1 ~ minecraft:air
-```
-
-As you can see, Sandstone automatically created a new MCFunction for you. It contains all your nested commands (all the setblocks), and is called by the `execute` command. Therefore, you achieve the desired effect **without managing several files youself**.
+As you can see, Sandstone automatically created a new MCFunction for you (here, called `main/execute_as`). It contains all your nested commands (all the setblocks), and is called by the `execute` command. Therefore, you achieve the desired effect **without managing several files youself**.

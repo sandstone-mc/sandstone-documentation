@@ -50,14 +50,8 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
       }
     })
     editor.onKeyDown(e => {
-      // First, if the 1st line is selected, deselect it, since it's //@ts-ignore
-      const primarySelection = editor.getSelection()
-      if (primarySelection.startLineNumber === 1) {
-        editor.setSelection(new monaco.Range(2, 0, primarySelection.endLineNumber, primarySelection.endColumn))
-      }
-
-      // If the user tries to modify the first 3 lines, stop him
-      const readonlyRange = new monaco.Range(0, 0, 4, 0)
+      // If the user tries to modify the first line, stop him
+      const readonlyRange = new monaco.Range(0, 0, 2, 0)
       const contains = editor.getSelections().find(range => readonlyRange.intersectRanges(range)) !== undefined
       if (
         contains
@@ -69,16 +63,13 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
         return
       }
 
-      // If the user is on the start of the 4th line & hits backspace, prevent him
-      const backspaceContains = editor.getSelections().find(range => range.endLineNumber === 4 && range.endColumn === 1) !== undefined
+      // If the user is on the start of the 2nde line & hits backspace, prevent him
+      const backspaceContains = editor.getSelections().find(range => range.endLineNumber === 2 && range.endColumn === 1) !== undefined
       if (backspaceContains && e.browserEvent.key.toLowerCase() === 'backspace') {
         e.stopPropagation()
         return
       }
     });
-
-    // Hide the 1st line (@ts-ignore) to the user
-    (editor as any).setHiddenAreas([new monaco.Range(0, 0, 1, 0)])
   }
 
   return (

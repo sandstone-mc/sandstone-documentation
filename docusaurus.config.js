@@ -29,6 +29,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'playground/',
+          activeBasePath: 'playground',
+          label: 'Playground',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/TheMrZZ/sandstone',
           label: 'GitHub',
           position: 'right',

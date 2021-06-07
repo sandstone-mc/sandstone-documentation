@@ -8,7 +8,7 @@ import { FileTab } from './FileTab'
 import { debounce } from 'lodash'
 
 function getCodeWithoutImports(code: string) {
-  return code.split('\n').slice(3).join('\n')
+  return code.split('\n').slice(1).join('\n')
 }
 
 export const InteractiveSnippet = (props: { height: number, code: string, filename?: string, baseImports?: string[] }) => {
@@ -17,7 +17,6 @@ export const InteractiveSnippet = (props: { height: number, code: string, filena
   const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([])
 
   const [editorValue, setEditorValue] = useState(`
-//@ts-ignore
 import { ${(props.baseImports ?? []).join(', ')} } from 'sandstone'
 
 ${props.code.trim()}`.trim())
@@ -43,10 +42,7 @@ ${props.code.trim()}`.trim())
     compileDataPack(code)
       .then(({ result, imports }) => {
         setCompiledDataPack(result)
-        const newEditorValue = `//@ts-ignore
-import { ${Array.from(imports).join(', ')} } from 'sandstone'
-
-${code}`
+        const newEditorValue = `import { ${Array.from(imports).join(', ')} } from 'sandstone'\n${code}`
         setPreviousCode(code.trim())
         if (newEditorValue !== editorValue) {
           setEditorValue(newEditorValue)
@@ -55,7 +51,7 @@ ${code}`
       .catch((e) => {
         console.log('Got error', e)
       })
-  }, 500, { leading: false, trailing: true   }), [setEditorValue, setPreviousCode, previousCode])
+  }, 500, { leading: false, trailing: true }), [setEditorValue, setPreviousCode, previousCode])
 
   useEffect(() => {
     compile(getCodeWithoutImports(editorValue), editorErrors)

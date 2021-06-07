@@ -16,16 +16,18 @@ module.exports = function (context) {
         const sourceFilePath = file.match(/^\.\.\/src\/([^]+)\.ts$/);
 
         if (sourceFilePath && sourceFilePath[1]) {
+          const source = await (await fetch(`https://unpkg.com/${buildInfoRequest.url.match(/(sandstone@(\d{1,2}\.?)+)/)?.[0]}/${sourceFilePath[1]}.d.ts`)).text()
+          const name = sourceFilePath[1]
+
           return [
-            await (await fetch(`https://unpkg.com/${buildInfoRequest.url.match(/(sandstone@(\d{1,2}\.?)+)/)?.[0]}/${sourceFilePath[1]}.d.ts`)).text(),
-            `node_modules/@types/sandstone/${sourceFilePath[1]}.d.ts`
+            source,
+            `file:///node_modules/@types/sandstone/${name}.d.ts`,
           ]
         }
         return null
       }))).filter(x => x !== null)
 
       const sandstoneExports = Object.keys(SandstoneRootObject)
-
       sandstoneFiles.push([`
         import {${sandstoneExports.join(',')}} from 'sandstone'
         ${sandstoneExports.map(e => `type type__${e} = typeof ${e}`).join('\n')}
@@ -33,7 +35,7 @@ module.exports = function (context) {
         declare global {
           ${sandstoneExports.map(e => `const ${e}: type__${e}`).join('\n  ')}
         }
-      `, 'node_modules/sandstone/@types/globalTypes.d.ts'])
+      `, 'file:///node_modules/@types/sandstone/globalTypes.d.ts'])
 
       return {
         sandstoneFiles,
