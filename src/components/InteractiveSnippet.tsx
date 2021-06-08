@@ -11,7 +11,9 @@ function getCodeWithoutImports(code: string) {
   return code.split('\n').slice(1).join('\n')
 }
 
-export const InteractiveSnippet = (props: { height: number, code: string, filename?: string, baseImports?: string[] }) => {
+type Props = { height: number, code: string, filename?: string, baseImports?: string[] }
+
+export const InteractiveSnippet = (props: Props) => {
   const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] }
   const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([])
   const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([])

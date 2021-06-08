@@ -1,16 +1,15 @@
 import React from 'react'
-import Tabs from './Tabs';
+import { Tabs } from './Tabs';
 import TabItem from '@theme/TabItem';
 import Hightlight, { defaultProps } from 'prism-react-renderer';
-import { SaveOptions } from 'sandstone/datapack/saveDatapack';
-import { FileTab } from './FileTab';
+import type { SaveOptions } from 'sandstone/datapack/saveDatapack';
 
 export type CustomHandlerFileObject = (Parameters<Required<SaveOptions>['customFileHandler']>[0] & { key: number }) | { type: 'errors', relativePath: string, content: string, key: number };
 
 const theme = require('../../docusaurus.config').themeConfig.prism.theme.default
 
 const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }) => {
-  if (!files.length) {
+  if (!files.length || typeof window === 'undefined') {
     return <></>
   }
   const filesExtended = files.map(f => {

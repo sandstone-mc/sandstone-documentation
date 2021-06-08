@@ -16,13 +16,13 @@ const keys = {
   right: 39,
 } as const;
 
-function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, values?: any, groupId?: string, className?: string, children: any }): JSX.Element {
+export function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, values?: any, groupId?: string, className?: string, children: any }): JSX.Element {
   const { lazy, block, defaultValue, values, groupId, className } = props;
   const { tabGroupChoices, setTabGroupChoices } = useUserPreferencesContext();
   const children = Children.toArray(
     props.children,
   ) as ReactElement<any>[];
-  
+
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const defaultValueIndex: number = children.map((c, i) => [c.props.value, i]).find(([v, i]) => v === defaultValue)[1]
@@ -37,7 +37,7 @@ function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, v
       relevantTabGroupChoice !== selectedValue &&
       values.some((value) => value.value === relevantTabGroupChoice)
     ) {
-      const index = values.map(({ value }, i) => ({value, i})).find(({ value }) => value === relevantTabGroupChoice).i
+      const index = values.map(({ value }, i) => ({ value, i })).find(({ value }) => value === relevantTabGroupChoice).i
       setSelectedValue(relevantTabGroupChoice);
       setSelectedIndex(index)
     }
@@ -105,11 +105,11 @@ function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, v
         return index
       }
     }
-    
+
     // If the tab selected doesn't exist anymore, go to the tab with the nearest index
     if (!values.some(({ value }) => value === selectedValue)) {
       // No tab with identical name exists
-    
+
       if (values.length > selectedIndex) {
         // Another tab with same index exists => tab might has been renamed, or delete & another one took its place
         setSelectedValue(values[selectedIndex].value)
@@ -182,5 +182,3 @@ function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, v
     </div>
   );
 }
-
-export default Tabs;

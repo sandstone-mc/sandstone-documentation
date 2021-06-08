@@ -9,12 +9,13 @@ if (typeof window !== 'undefined') {
 	}
 }
 
-import { transpile } from 'typescript';
 import type { SaveOptions } from 'sandstone/datapack/saveDatapack';
 
 export type CustomHandlerFileObject = (Parameters<Required<SaveOptions>['customFileHandler']>[0] & {key: number}) | {type: 'errors', relativePath: string, content: string, key: number};
 
 export async function compileDataPack(tsCode: string) {
+	const { transpile } = await import('typescript')
+
 	const jsCode = transpile(tsCode)
 	const sandstone = await import('sandstone')
 	const { dataPack } = await import('sandstone/init')

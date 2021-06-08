@@ -6,7 +6,6 @@ slug: /
 sidebar_position: 1
 ---
 import GitHubButton from 'react-github-btn'
-import { CodeOutput } from '../../src/components'
 
 Sandstone is a Typescript library for Minecraft Datapacks. It allows easy creation, debug and sharing of Minecraft functions, loot tables, predicates etc...
 
