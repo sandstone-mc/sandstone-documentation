@@ -4,6 +4,8 @@ title: Selectors
 description: How to create selectors with Sandstone.
 ---
 
+import { InteractiveSnippet } from '../../../src/components'
+
 You can use Sandstone to create any selector, in an easy and type-safe way.
 
 ## The basics
@@ -33,9 +35,22 @@ const cows = Selector('@e', { type: 'minecraft:cow' })
 kill(cows)
 
 // Give 32 diamonds to winners
-const winners = Selector('@e', { tag: 'winner' })
+const winners = Selector('@a', { tag: 'winner' })
 give(winners, 'minecraft:diamond', 32)
 ```
+
+#### Try it out
+
+<InteractiveSnippet height={250} imports={[]} code={`
+MCFunction('selectors', () => {
+  // Kill all cows
+  const cows = Selector('@e', { type: 'minecraft:cow' })
+  kill(cows)\n
+  // Give 32 diamonds to winners
+  const winners = Selector('@a', { tag: 'winner' })
+  give(winners, 'minecraft:diamond', 32)
+})
+`}/>
 
 ## Special Arguments
 
