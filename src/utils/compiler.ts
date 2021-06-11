@@ -39,7 +39,7 @@ export async function compileDataPack(tsCode: string) {
 	const realCode = `
 		const {${ sandstoneExports.map(e => `${e}: ___${e}___`).join(',') }} = require('sandstone');
 		${
-			sandstoneExports.map(e => `const ${e} = new Proxy((...args) => { imports.add('${e}'); ___${e}___(...args) }, {
+			sandstoneExports.map(e => `const ${e} = new Proxy((...args) => { imports.add('${e}'); return ___${e}___(...args) }, {
 		get: (_, p) => {
 			imports.add('${e}')
 			return ___${e}___[p]

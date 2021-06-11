@@ -39,9 +39,11 @@ const winners = Selector('@a', { tag: 'winner' })
 give(winners, 'minecraft:diamond', 32)
 ```
 
+-------
+
 #### Try it out
 
-<InteractiveSnippet height={250} imports={[]} code={`
+<InteractiveSnippet height={250} imports={['MCFunction', 'Selector', 'kill', 'give']} code={`
 MCFunction('selectors', () => {
   // Kill all cows
   const cows = Selector('@e', { type: 'minecraft:cow' })
@@ -80,7 +82,7 @@ Selector('@s', {
 
 If you want to use an existing objective, you can use the following ES6 syntax:
 ```ts
-const killsObjective = createObjective('kills', 'playerKillCount')
+const killsObjective = Objective.create('kills', 'playerKillCount')
 
 Selector('@s', {
   scores: {
@@ -89,13 +91,39 @@ Selector('@s', {
 })
 ```
 
+-------
+
+#### Try it out
+
+<InteractiveSnippet height={550} imports={['MCFunction', 'Selector', 'kill', 'give']} code={`
+MCFunction('scores', () => {
+  // Match some hardcoded objectives
+  const player = Selector('@s', {
+    scores: { 
+      'kills': [10, +Infinity],
+      'coins': [-Infinity, 50],
+      'deaths': 0,
+    } 
+  })
+  kill(player)\n
+  // Match a Sandstone's objective
+  const killsObjective = Objective.get('kills')
+  const biggestKiller = Selector('@a', {
+    scores: {
+      [killsObjective.name]: [10, +Infinity],
+    }
+  })\n
+  give(biggestKiller, 'minecraft:diamond', 10)
+})
+`} />
+
 ### Advancements
 
 #### General syntax
 
 Advancements arguments in Sandstone selectors work precisely like they would in-game, but their complicated syntax deserves a reminder.
 
-To ensure the player has the `minecraft:story:/form_obsidian` advancement, you would use the following syntax:
+To ensure the player has the `minecraft:story/form_obsidian` advancement, you would use the following syntax:
 ```ts
 Selector('@s', {
   advancements: {
@@ -154,6 +182,26 @@ Selector('@s', {
 })
 ```
 
+-------
+
+#### Try it out
+
+<InteractiveSnippet height={400} imports={['MCFunction', 'Selector', 'kill']} code={`
+MCFunction('advancement', () => {
+  const player = Selector('@s', {
+    advancements: {
+      // Matches a whole advancement
+      'story/form_obsidian': true,
+      // Matches some advancement criterion
+      'story/obtain_armor': {
+        'iron_helmet': true,
+      }
+    }
+  })
+  kill(player)
+})
+`} />
+
 ### Tags
 
 Entity tags can be either specified as a single string, or an array of strings.
@@ -211,3 +259,8 @@ Selector('@e', { team: false })
 // Check for entities that are inside a team
 Selector('@e', { team: true })
 ```
+
+### NBTs
+
+The `nbt` argument is what you would expect:
+
