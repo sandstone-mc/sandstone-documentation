@@ -62,18 +62,24 @@ While most arguments work exactly like the vanilla ones, some of them have a few
 
 #### General syntax
 
-For the `scores` argument, you can specify a whole number or a range. Ranges are made using an array: `[0, 7]` becomes `0..7`. If you need an open-ended range (like `8..` or `..19`), you can use `null` or `Infinity`: 
+For the `scores` argument, you can specify a whole number or a range. Ranges are made using an array: `[0, 7]` becomes `0..7`. If you need an open-ended range (like `8..` or `..19`), you can use the following syntax: 
 
-- `[8, null]` and `[8, +Infinity]` both become `8..`
-- `[null, 19]` and `[-Infinity, 19]` both become `..19`
+- `[8, ]` becomes `8..`
+- `[, 7]` becomes `..7`
+
+This is the officially supported syntax. However, for several reasons, the following syntaxes are also valid:
+- `[8, undefined]`, `[8, null]` and `[8, +Infinity]` all become `8..`
+- `[undefined, 7]`, `[null, 7]` and `[-Infinity, 7]` all become `..7`
+
+Those other syntaxes are especially useful when dealing with dynamic ranges, defined by variables.
 
 Here is an exemple of a selector that checks if a player has more than 10 kills, less than 50 coins and exactly 0 deaths:
 ```ts
 Selector('@s', {
   scores: { 
-    'kills': [10, +Infinity],
-    'coins': [-Infinity, 50],
-    'deaths': 0,
+    'kills': [10, ], // 10..
+    'coins': [, 50], // ..50
+    'deaths': 0,     // 0
   } 
 })
 ```
@@ -86,7 +92,7 @@ const killsObjective = Objective.create('kills', 'playerKillCount')
 
 Selector('@s', {
   scores: {
-    [killsObjective.name]: [10, +Infinity],
+    [killsObjective.name]: [10, ],
   }
 })
 ```
@@ -100,9 +106,9 @@ MCFunction('scores', () => {
   // Match some hardcoded objectives
   const player = Selector('@s', {
     scores: { 
-      'kills': [10, +Infinity],
-      'coins': [-Infinity, 50],
-      'deaths': 0,
+      'kills': [10, ], // 10..
+      'coins': [, 50], // ..50
+      'deaths': 0,     // 0
     } 
   })
   kill(player)\n
@@ -110,7 +116,7 @@ MCFunction('scores', () => {
   const killsObjective = Objective.get('kills')
   const biggestKiller = Selector('@a', {
     scores: {
-      [killsObjective.name]: [10, +Infinity],
+      [killsObjective.name]: [10, ],
     }
   })\n
   give(biggestKiller, 'minecraft:diamond', 10)
@@ -186,7 +192,7 @@ Selector('@s', {
 
 #### Try it out
 
-<InteractiveSnippet height={400} imports={['MCFunction', 'Selector', 'kill']} code={`
+<InteractiveSnippet height={375} imports={['MCFunction', 'Selector', 'kill']} code={`
 MCFunction('advancement', () => {
   const player = Selector('@s', {
     advancements: {
@@ -263,4 +269,16 @@ Selector('@e', { team: true })
 ### NBTs
 
 The `nbt` argument is what you would expect:
+```ts
+// Look for invisible entities
+Selector('@e', { nbt: { Invisible: NBT`1b` } }) // @e[nbt={Invisible:1b}]
 
+// Look for players with dirt in their Inventory
+Selector('@e', { nbt: { Inventory: [{ id: 'minecraft:dirt' }] } }) // @e[nbt={Inventory:[{id:"minecraft:dirt"}]}]
+```
+
+To check if an entity *doesn't match* a given NBT, use `NBT.not`:
+```ts
+// Look for players WITHOUT dirt in their Inventory
+Selector('@e', { nbt: NBT.not({ Inventory: [{ id: 'minecraft:dirt' }] }) }) // @e[nbt=!{Inventory:[{id:"minecraft:dirt"}]}]
+```

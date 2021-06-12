@@ -1,5 +1,7 @@
 const fetch = require('node-fetch')
 const SandstoneRootObject = require('sandstone')
+const fs = require('fs/promises')
+const path = require('path')
 
 /**
  * @param {import("@docusaurus/types").LoadContext} context 
@@ -9,16 +11,18 @@ module.exports = function (context) {
     name: 'get-sandstone-files',
 
     async loadContent() {
-      const buildInfoRequest = await fetch('https://unpkg.com/sandstone@latest/tsconfig.tsbuildinfo');
-      const buildInfo = await buildInfoRequest.json();
+      const sandstoneFolder = path.resolve(path.join('node_modules', 'sandstone'))
+
+      const buildInfo = JSON.parse(await fs.readFile(path.join(sandstoneFolder, 'tsconfig.tsbuildinfo')))
 
       const sandstoneFiles = (await Promise.all(Object.keys(buildInfo.program.fileInfos).map(async (file) => {
         const sourceFilePath = file.match(/^\.\.\/src\/([^]+)\.ts$/);
 
         if (sourceFilePath && sourceFilePath[1]) {
-          const source = await (await fetch(`https://unpkg.com/${buildInfoRequest.url.match(/(sandstone@(\d{1,2}\.?)+)/)?.[0]}/${sourceFilePath[1]}.d.ts`)).text()
+          const source = (await fs.readFile(path.join(sandstoneFolder, ...sourceFilePath.slice(1, -1), sourceFilePath[sourceFilePath.length - 1] + '.d.ts'))).toString()
           const name = sourceFilePath[1]
 
+          console.log(source, name)
           return [
             source,
             `file:///node_modules/@types/sandstone/${name}.d.ts`,
