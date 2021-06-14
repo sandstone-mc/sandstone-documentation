@@ -2,7 +2,7 @@
 id: functions
 title: Minecraft Functions
 description: How to write functions in Sandstone.
-sidebar_position: 5
+sidebar_position: 1.5
 ---
 ## Creating a Minecraft function
 

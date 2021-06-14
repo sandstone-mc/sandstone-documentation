@@ -1,6 +1,6 @@
 ---
-id: range
-title: Range
+id: ranges
+title: Ranges
 description: How to use ranges in Sandstone.
 ---
 

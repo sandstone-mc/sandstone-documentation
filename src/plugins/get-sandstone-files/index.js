@@ -22,7 +22,6 @@ module.exports = function (context) {
           const source = (await fs.readFile(path.join(sandstoneFolder, ...sourceFilePath.slice(1, -1), sourceFilePath[sourceFilePath.length - 1] + '.d.ts'))).toString()
           const name = sourceFilePath[1]
 
-          console.log(source, name)
           return [
             source,
             `file:///node_modules/@types/sandstone/${name}.d.ts`,
@@ -42,8 +41,8 @@ module.exports = function (context) {
       `, 'file:///node_modules/@types/sandstone/globalTypes.d.ts'])
 
       return {
-        sandstoneFiles,
-      }      
+        sandstoneFiles: Buffer.from(JSON.stringify(sandstoneFiles)),
+      }
     },
 
     async contentLoaded({content, actions}) {

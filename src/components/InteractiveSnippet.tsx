@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { usePluginData } from '@docusaurus/useGlobalData'
 import { Editor } from './Editor'
 import { CustomHandlerFileObject, compileDataPack } from '../utils/compiler'
@@ -6,6 +6,7 @@ import type { editor } from 'monaco-editor'
 import { CodeOutput } from './CodeOutput'
 import { FileTab } from './FileTab'
 import { debounce } from 'lodash'
+import { Buffer } from 'buffer'
 
 function getCodeWithoutImports(code: string) {
   return code.split('\n').slice(1).join('\n')
@@ -14,7 +15,8 @@ function getCodeWithoutImports(code: string) {
 type Props = { height: number, code: string, filename?: string, baseImports?: string[] }
 
 export const InteractiveSnippet = (props: Props) => {
-  const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] }
+  const { sandstoneFiles: sandstoneFilesBuffer } = usePluginData('get-sandstone-files') as { sandstoneFiles: any }
+  const sandstoneFiles = useMemo(() => JSON.parse(Buffer.from(sandstoneFilesBuffer.data).toString()), [sandstoneFilesBuffer])
   const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([])
   const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([])
 

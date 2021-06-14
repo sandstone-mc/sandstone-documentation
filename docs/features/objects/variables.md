@@ -60,3 +60,7 @@ MCFunction('count_diamonds', () => {
   tellraw('@a', ['The total number of diamonds is ', totalDiamonds])
 })
 ```
+
+## Usage
+
+A variable is just an instance of a Score. You can check the [Objectives documentation](objectives) to see how to use them.
