@@ -114,7 +114,7 @@ Please note that no validation is performed on NBT paths. The following snippet
 produces an invalid command due to missing quotes:
 
 ```ts
-_.if(_.data.block(rel(0, -1, 0), 'Items[{id:minecraft:air}]'), () => {
+_.if(_.data.block(rel(0, -1, 0), 'Items[{id:minecraft:honey_bottle}]'), () => {
   // ...
 })
 ```
