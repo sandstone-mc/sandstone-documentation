@@ -4,6 +4,7 @@ title: If / Else
 description: How to write if / else statmements in Sandstone.
 position: 2
 ---
+import { InteractiveSnippet } from '../../../src/components'
 
 You can easily check for in-game conditions using Sandstone's builtin `if`
 statement.
@@ -63,6 +64,19 @@ _.if(myKills.greaterThan(10), () => {
   tellraw('@a', [self, ' is on a rampage!'])
 })
 ```
+
+#### Try it out
+
+<InteractiveSnippet height={300} imports={['MCFunction', 'Objective', 'Selector', '_', 'tellraw']} code={`
+const self = Selector('@s')
+const kills = Objective.create('kills', 'playerKillCount')
+const myKills = kills(self)
+\nMCFunction('if_score', () => {
+  _.if(myKills.greaterThan(10), () => {
+    tellraw('@a', [self, ' is on a rampage!'])
+  })
+})
+`} />
 
 [score comparison operators]: /docs/features/objectives#comparison
 
@@ -124,6 +138,21 @@ This is the resulting command:
 ```mcfunction
 execute if data block ~ ~-1 ~ Items[{id:minecraft:honey_bottle}] run ...
 ```
+  
+#### Try it out
+
+<InteractiveSnippet height={300} imports={['MCFunction', 'Selector', '_', 'tellraw']} code={`
+const self = Selector('@s')\n
+MCFunction('tick', () => {
+  // Execute as every player
+  execute.as(Selector('@a')).at(self).run(() => {
+    // Detect honey bottles
+    _.if(_.data.block(rel(0, -1, 0), 'Items[{id:"minecraft:honey_bottle"}]'), () => {
+      tellraw(self, 'There is some honey beneath you')
+    })
+  })
+}, { runEachTick: true })
+`} />
 
 :::
 
@@ -193,6 +222,21 @@ MCFunction('tick', () => {
 }, { runEachTick: true })
 ```
 
+#### Try it out
+
+<InteractiveSnippet height={300} imports={['MCFunction', 'Selector', '_', 'execute', 'rel', 'tellraw']} code={`
+const self = Selector('@s')\n
+MCFunction('tick', () => {
+  // Execute as every player
+  execute.as(Selector('@a')).at(self).run(() => {
+    // Detect sandstone under the player
+    _.if(_.block(rel(0, -1, 0), "minecraft:sandstone"), () => {
+      tellraw(self, 'The framework is below your feet!')
+    })
+  })
+}, { runEachTick: true })
+`} />
+  
 ### Boolean logic
 
 Boolean logic in programming means comparing boolean values (`true`/`false`)
@@ -213,8 +257,9 @@ have more than just two conditions as inputs.
 
 Example:
 ```ts
-const condA = _.block(rel(0, -1, 0), 'minecraft:sandstone');
-const condB = _.block(rel(0, 0, 0), 'minecraft:sandstone_slab');
+// Check if there is a sandstone slab on the current block, or a sandstone block under the player's feet
+const condA = _.block(rel(0, -1, 0), 'minecraft:sandstone')
+const condB = _.block(rel(0, 0, 0), 'minecraft:sandstone_slab')
 _.if(_.or(condA, condB), () => {
   say('Jackpot!')
 })
@@ -234,8 +279,9 @@ have more than just two conditions as inputs.
 
 Example:
 ```ts
-const condA = _.block(rel(0, -1, 0), 'minecraft:tnt');
-const condB = _.block(rel(0, 0, 0), '#minecraft:pressure_plates');
+// Check if there is a pressure plate on top of a TNT!
+const condA = _.block(rel(0, -1, 0), 'minecraft:tnt')
+const condB = _.block(rel(0, 0, 0), '#minecraft:pressure_plates')
 _.if(_.and(condA, condB), () => {
   say('Boom!')
 })
@@ -253,9 +299,24 @@ input.
 
 Example:
 ```ts
-const condA = _.block(rel(0, -1, 0), 'minecraft:sandstone');
-const condB = _.block(rel(0, 0, 0), 'minecraft:sandstone_slab');
+// Check if there is neither a sandstone slab on the current block, nor a sandstone block under the player's feet
+const condA = _.block(rel(0, -1, 0), 'minecraft:sandstone')
+const condB = _.block(rel(0, 0, 0), 'minecraft:sandstone_slab')
 _.if(_.not(_.or(condA, condB)), () => {
   say('Not a jackpot :(')
 })
 ```
+  
+
+#### Try it out
+
+<InteractiveSnippet height={250} imports={['MCFunction', '_', 'rel', 'say']} code={`
+// Check if there is a pressure plate on top of a TNT!
+const condA = _.block(rel(0, -1, 0), 'minecraft:tnt')
+const condB = _.block(rel(0, 0, 0), '#minecraft:pressure_plates')\n
+MCFunction('check_boom', () => {
+  _.if(_.and(condA, condB), () => {
+    say('Boom!')
+  })
+})
+`} />
