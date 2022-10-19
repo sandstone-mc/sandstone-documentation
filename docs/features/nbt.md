@@ -18,6 +18,15 @@ summon('minecraft:armor_stand', rel(0, 0, 0), {
 })
 ```
 
+Or give a diamond sword with the name "Excalibur":
+```ts
+give('@a', 'minecraft:diamond_sword' + NBT.stringify({
+    display: {
+        Name: JSON.stringify([{ text: 'Excalibur' }]),
+    },
+}))
+```
+
 ## Units
 
 ### Usefulness
