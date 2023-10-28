@@ -9,7 +9,7 @@ module.exports = function (context) {
     name: 'get-sandstone-files',
 
     async loadContent() {
-      const buildInfoRequest = await fetch('https://unpkg.com/sandstone@latest/tsconfig.tsbuildinfo');
+      const buildInfoRequest = await fetch('https://unpkg.com/sandstone@0.13.6/tsconfig.tsbuildinfo');
       const buildInfo = await buildInfoRequest.json();
 
       const sandstoneFiles = (await Promise.all(Object.keys(buildInfo.program.fileInfos).map(async (file) => {
