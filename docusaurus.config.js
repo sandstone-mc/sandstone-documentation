@@ -11,10 +11,6 @@ module.exports = {
     colorMode: {
       defaultMode: 'dark',
     },
-    googleAnalytics: {
-      trackingID: 'UA-168678555-1',
-      anonymizeIP: true,
-    },
     navbar: {
       title: 'Sandstone',
       logo: {
