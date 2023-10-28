@@ -2,7 +2,7 @@
 
 # Website
 
-This website is the documentation for the [Sandstone](https://github.com/TheMrZZ/) project. It is hosted on [sandstone.dev](https://www.sandstone.dev).
+This website is the documentation for the [Sandstone](https://github.com/sandstone-mc/) project. It is hosted on [sandstone.dev](https://www.sandstone.dev).
 
 ### Installation
 

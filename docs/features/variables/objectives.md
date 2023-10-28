@@ -44,7 +44,7 @@ Sandstone has a number of helper methods to perform operations on scores.
 
 Inline operations are operations that modify the base score. For example, `myKills.add(2)` would compile in `scoreboard players add @s kills 2`. The value of `myKills` will change.
 
-There is one inline method for each type of operations (`+`, `-`, `×`, `÷`), and they all accept numbers and other player scores:
+There is one inline method for each type of operation (`+`, `-`, `×`, `÷`), and they all accept numbers and other player scores:
 ```ts
 /* Addition */
 // Add 2 to my kills

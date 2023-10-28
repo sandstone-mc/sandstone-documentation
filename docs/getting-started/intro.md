@@ -7,7 +7,7 @@ sidebar_position: 1
 ---
 import GitHubButton from 'react-github-btn'
 
-Sandstone is a Typescript library for Minecraft Datapacks. It allows easy creation, debug and sharing of Minecraft functions, loot tables, predicates etc...
+Sandstone is a Typescript library for Minecraft Datapacks & Resource packs. It allows easy creation, debug and sharing of Minecraft functions, loot tables, predicates etc...
 
 ## Features
 
@@ -35,10 +35,10 @@ Sandstone **does not force its abstractions** on you:
 
 ## Supporting Sandstone
 
-If you want to support Sandstone, the simplest way is to star the repository [on Github](https://github.com/themrzz/sandstone)! It's very encouraging.
+If you want to support Sandstone, the simplest way is to star the repository [on Github](https://github.com/sandstone-mc/sandstone)! It's very encouraging.
 
 <!-- This is the star button -->
-<GitHubButton href="https://github.com/TheMrZZ/sandstone" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-show-count="true" data-size="large" aria-label="Star TheMrZZ/sandstone on GitHub">Star</GitHubButton>
+<GitHubButton href="https://github.com/sandstone-mc/sandstone" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-show-count="true" data-size="large" aria-label="Star sandstone-mc/sandstone on GitHub">Star</GitHubButton>
 
 ## Community
 

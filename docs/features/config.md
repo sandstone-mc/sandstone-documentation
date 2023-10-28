@@ -5,4 +5,4 @@ description: "How to configure Sandstone: everything you need to know about sand
 ---
 
 ## Introduction
-Sandstone comes with a `sandstone.config.ts` file, used to configure the resulting data pack. You can
+Sandstone comes with a `sandstone.config.ts` file, used to configure the resulting datapack and, sometimes, resource pack. You can

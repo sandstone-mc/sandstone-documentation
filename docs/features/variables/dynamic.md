@@ -1,10 +1,10 @@
 ---
-id: variables
-title: Variables
+id: dynamic
+title: Dynamic Variables
 description: How to use dynamic variables in Sandstone.
 ---
 
-## Introduction
+## Scores - Introduction
 
 Sometimes, you want a single numerical variable that is not tied to a specific objective. For example:
 - A `counter` variable, that just counts from a number to another one.
@@ -60,3 +60,28 @@ MCFunction('count_diamonds', () => {
   tellraw('@a', ['The total number of diamonds is ', totalDiamonds])
 })
 ```
+
+## Data - Introduction
+
+Sometimes, you will want a point of data storage not tied to a specific namespace. For example:
+- A `vector` variable, where you pass a float to another function.
+- A `display` variable, where you assemble a display entity's nbt.
+- Any nbt value (component or primitive)
+
+Sandstone allows you to directly write those variables, without deciding on a storage location, nor writing any command.
+
+## Syntax
+
+To create a variable, the following syntax can be used:
+```ts
+import { DataVariable } from 'sandstone'
+import { NBT } from 'sandstone/variables'
+
+// Create a data variable initialized to 3.35f
+const vector = DataVariable(NBT.float(3.35))
+
+// Create a variable that isn't initialized
+const display = DataVariable()
+```
+
+Data Variables are just an instance of a Data Point; you can use [all the methods](data#data-point) they have, including all operations: `select`, `set`, `merge`, `append`, `prepend`, `insert`, `remove`, `slice`, `equals`...

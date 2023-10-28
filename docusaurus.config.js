@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'favicon.ico',
-  organizationName: 'TheMrZZ', // Usually your GitHub org/user name.
+  organizationName: 'sandstone-mc', // Usually your GitHub org/user name.
   projectName: 'sandstone-documentation', // Usually your repo name.
   themeConfig: {
     colorMode: {
@@ -35,7 +35,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://github.com/TheMrZZ/sandstone',
+          href: 'https://github.com/sandstone-mc/sandstone',
           label: 'GitHub',
           position: 'right',
         },
@@ -57,7 +57,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/TheMrZZ/sandstone-documentation/edit/master/website/',
+            'https://github.com/sandstone-mc/sandstone-documentation/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
