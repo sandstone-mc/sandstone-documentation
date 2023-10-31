@@ -116,11 +116,12 @@ You can specify different options, other than `lazy`, for your Minecraft functio
 
  option | type | description |
 --|--|--|
-`runEachTick` | `boolean` | Whether the function should run each tick. |
+`runEvery` | `TimeArgument` | Whether the function should run at an interval, eg. `20`, `'20t'`, `'1s'`. |
+`runEveryTick` | `boolean` | Whether the function should run each tick. |
 `runOnLoad` | `boolean` | Whether the function should run when the datapack is loaded or reloaded. |
-`tags` | `string[]` | The function tags to apply to this function.
-`lazy` | `boolean` | If true, then the function will only be created if it is called from another function.
-``
+`tags` | `(TagClass | string)[]` | The function tags to apply to this function. |
+`lazy` | `boolean` | If true, then the function will only be created if it is called from another function. |
+`asyncContext` | `boolean` | If true, then the function will retain entity & location context when using async runtime operations such as `sleep`. |
 
 ## Inline functions
 
