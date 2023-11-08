@@ -165,7 +165,7 @@ at one volume with another volume.
 
 #### Single block
 
-To test for a single block, use `_.block`. It takes the block's location as the
+To test for a single block, use `Block`. It takes the block's location as the
 first argument and the block to test for as the second.
 
 In the following example a function tests for a specific block below each
@@ -180,7 +180,7 @@ MCFunction('tick', () => {
   // Execute as every player
   execute.as(Selector('@a')).at(self).run(() => {
     // Detect sandstone under the player
-    _.if(_.block(rel(0, -1, 0), "minecraft:sandstone"), () => {
+    _.if(Block(rel(0, -1, 0), "minecraft:sandstone"), () => {
       tellraw(self, 'The framework is below your feet!')
     })
   })
@@ -207,7 +207,7 @@ MCFunction('tick', () => {
   // Execute as every player
   execute.as(Selector('@a')).at(self).run(() => {
     // Detect sandstone under the player
-    _.if(_.blocks(
+    _.if(Blocks(
       // Area
       rel(-1, -1, -1),
       rel(1, -1, 1),
@@ -230,7 +230,7 @@ MCFunction('tick', () => {
   // Execute as every player
   execute.as(Selector('@a')).at(self).run(() => {
     // Detect sandstone under the player
-    _.if(_.block(rel(0, -1, 0), "minecraft:sandstone"), () => {
+    _.if(Block(rel(0, -1, 0), "minecraft:sandstone"), () => {
       tellraw(self, 'The framework is below your feet!')
     })
   })
@@ -258,8 +258,8 @@ have more than just two conditions as inputs.
 Example:
 ```ts
 // Check if there is a sandstone slab on the current block, or a sandstone block under the player's feet
-const condA = _.block(rel(0, -1, 0), 'minecraft:sandstone')
-const condB = _.block(rel(0, 0, 0), 'minecraft:sandstone_slab')
+const condA = Block('sandstone', rel(0, -1, 0))
+const condB = Block('sandstone_slab') // Unspecified is equivalent to `~ ~ ~`
 _.if(_.or(condA, condB), () => {
   say('Jackpot!')
 })
@@ -280,8 +280,8 @@ have more than just two conditions as inputs.
 Example:
 ```ts
 // Check if there is a pressure plate on top of a TNT!
-const condA = _.block(rel(0, -1, 0), 'minecraft:tnt')
-const condB = _.block(rel(0, 0, 0), '#minecraft:pressure_plates')
+const condA = Block('tnt', rel(0, -1, 0))
+const condB = BuiltinBlockSet('pressure_plates')
 _.if(_.and(condA, condB), () => {
   say('Boom!')
 })
@@ -300,8 +300,8 @@ input.
 Example:
 ```ts
 // Check if there is neither a sandstone slab on the current block, nor a sandstone block under the player's feet
-const condA = _.block(rel(0, -1, 0), 'minecraft:sandstone')
-const condB = _.block(rel(0, 0, 0), 'minecraft:sandstone_slab')
+const condA = Block('sandstone', rel(0, -1, 0))
+const condB = Block('sandstone_slab') // Unspecified is equivalent to `~ ~ ~`
 _.if(_.not(_.or(condA, condB)), () => {
   say('Not a jackpot :(')
 })
@@ -312,8 +312,8 @@ _.if(_.not(_.or(condA, condB)), () => {
 
 <InteractiveSnippet height={250} imports={['MCFunction', '_', 'rel', 'say']} code={`
 // Check if there is a pressure plate on top of a TNT!
-const condA = _.block(rel(0, -1, 0), 'minecraft:tnt')
-const condB = _.block(rel(0, 0, 0), '#minecraft:pressure_plates')\n
+const condA = Block('tnt', rel(0, -1, 0))
+const condB = BuiltinBlockSet('pressure_plates')\n
 MCFunction('check_boom', () => {
   _.if(_.and(condA, condB), () => {
     say('Boom!')

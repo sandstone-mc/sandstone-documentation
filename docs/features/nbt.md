@@ -78,9 +78,9 @@ Integer array and Long array are **different** from arrays of integers and array
 { Test: [L; 0, 1, 2 ] } # Long array
 ```
 
-Integer arrays are used in [custom player heads IDs](https://minecraft.gamepedia.com/Head#Item_data), and in [several Villager NBTs](https://minecraft.gamepedia.com/Mob/ED) storing locations.
+Integer arrays are used in [custom player heads IDs](https://minecraft.wiki/Head#Item_data), and in [several Villager NBTs](https://minecraft.wiki/Mob/ED) storing locations.
 
-Long arrays are used to store [chunk data](https://minecraft.gamepedia.com/Chunk_format#NBT_structure).
+Long arrays are used to store [chunk data](https://minecraft.wiki/Chunk_format#NBT_structure).
 
 ### Unit-free Syntax
 

@@ -29,11 +29,11 @@ To build the data pack, type the following command in your terminal:
 
 <Tabs
   groupId="package-manager"
-  defaultValue="npm"
+  defaultValue="sand"
   values={[
-    {label: 'Npm', value: 'npm'},
-    {label: 'Yarn', value: 'yarn'},
     {label: 'Sand', value: 'sand'},
+    {label: 'Pnpm', value: 'pnpm'},
+    {label: 'Npm', value: 'npm'},
 ]}>
 <TabItem value="npm">
 
@@ -41,10 +41,10 @@ To build the data pack, type the following command in your terminal:
 npm run watch -- --verbose
 ```
 </TabItem>
-<TabItem value="yarn">
+<TabItem value="pnpm">
 
 ```batch
-yarn watch --verbose
+pnpm watch --verbose
 ```
 </TabItem>
 

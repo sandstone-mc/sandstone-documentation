@@ -37,4 +37,4 @@ As you can see, you must provide the `type` of the recipe. Depending on this con
 
 ## Additional properties
 
-Recipes do not have additional properties, however they have type-dependant properties. All those can be found directly via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Recipes](https://minecraft.gamepedia.com/Recipe#JSON_format).
+Recipes do not have additional properties, however they have type-dependant properties. All those can be found directly via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Recipes](https://minecraft.wiki/Recipe#JSON_format).

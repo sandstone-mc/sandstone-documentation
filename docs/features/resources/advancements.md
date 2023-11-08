@@ -35,7 +35,7 @@ As you can see, you must provide at least 1 criteria. It must have a name, and a
 
 ### Additional properties
 
-All additional properties can be directly found via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Advancements](https://minecraft.gamepedia.com/Advancement/JSON_format#File_Format).
+All additional properties can be directly found via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Advancements](https://minecraft.wiki/Advancement/JSON_format#File_Format).
 
 ## Usage
 

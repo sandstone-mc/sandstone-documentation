@@ -29,4 +29,4 @@ As you can see, you must provide the `condition` of the predicate. Depending on 
 
 ## Additional properties
 
-Predicates do not have additional properties, however they have condition-dependant properties. All those can be found directly via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Predicates](https://minecraft.gamepedia.com/Predicate#JSON_structure).
+Predicates do not have additional properties, however they have condition-dependant properties. All those can be found directly via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Predicates](https://minecraft.wiki/Predicate#JSON_structure).

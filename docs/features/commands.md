@@ -64,7 +64,7 @@ This example shows that Sandstone hints you what arguments are needed, and tell 
 
 ## Optional arguments
 
-In Minecraft, some commands have optional arguments. Let's stay with the `/effect give` command. According to the [Wiki](https://minecraft.gamepedia.com/Commands/effect#Syntax), It has 2 to 5 arguments:
+In Minecraft, some commands have optional arguments. Let's stay with the `/effect give` command. According to the [Wiki](https://minecraft.wiki/Commands/effect#Syntax), It has 2 to 5 arguments:
 
 ```/effect give <targets> <effect> [<seconds>] [<amplifier>] [<hideParticles>]```
 
