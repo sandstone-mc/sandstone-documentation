@@ -52,7 +52,7 @@ myKills.add(2)
 // Add the kills of the winner to my kills
 myKills.add(winnerKills)
 
-/* Substraction */
+/* subtraction */
 // Remove 2 from my kills
 myKills.remove(2)
 // Remove the kills of the winner from my kills
@@ -117,7 +117,7 @@ const killsPlus2 = myKills.plus(2)
 // Get the sum of the kills of the winner and my kills
 const sumOfKills = myKills.plus(winnerKills)
 
-/* Substraction */
+/* subtraction */
 // Get my kills minus two
 const killsMinus2 = myKills.minus(2)
 // Get the difference of my kills and the kills of the winner 

@@ -113,3 +113,47 @@ const foobar = DataVariable('foobar')
 const foo = DataVariable(foobar.slice(0, 2))
 const bar = DataVariable(foobar.slice(-3))
 ```
+
+## Data Sets
+
+Sandstone has support for a form of Data Sets; allowing for Maps & Arrays of Data, represented in-game by Data Storage.
+
+```ts
+const test_map = DataIndexMap({
+  foo: 'bar',
+  baz: 'test'
+})
+/**
+ * {
+ *   Entries: [['foo', 'bar'], ['baz', 'test']]
+ *   Index: {
+ *     foo: 0,
+ *     baz: 1
+ *   }
+ * }
+ */
+
+const test_array = DataArray(['foo', 'bar', 'baz'])
+/**
+ * ['foo', 'bar', 'baz']
+ */
+```
+
+These can be manipulated & indexed just like any native set of data in TypeScript, including at runtime with dynamic indexes.
+
+```ts
+tellraw('@a', [test_map.baz, test_array[1]])
+/**
+ * testbar
+ */
+
+test_map.foo = 'funny'
+
+test_map.start = NBT.double(42.42)
+
+test_array.push(test_map.baz)
+
+test_map[Macro`mob_${id}`] = Data('entity', '@s', 'CustomName')
+
+test_map.remove('foo')
+```

@@ -6,8 +6,7 @@ position: 2
 ---
 import { InteractiveSnippet } from '../../../src/components'
 
-You can easily check for in-game conditions using Sandstone's builtin `if`
-statement.
+You can easily check for in-game conditions using Sandstone's built-in `if` statement.
 
 ## Syntax
 
@@ -25,7 +24,7 @@ _
   })
 ```
 
-As you can see, this syntax mimicks the original `if / else if / else` construct
+As you can see, this syntax mimics the original `if / else if / else` construct
 from classical programming languages. `elseIf` and `else` are entirely optional,
 and you can chain as many `elseIf` as needed:
 
@@ -78,7 +77,7 @@ const myKills = kills(self)
 })
 `} />
 
-[score comparison operators]: /docs/features/objectives#comparison
+[score comparison operators]: /docs/features/variables/objectives#comparison
 
 ### Data conditions
 
@@ -138,7 +137,9 @@ This is the resulting command:
 ```mcfunction
 execute if data block ~ ~-1 ~ Items[{id:minecraft:honey_bottle}] run ...
 ```
-  
+
+:::
+
 #### Try it out
 
 <InteractiveSnippet height={300} imports={['MCFunction', 'Selector', '_', 'tellraw']} code={`
@@ -320,3 +321,37 @@ MCFunction('check_boom', () => {
   })
 })
 `} />
+
+#### Large scale Flow
+
+:::warning
+In some scenarios a very large condition tree may be necessary, in which case, scaled usage of Flow should be avoided, due to compile-time performance concerns.
+
+Example:
+```ts
+const foo = Variable(0)
+
+_.if(foo['<='](100000), () => {
+  _.if(foo['<='](100), () => {
+
+    for (let i = 0; i < 100; i++) {
+      _.return.run(() => {
+        _.if(foo['=='](i), () => {
+          say(`${i}`)
+        })
+      })
+    }
+  })
+  .elseIf(_.and(foo['>'](100), foo['<='](200)), () => {
+    /// ...
+  })
+  /// ...
+}).else(() => {
+  /// ...
+})
+```
+
+On better than average hardware an example like this would take several minutes to compile due to Visitor complexity; **many** nested command callbacks results in unacceptably slow compile times.
+
+To avoid this, use primitive commands instead, utilizing tools like `raw` when necessary, and/or compiling your trees once and saving them in external resources.
+:::
