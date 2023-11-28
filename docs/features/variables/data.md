@@ -153,7 +153,7 @@ test_map.start = NBT.double(42.42)
 
 test_array.push(test_map.baz)
 
-test_map[Macro`mob_${id}`] = Data('entity', '@s', 'CustomName')
+test_map[id.Macro`mob_${id}`] = Data('entity', '@s', 'CustomName')
 
 test_map.remove('foo')
 ```
