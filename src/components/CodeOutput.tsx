@@ -1,12 +1,12 @@
 import React from 'react'
 import { Tabs } from './Tabs';
 import TabItem from '@theme/TabItem';
-import Hightlight, { defaultProps } from 'prism-react-renderer';
-import type { SaveOptions } from 'sandstone/datapack/saveDatapack';
+import { Highlight } from 'prism-react-renderer';
+import { CustomHandlerFileObject } from '../utils/compiler';
 
-export type CustomHandlerFileObject = (Parameters<Required<SaveOptions>['customFileHandler']>[0] & { key: number }) | { type: 'errors', relativePath: string, content: string, key: number };
 
-const theme = require('../../docusaurus.config').themeConfig.prism.theme.default
+const config = require('../../docusaurus.config').default;
+const theme = config.themeConfig.prism.theme
 
 const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }) => {
   if (!files.length || typeof window === 'undefined') {
@@ -42,8 +42,8 @@ const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }
         >
           {
             filesExtended.map((file) => (
-              <TabItem value={file.name} key={file.name}>
-                <Hightlight {...defaultProps} theme={theme} code={file.content} language={"mcfunction" as "javascript"}>
+              <TabItem value={file.name} key={file.relativePath}>
+                <Highlight theme={theme} code={file.content} language={"mcfunction" as "javascript"}>
                   {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <pre className={className} style={{ ...style, padding: '20px' }}>
                       {tokens.map((line, i) => (
@@ -55,7 +55,7 @@ const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }
                       ))}
                     </pre>
                   )}
-                </Hightlight>
+                </Highlight>
               </TabItem>
             ))
           }

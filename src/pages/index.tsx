@@ -1,15 +1,13 @@
-import React from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import styles from './index.module.css';
-import '../theme/prism-include-languages'
+import clsx from "clsx";
+import styles from "./index.module.css";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Layout from "@theme/Layout";
+import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 const features = [
   {
-    title: <>Easy to Use</>,
+    title: "Easy to Use",
     imageUrl: '/img/icons/computer.png',
     style: styles.featureImage2,
     description: (
@@ -20,7 +18,7 @@ const features = [
     ),
   },
   {
-    title: <>Focus on What Matters</>,
+    title: "Focus on What Matters",
     imageUrl: '/img/icons/dirt.png',
     style: styles.featureImage1,
     description: (
@@ -31,7 +29,7 @@ const features = [
     ),
   },
   {
-    title: <>Powered by Typescript</>,
+    title: "Powered by Typescript",
     imageUrl: '/img/icons/ts.png',
     style: styles.featureImage3,
     description: (
@@ -59,12 +57,13 @@ function Feature({ imageUrl, title, description, style }) {
 
 function Home() {
   const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
+  const { siteConfig = {} as any } = context;
   return (
     <Layout
       title={`${siteConfig.title} | A Typescript library for Minecraft Datapacks`}
       description="Sandstone is a Typescript library used to create Minecraft datapacks. Featuring perfect autocompletion, while &amp; for loops, shared configurable libraries..."
-      keywords={['sandstone', 'minecraft', 'datapack', 'typescript', 'easy']}
+      
+      // keywords={['sandstone', 'minecraft', 'datapack', 'typescript', 'easy']}
     >
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">

@@ -4,54 +4,50 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start -p 8000",
+    "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "serve": "docusaurus serve"
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.4.3",
-    "@docusaurus/preset-classic": "^2.4.3",
-    "@docusaurus/theme-common": "^2.4.3",
-    "@mdx-js/react": "^1.6.22",
+    "@docusaurus/core": "3.0.1",
+    "@docusaurus/preset-classic": "3.0.1",
+    "@mdx-js/react": "^3.0.0",
     "@monaco-editor/react": "^4.6.0",
-    "@stackblitz/sdk": "^1.9.0",
-    "@types/lodash": "^4.14.200",
-    "buffer": "^6.0.3",
-    "clsx": "^1.2.1",
-    "constants-browserify": "^1.0.0",
-    "lodash": "^4.17.21",
-    "monaco-editor": "^0.23.0",
-    "node-fetch": "^3.3.2",
-    "os-browserify": "^0.3.0",
-    "path-browserify": "^1.0.1",
-    "prism-react-renderer": "^2.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "@sandstone-mc/playground": "^0.1.2",
+    "clsx": "^2.0.0",
+    "monaco-editor": "^0.44.0",
+    "prism": "^4.1.2",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-github-btn": "^1.4.0",
-    "sandstone": "^0.13.6",
-    "stream-browserify": "^3.0.0",
-    "util": "^0.12.5"
+    "sandstone": "^1.0.0-alpha.5"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "3.0.1",
+    "@docusaurus/tsconfig": "3.0.1",
+    "@docusaurus/types": "3.0.1",
+    "typescript": "~5.2.2"
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      ">0.5%",
       "not dead",
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
     ]
   },
-  "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.4.3",
-    "@tsconfig/docusaurus": "^1.0.7",
-    "@types/react": "^17.0.69",
-    "@types/react-helmet": "^6.1.8",
-    "@types/react-router-dom": "^5.3.3",
-    "typescript": "^4.9.5"
+  "engines": {
+    "node": ">=18.0"
   }
 }

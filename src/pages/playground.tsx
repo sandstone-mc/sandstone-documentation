@@ -6,13 +6,13 @@ import './playground.module.css'
 
 export default function Playground() {
   const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
+  const { siteConfig = {} as any } = context;
 
   return (
     <Layout
       title={`${siteConfig.title} | A Typescript library for Minecraft Datapacks`}
       description="Sandstone is a Typescript library used to create Minecraft datapacks. Featuring perfect autocompletion, while &amp; for loops, shared configurable libraries..."
-      keywords={['sandstone', 'minecraft', 'datapack', 'typescript', 'easy']}
+      // keywords={['sandstone', 'minecraft', 'datapack', 'typescript', 'easy']}
       wrapperClassName="iframe-wrapper"
     >
 
@@ -21,7 +21,7 @@ export default function Playground() {
       id="sandstone-playground" 
       height="100%" 
       width="100%" 
-      frameborder="0"
+      // frameborder="0"
       style={{
         height: '100%',
         width: '100%',

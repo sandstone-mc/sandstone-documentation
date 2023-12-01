@@ -1,8 +1,13 @@
 import React from 'react'
-import path from 'path'
+
+function getExtension(path:string){
+  let bits = path.split('.')
+  if(bits.length === 1) return ''
+  return bits[bits.length - 1];
+}
 
 export const FileTab = ({ name, style }: { name: string, style?: React.StyleHTMLAttributes<HTMLDivElement> }) => {
-  const ext = path.parse(name).ext.slice(1)
+  const ext = getExtension(name)
 
   return <div style={{
     padding: '2px 10px 2px 8px',
@@ -14,7 +19,7 @@ export const FileTab = ({ name, style }: { name: string, style?: React.StyleHTML
     alignItems: 'center',
     ...(style ?? {}),
   }}>
-    {ext ? <img src={`/img/icons/file_type_${path.parse(name).ext.slice(1)}.svg`} height={25} /> : <></>}
+    {ext ? <img src={`/img/icons/file_type_${getExtension(name)}.svg`} height={25} /> : <></>}
     <span>{name}</span>
   </div>
 }

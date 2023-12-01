@@ -50,25 +50,25 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
       }
     })
     editor.onKeyDown(e => {
-      // If the user tries to modify the first line, stop him
-      const readonlyRange = new monaco.Range(0, 0, 2, 0)
-      const contains = editor.getSelections().find(range => readonlyRange.intersectRanges(range)) !== undefined
-      if (
-        contains
-        && (e.browserEvent.key.length === 1 || ['enter', 'backspace'].includes(e.browserEvent.key.toLowerCase()))
-        && !(['c', 'a'].includes(e.browserEvent.key.toLowerCase()) && e.ctrlKey) // Let Ctrl+C & Ctrl+A pass
-      ) {
-        e.stopPropagation()
-        e.preventDefault()
-        return
-      }
+      // // If the user tries to modify the first line, stop him
+      // const readonlyRange = new monaco.Range(0, 0, 2, 0)
+      // const contains = editor.getSelections().find(range => readonlyRange.intersectRanges(range)) !== undefined
+      // if (
+      //   contains
+      //   && (e.browserEvent.key.length === 1 || ['enter', 'backspace'].includes(e.browserEvent.key.toLowerCase()))
+      //   && !(['c', 'a'].includes(e.browserEvent.key.toLowerCase()) && e.ctrlKey) // Let Ctrl+C & Ctrl+A pass
+      // ) {
+      //   e.stopPropagation()
+      //   e.preventDefault()
+      //   return
+      // }
 
-      // If the user is on the start of the 2nde line & hits backspace, prevent him
-      const backspaceContains = editor.getSelections().find(range => range.endLineNumber === 2 && range.endColumn === 1) !== undefined
-      if (backspaceContains && e.browserEvent.key.toLowerCase() === 'backspace') {
-        e.stopPropagation()
-        return
-      }
+      // // If the user is on the start of the 2nde line & hits backspace, prevent him
+      // const backspaceContains = editor.getSelections().find(range => range.endLineNumber === 2 && range.endColumn === 1) !== undefined
+      // if (backspaceContains && e.browserEvent.key.toLowerCase() === 'backspace') {
+      //   e.stopPropagation()
+      //   return
+      // }
     });
   }
 
