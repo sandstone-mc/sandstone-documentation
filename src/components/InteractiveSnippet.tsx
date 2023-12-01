@@ -6,6 +6,7 @@ import type { editor } from 'monaco-editor'
 import { CodeOutput } from './CodeOutput'
 import { FileTab } from './FileTab'
 import { debounce } from 'lodash'
+import useIsBrowser from '@docusaurus/useIsBrowser'
 
 function getCodeWithoutImports(code: string) {
   return code.split('\n').slice(1).join('\n')
@@ -14,6 +15,8 @@ function getCodeWithoutImports(code: string) {
 type Props = { height: number, code: string, filename?: string, baseImports?: string[] }
 
 export const InteractiveSnippet = (props: Props) => {
+  
+  const isBrowser = useIsBrowser();
   // const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] }
   const sandstoneFiles = [["content", "fileName.ts"]] as [content: string, fileName: string][]
   const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([])
@@ -57,8 +60,8 @@ ${props.code.trim()}`.trim())
   }, 500, { leading: false, trailing: true }), [setEditorValue, setPreviousCode, previousCode])
 
   useEffect(() => {
-    compile(editorValue, editorErrors)
-  }, [editorValue, editorErrors])
+    isBrowser && compile(editorValue, editorErrors)
+  }, [editorValue, editorErrors,isBrowser])
 
   return <div style={{
     display: 'flex',
