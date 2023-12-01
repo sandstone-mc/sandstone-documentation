@@ -14,7 +14,8 @@ function getCodeWithoutImports(code: string) {
 type Props = { height: number, code: string, filename?: string, baseImports?: string[] }
 
 export const InteractiveSnippet = (props: Props) => {
-  const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] }
+  // const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] }
+  const sandstoneFiles = [["content", "fileName.ts"]] as [content: string, fileName: string][]
   const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([])
   const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([])
 
@@ -42,13 +43,13 @@ ${props.code.trim()}`.trim())
       }
     }
     compileDataPack(code)
-      .then(({ result, imports }) => {
-        setCompiledDataPack(result)
-        const newEditorValue = `import { ${Array.from(imports).join(', ')} } from 'sandstone'\n${code}`
-        setPreviousCode(code.trim())
-        if (newEditorValue !== editorValue) {
-          setEditorValue(newEditorValue)
-        }
+      .then(({ result }) => {
+        setCompiledDataPack(Object.entries(result).map(([relativePath, content], key) => ({
+          type: 'file',
+          relativePath,
+          key,
+          content,
+          })))
       })
       .catch((e) => {
         console.log('Got error', e)
@@ -56,7 +57,7 @@ ${props.code.trim()}`.trim())
   }, 500, { leading: false, trailing: true }), [setEditorValue, setPreviousCode, previousCode])
 
   useEffect(() => {
-    compile(getCodeWithoutImports(editorValue), editorErrors)
+    compile(editorValue, editorErrors)
   }, [editorValue, editorErrors])
 
   return <div style={{
