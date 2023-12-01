@@ -5,6 +5,7 @@ description: How to use the official Block Library
 ---
 
 import { Tabs } from "../../src/components";
+import { InteractiveSnippet } from '../../src/components'
 import TabItem from "@theme/TabItem";
 
 ## Installation

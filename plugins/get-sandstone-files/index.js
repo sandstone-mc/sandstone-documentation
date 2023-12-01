@@ -1,6 +1,4 @@
-const fs = require("fs");
-const path = require("path");
-const SandstoneRootObject = require("sandstone");
+//const SandstoneRootObject = require("sandstone");
 
 /**
  * @param {import("@docusaurus/types").LoadContext} context
@@ -40,7 +38,7 @@ module.exports = function (context) {
         )
       ).filter((x) => x !== null);
 
-      const sandstoneExports = Object.keys(SandstoneRootObject);
+      const sandstoneExports = JSON.parse((await (await fetch('https://unpkg.com/@sandstone-mc/playground@0.1.3/dist/exports.js')).text()).split(' = ')[1].replace(';', ''))
       sandstoneFiles.push([
         `
         import {${sandstoneExports.join(",")}} from 'sandstone'
@@ -54,6 +52,8 @@ module.exports = function (context) {
       `,
         "file:///node_modules/@types/sandstone/globalTypes.d.ts",
       ]);
+
+      console.log(sandstoneFiles)
 
       return {
         sandstoneFiles,
