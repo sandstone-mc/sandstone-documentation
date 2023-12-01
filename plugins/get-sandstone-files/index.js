@@ -11,7 +11,7 @@ module.exports = function (context) {
 
     async loadContent() {
       const buildInfoRequest = await fetch(
-        "https://unpkg.com/sandstone@0.12.11/tsconfig.tsbuildinfo"
+        "https://unpkg.com/sandstone@1.0.0-beta.0/tsconfig.tsbuildinfo"
       );
       const buildInfo = await buildInfoRequest.json();
 

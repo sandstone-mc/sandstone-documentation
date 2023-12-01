@@ -1,6 +1,6 @@
 ---
 id: switch-case
-title: switch/case
+title: Switch/Case
 description: How to provide per-case logic for a Score or DataPoint in Sandstone.
 ---
 

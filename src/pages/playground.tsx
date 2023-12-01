@@ -10,8 +10,8 @@ export default function Playground() {
 
   return (
     <Layout
-      title={`${siteConfig.title} | A Typescript library for Minecraft Datapacks`}
-      description="Sandstone is a Typescript library used to create Minecraft datapacks. Featuring perfect autocompletion, while &amp; for loops, shared configurable libraries..."
+      title={`${siteConfig.title} | A Typescript library for Minecraft Datapacks & Resource Packs`}
+      description="Sandstone is a Typescript library used to create Minecraft datapacks & resource packs. Featuring perfect autocompletion, while &amp; for loops, shared configurable libraries..."
       // keywords={['sandstone', 'minecraft', 'datapack', 'typescript', 'easy']}
       wrapperClassName="iframe-wrapper"
     >

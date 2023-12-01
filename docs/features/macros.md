@@ -1,6 +1,6 @@
 ---
 id: macros
-title: Function macros
+title: Function Macros
 description: How to use function macros in Sandstone.
 ---
 
@@ -12,7 +12,7 @@ Sandstone provides a first class experience for using said macros, beyond basic 
 
 ```ts
 MCFunction('macro_test', () => {
-  data.modify.storage('macro_test', 'Test').set.value(NBT({test:"5 10 37"}))
+  data.modify.storage('macro_test', 'Test').set.value(NBT({test:'5 10 37'}))
   functionCmd(MCFunction('using_macros', () => {
     raw('/tp @s $(test)')
   }), 'with', 'storage', 'macro_test', 'Test')
@@ -35,14 +35,42 @@ const test = MCFunction('test', [name], (count: Score) => {
 })
 
 MCFunction('foo', () => {
+  const player = DataVariable('MulverineX')
   const count = Objective.create('testing')('@s')
 
-  test(count)
+  test(player, count)
 })
 ```
 
 This is a relatively type-safe method of using Macros, something that as to date, is not possible in any other framework!
 
+:::warning
 Do note a few limitations:
+ - An MCFunction with macro variables **must** be called at compile-time, otherwise it will be generated without any Macro names!
  - Variables used within a function where they are declared as parameter or environment cannot be used normally; if you need both, declare them separately.
  - Nesting capability is not available in parameters; all parameters must be in the root, however, spread operators will work!
+:::
+
+### Macro Templating
+
+Macro variables can be used in conjunction with strings, numbers, and other variables!
+
+```ts
+const $ = Macro
+
+const thingMap = Data('storage', 'test', 'Things')
+
+const thing = Data('storage', 'test', 'Thing')
+
+const test = MCFunction('get_thing', (index: Score) => {
+  $.data.storage.modify(thing).set.from.storage(thingMap.currentTarget, $`Things[${index}]`)
+})
+
+MCFunction('foo', () => {
+  const index = Objective.create('testing')('@s')
+
+  test(index)
+
+  // Do stuff with `thing`
+})
+```
