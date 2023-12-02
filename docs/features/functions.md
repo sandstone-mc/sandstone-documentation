@@ -30,7 +30,7 @@ Your first possibility is to call another Minecraft function, just like you woul
 
 ```ts
 const main = MCFunction('main', () => {
-  say("This is the main function.")
+  say('This is the main function.')
   give('@a', 'minecraft:diamond')
 })
 
@@ -178,7 +178,7 @@ MCFunction('minimal', async () => {
 })
 ```
 
-There are two things to notice. First, our function is now asynchronous. They `async` keyword has been added before the parameters list:
+There are two things to notice. First, our function is now asynchronous. The `async` keyword has been added before the parameters list:
 ```ts
 MCFunction('minimal', async () => {...})
 ```

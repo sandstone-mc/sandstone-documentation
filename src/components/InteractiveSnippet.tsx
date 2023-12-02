@@ -18,9 +18,6 @@ export const InteractiveSnippet = (props: Props) => {
   
   const isBrowser = useIsBrowser();
   const { sandstoneFiles } = usePluginData('get-sandstone-files') as { sandstoneFiles: [content: string, fileName: string][] }
-  // return <pre>
-  //   {JSON.stringify(sandstoneFiles)}
-  // </pre>
   // const sandstoneFiles = [["content", "fileName.ts"]] as [content: string, fileName: string][]
   const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([])
   const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([])

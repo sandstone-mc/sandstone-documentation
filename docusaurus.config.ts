@@ -2,6 +2,8 @@ import { themes as prismThemes } from "prism-react-renderer";
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 
+console.log(require.resolve("./plugins/get-sandstone-files"))
+
 const config: Config = {
   title: "Sandstone",
   tagline: "A Minecraft Datapack library in Typescript",
@@ -107,6 +109,9 @@ const config: Config = {
         },
       ],
     },
+    plugins: [
+      require.resolve("./plugins/get-sandstone-files")
+    ],
     // footer: {
     //   style: "dark",
     //   links: [

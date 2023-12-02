@@ -22,7 +22,7 @@ You don't need to remember commands syntax anymore.
 This autocompletion works for commands, predicates, loot tables, advancements...
 
 ### Easy to share
-Sharing commands has **never been easier**. Just publish your functions on NPM, and everyone can use them to improve their own datapacks.
+Sharing commands has **never been easier**. Just publish your functions on NPM, and everyone can use them to improve their own packs.
 
 ### Designed for developers
 Sandstone is designed with developer experience in mind. The goal is to provide a beautiful library, easy to understand and to use, with enough abstractions to empower Datapack creators. 

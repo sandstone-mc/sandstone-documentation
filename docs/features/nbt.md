@@ -11,9 +11,9 @@ For example, to summon an invisible armor stand with the "hello" tag and a pumpk
 ```ts
 summon('minecraft:armor_stand', rel(0, 0, 0), { 
     Invisible: 1, 
-    Tags: ["hello"], 
+    Tags: ['hello'], 
     ArmorItems: [
-      {}, {}, {}, { id: "minecraft:carved_pumpkin", Count: 1 },
+      {}, {}, {}, { id: 'minecraft:carved_pumpkin', Count: 1 },
     ]
 })
 ```

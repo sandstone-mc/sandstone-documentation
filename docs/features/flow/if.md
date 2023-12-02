@@ -1,7 +1,7 @@
 ---
 id: if
 title: If / Else
-description: How to write if / else statmements in Sandstone.
+description: How to write if / else statements in Sandstone.
 position: 2
 ---
 
@@ -15,13 +15,13 @@ To check a condition, the following syntax is used:
 
 ```ts
 _.if(condition1, () => {
-  say("Condition 1 is true");
+  say('Condition 1 is true');
 })
   .elseIf(condition2, () => {
-    say("Condition 2 is true");
+    say('Condition 2 is true');
   })
   .else(() => {
-    say("Both condition 1 and condition 2 are false");
+    say('Both condition 1 and condition 2 are false');
   });
 ```
 
@@ -31,7 +31,7 @@ and you can chain as many `elseIf` as needed:
 
 ```ts
 _.if(condition1, () => {
-  say("I am a lonely if");
+  say('I am a lonely if');
 });
 
 _.if(condition2, () => {
@@ -56,12 +56,12 @@ To check if a score matches a given condition, you can use [score comparison ope
 For example:
 
 ```ts
-const self = Selector("@s");
-const kills = Objective.create("kills", "playerKillCount");
+const self = Selector('@s');
+const kills = Objective.create('kills', 'playerKillCount');
 const myKills = kills(self);
 
 _.if(myKills.greaterThan(10), () => {
-  tellraw("@a", [self, " is on a rampage!"]);
+  tellraw('@a', [self, ' is on a rampage!']);
 });
 ```
 
@@ -87,18 +87,16 @@ In the following example, a command is run every tick for each player holding
 a stick in their hand:
 
 ```ts
-import { _, Selector, MCFunction, tellraw, execute } from "sandstone";
+import { _, Selector, MCFunction, tellraw, execute } from 'sandstone';
 
-const self = Selector("@s");
+const self = Selector('@s');
 
-MCFunction(
-  "tick",
-  () => {
+MCFunction('tick', () => {
     // Execute as every player
-    execute.as(Selector("@a")).run(() => {
+    execute.as(Selector('@a')).run(() => {
       // Detect the stick
-      _.if(_.data.entity(self, 'SelectedItem{id:"minecraft:stick"}'), () => {
-        tellraw(self, "Hey! Nice stick you got there.");
+      _.if(_.data.entity(self, 'SelectedItem{id:'minecraft:stick'}'), () => {
+        tellraw(self, 'Hey! Nice stick you got there.');
       });
     });
   },
@@ -109,23 +107,16 @@ MCFunction(
 The same can be done for blocks:
 
 ```ts
-import { _, Selector, MCFunction, tellraw, execute, rel } from "sandstone";
+import { _, Selector, MCFunction, tellraw, execute, rel } from 'sandstone';
 
-const self = Selector("@s");
+const self = Selector('@s');
 
-MCFunction(
-  "tick",
-  () => {
-    // Execute as every player
-    execute
-      .as(Selector("@a"))
-      .at(self)
-      .run(() => {
+MCFunction('tick', () => {
+    // Execute at every player
+    execute.as(Selector('@a')).at(self).run(() => {
         // Detect honey bottles
-        _.if(
-          _.data.block(rel(0, -1, 0), 'Items[{id:"minecraft:honey_bottle"}]'),
-          () => {
-            tellraw(self, "There is some honey beneath you");
+        _.if(Data('block', rel(0, -1, 0), 'Items[{id:'minecraft:honey_bottle'}]'), () => {
+            tellraw(self, 'There is some honey beneath you');
           }
         );
       });
@@ -140,7 +131,7 @@ Please note that no validation is performed on NBT paths. The following snippet
 produces an invalid command due to missing quotes:
 
 ```ts
-_.if(_.data.block(rel(0, -1, 0), "Items[{id:minecraft:honey_bottle}]"), () => {
+_.if(Block('block', rel(0, -1, 0), 'Items[{id:minecraft:honey_bottle}]'), () => {
   // ...
 });
 ```
@@ -160,7 +151,7 @@ MCFunction('tick', () => {
   // Execute as every player
   execute.as(Selector('@a')).at(self).run(() => {
     // Detect honey bottles
-    _.if(_.data.block(rel(0, -1, 0), 'Items[{id:"minecraft:honey_bottle"}]'), () => {
+    _.if(_.data.block(rel(0, -1, 0), 'Items[{id:'minecraft:honey_bottle'}]'), () => {
       tellraw(self, 'There is some honey beneath you')
     })
   })
@@ -170,104 +161,10 @@ MCFunction('tick', () => {
 
 [NBT path]: https://minecraft.fandom.com/wiki/NBT_path_format
 
-### Block conditions
-
-Block conditions can test for a block at a specified location or compare blocks
-at one volume with another volume.
-
-#### Single block
-
-To test for a single block, use `Block`. It takes the block's location as the
-first argument and the block to test for as the second.
-
-In the following example a function tests for a specific block below each
-player:
-
-```ts
-import { _, Selector, MCFunction, tellraw, execute, rel } from "sandstone";
-
-const self = Selector("@s");
-
-MCFunction(
-  "tick",
-  () => {
-    // Execute as every player
-    execute
-      .as(Selector("@a"))
-      .at(self)
-      .run(() => {
-        // Detect sandstone under the player
-        _.if(Block(rel(0, -1, 0), "minecraft:sandstone"), () => {
-          tellraw(self, "The framework is below your feet!");
-        });
-      });
-  },
-  { runEachTick: true }
-);
-```
-
-#### Block volumes
-
-In order to compare two block volumes, the area must be specified first using
-two coordnates and then the coordinates of the corner with the lowest
-coordinates (lower northwest corner). Additionally, it must be specified whether
-air blocks should be ignored when comparing. For more information, take a look
-at the [Minecraft Wiki](https://minecraft.fandom.com/wiki/Commands/execute#.28if.7Cunless.29_blocks).
-
-The following example compares the 3x3 area of blocks below the player with
-the area above them:
-
-```ts
-import { _, Selector, MCFunction, tellraw, execute, rel } from "sandstone";
-
-const self = Selector("@s");
-
-MCFunction(
-  "tick",
-  () => {
-    // Execute as every player
-    execute
-      .as(Selector("@a"))
-      .at(self)
-      .run(() => {
-        // Detect sandstone under the player
-        _.if(
-          Blocks(
-            // Area
-            rel(-1, -1, -1),
-            rel(1, -1, 1),
-            // Corner
-            rel(-1, 2, -1),
-            // Scan Mode
-            "all"
-          ),
-          () => {
-            tellraw(self, "Above and below, it is all the same");
-          }
-        );
-      });
-  },
-  { runEachTick: true }
-);
-```
-
-#### Try it out
-
-<InteractiveSnippet height={300} imports={['MCFunction', 'Selector', '_', 'execute', 'rel', 'tellraw']} code={`const self = Selector('@s')\n
-MCFunction('tick', () => {
-  // Execute as every player
-  execute.as(Selector('@a')).at(self).run(() => {
-    // Detect sandstone under the player
-    _.if(Block(rel(0, -1, 0), "minecraft:sandstone"), () => {
-      tellraw(self, 'The framework is below your feet!')
-    })
-  })
-}, { runEachTick: true })`} />
-
 ### Boolean logic
 
 Boolean logic in programming means comparing boolean values (`true`/`false`)
-with a defined outcome. Each boolean operation has a "truth-table" showing which
+with a defined outcome. Each boolean operation has a 'truth-table' showing which
 inputs lead to what output.
 
 #### Or
@@ -286,10 +183,10 @@ Example:
 
 ```ts
 // Check if there is a sandstone slab on the current block, or a sandstone block under the player's feet
-const condA = Block("sandstone", rel(0, -1, 0));
-const condB = Block("sandstone_slab"); // Unspecified is equivalent to `~ ~ ~`
+const condA = Block('sandstone', rel(0, -1, 0));
+const condB = Block('sandstone_slab'); // Unspecified is equivalent to `~ ~ ~`
 _.if(_.or(condA, condB), () => {
-  say("Jackpot!");
+  say('Jackpot!');
 });
 ```
 
@@ -309,10 +206,10 @@ Example:
 
 ```ts
 // Check if there is a pressure plate on top of a TNT!
-const condA = Block("tnt", rel(0, -1, 0));
-const condB = BuiltinBlockSet("pressure_plates");
+const condA = Block('tnt', rel(0, -1, 0));
+const condB = BuiltinBlockSet('pressure_plates');
 _.if(_.and(condA, condB), () => {
-  say("Boom!");
+  say('Boom!');
 });
 ```
 
@@ -330,10 +227,10 @@ Example:
 
 ```ts
 // Check if there is neither a sandstone slab on the current block, nor a sandstone block under the player's feet
-const condA = Block("sandstone", rel(0, -1, 0));
-const condB = Block("sandstone_slab"); // Unspecified is equivalent to `~ ~ ~`
+const condA = Block('sandstone', rel(0, -1, 0));
+const condB = Block('sandstone_slab'); // Unspecified is equivalent to `~ ~ ~`
 _.if(_.not(_.or(condA, condB)), () => {
-  say("Not a jackpot :(");
+  say('Not a jackpot :(');
 });
 ```
 
@@ -358,16 +255,16 @@ Example:
 ```ts
 const foo = Variable(0);
 
-_.if(foo["<="](100000), () => {
-  _.if(foo["<="](100), () => {
+_.if(foo['<='](100000), () => {
+  _.if(foo['<='](100), () => {
     for (let i = 0; i < 100; i++) {
       _.return.run(() => {
-        _.if(foo["=="](i), () => {
+        _.if(foo['=='](i), () => {
           say(`${i}`);
         });
       });
     }
-  }).elseIf(_.and(foo[">"](100), foo["<="](200)), () => {
+  }).elseIf(_.and(foo['>'](100), foo['<='](200)), () => {
     /// ...
   });
   /// ...

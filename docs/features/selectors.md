@@ -18,7 +18,7 @@ Selector('@a', { /** Arguments */ })
 ```
 
 The first part is the `targets`: it can be `@s`, `@r`, `@p`, `@a` or `@e`.
-The second par is the `arguments`. In this object, you can specify any property that would fit into a vanilla selector:
+The second part is the `arguments`. In this object, you can specify any property that would fit into a vanilla selector:
 
 ```ts
 Selector('@e', { type: 'minecraft:cow', limit: 1, sort: 'random' })
