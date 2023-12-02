@@ -1,7 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const SandstoneRootObject = require("sandstone");
-
+// const fs = require("fs");
+// const path = require("path");
+// const SandstoneRootObject = require("sandstone");
 /**
  * @param {import("@docusaurus/types").LoadContext} context
  */
@@ -11,24 +10,21 @@ module.exports = function (context) {
 
     async loadContent() {
       const buildInfoRequest = await fetch(
-        "https://unpkg.com/sandstone@0.12.11/tsconfig.tsbuildinfo"
+        "https://unpkg.com/sandstone@latest/tsconfig.tsbuildinfo"
       );
       const buildInfo = await buildInfoRequest.json();
-
       const sandstoneFiles = (
         await Promise.all(
-          Object.keys(buildInfo.program.fileInfos).map(async (file) => {
-            const sourceFilePath = file.match(/^\.\.\/src\/([^]+)\.ts$/);
-
+          buildInfo.program.fileNames.map(async (file) => {
+            const sourceFilePath = file.match(/^\.\/src\/([^\x00]+?)\.ts$/);
             if (sourceFilePath && sourceFilePath[1]) {
-              const source = await (
-                await fetch(
-                  `https://unpkg.com/${
-                    buildInfoRequest.url.match(/(sandstone@(\d{1,2}\.?)+)/)?.[0]
-                  }/${sourceFilePath[1]}.d.ts`
-                )
-              ).text();
+              const url = `https://unpkg.com/${
+                buildInfoRequest.url.match(/\/(sandstone@(.+?))\//)?.[1]
+              }/dist/${sourceFilePath[1]}.d.ts`;
+              console.log(file, sourceFilePath, url);
+              const source = await (await fetch(url)).text();
               const name = sourceFilePath[1];
+              console.log(name);
 
               return [
                 source,
@@ -39,15 +35,24 @@ module.exports = function (context) {
           })
         )
       ).filter((x) => x !== null);
-
-      const sandstoneExports = Object.keys(SandstoneRootObject);
+      const sandstoneExports = JSON.parse(
+        (
+          await (
+            await fetch(
+              "https://unpkg.com/@sandstone-mc/playground@0.1.3/dist/exports.js"
+            )
+          ).text()
+        )
+          .split(" = ")[1]
+          .replace(";", "")
+      );
       sandstoneFiles.push([
         `
         import {${sandstoneExports.join(",")}} from 'sandstone'
         ${sandstoneExports
           .map((e) => `type type__${e} = typeof ${e}`)
           .join("\n")}
-        
+
         declare global {
           ${sandstoneExports.map((e) => `const ${e}: type__${e}`).join("\n  ")}
         }
@@ -56,7 +61,7 @@ module.exports = function (context) {
       ]);
 
       return {
-        sandstoneFiles,
+        sandstoneFiles: sandstoneFiles,
       };
     },
 

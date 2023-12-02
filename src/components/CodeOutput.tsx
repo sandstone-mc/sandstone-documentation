@@ -15,10 +15,9 @@ const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }
   const filesExtended = files.map(f => {
     // Remove the 3 first folders
     const folders = f.relativePath.split('/')
-
-    const namespace = folders[1]
-    const resourceType = folders[2] // function, advancement, loot_table...
-    const name = folders.slice(3).join('/')
+    const namespace = folders[2]
+    const resourceType = folders[3] // function, advancement, loot_table...
+    const name = folders.slice(4).join('/')
 
     return {
       ...f,
@@ -41,7 +40,7 @@ const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }
           values={filesExtended.map(({ name }) => ({ label: name, value: name }))}
         >
           {
-            filesExtended.map((file) => (
+            filesExtended.map((file,i) => (
               <TabItem value={file.name} key={file.relativePath}>
                 <Highlight theme={theme} code={file.content} language={"mcfunction" as "javascript"}>
                   {({ className, style, tokens, getLineProps, getTokenProps }) => (
