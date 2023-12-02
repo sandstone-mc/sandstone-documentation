@@ -18,10 +18,8 @@ module.exports = function (context) {
               const url = `https://unpkg.com/${
                 buildInfoRequest.url.match(/\/(sandstone@(.+?))\//)?.[1]
               }/dist/${sourceFilePath[1]}.d.ts`;
-              console.log(file, sourceFilePath, url);
               const source = await (await fetch(url)).text();
               const name = sourceFilePath[1];
-              console.log(name);
 
               return [
                 source,
@@ -48,7 +46,6 @@ module.exports = function (context) {
         "file:///node_modules/@types/sandstone/globalTypes.d.ts",
       ]);
 
-      console.log(sandstoneFiles)
 
       return {
         sandstoneFiles: sandstoneFiles,
