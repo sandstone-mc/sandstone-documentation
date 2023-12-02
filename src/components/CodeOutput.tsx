@@ -23,7 +23,7 @@ const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }
       ...f,
       name: namespace === 'default' ? name : `${namespace}:${name}`,
     }
-  })
+  }).reverse()
 
   return (
     <div style={{

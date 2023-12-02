@@ -104,20 +104,20 @@ Calling a single command looks similar too:
 
 ```ts
 // Sets a block of dirt under all players
-execute.as('@a').at('@s').run.setblock(relative(0, 0, 0), 'minecraft:dirt')
+execute.as('@a').at('@s').run.setblock(rel(0, 0, 0), 'minecraft:dirt')
 ```
 
 This will result in `execute as @a at @s run setblock ~ ~ ~ minecraft:dirt`. 
 
 #### Try it out:
-<InteractiveSnippet height={280} imports={['MCFunction', 'execute', 'relative']} code={`
+<InteractiveSnippet height={280} imports={['MCFunction', 'execute', 'rel']} code={`
 MCFunction('single_execute', () => {
   // Make a random player say Hello
   execute.as('@r').run.say('Hello!')\n
   // Put a block of dirt on a random player
-  execute.as('@r').at('@s').run.setblock(relative(0, 0, 0), 'minecraft:dirt')\n
+  execute.as('@r').at('@s').run.setblock(rel(0, 0, 0), 'minecraft:dirt')\n
   // Summon a TNT on all players!
-  execute.as('@a').at('@s').run.summon('minecraft:tnt', relative(0, 0, 0))
+  execute.as('@a').at('@s').run.summon('minecraft:tnt', rel(0, 0, 0))
 })
 `} />
 

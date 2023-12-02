@@ -131,7 +131,7 @@ Please note that no validation is performed on NBT paths. The following snippet
 produces an invalid command due to missing quotes:
 
 ```ts
-_.if(Block('block', rel(0, -1, 0), 'Items[{id:minecraft:honey_bottle}]'), () => {
+_.if(Data('block', rel(0, -1, 0), 'Items[{id:minecraft:honey_bottle}]'), () => {
   // ...
 });
 ```
@@ -151,7 +151,7 @@ MCFunction('tick', () => {
   // Execute as every player
   execute.as(Selector('@a')).at(self).run(() => {
     // Detect honey bottles
-    _.if(_.data.block(rel(0, -1, 0), 'Items[{id:'minecraft:honey_bottle'}]'), () => {
+    _.if(Data('block', rel(0, -1, 0), 'Items[{id:"minecraft:honey_bottle"}]'), () => {
       tellraw(self, 'There is some honey beneath you')
     })
   })
@@ -233,17 +233,6 @@ _.if(_.not(_.or(condA, condB)), () => {
   say('Not a jackpot :(');
 });
 ```
-
-#### Try it out
-
-<InteractiveSnippet height={250} imports={['MCFunction', '_', 'rel', 'say']} code={`// Check if there is a pressure plate on top of a TNT!
-const condA = Block('tnt', rel(0, -1, 0))
-const condB = BuiltinBlockSet('pressure_plates')\n
-MCFunction('check_boom', () => {
-  _.if(_.and(condA, condB), () => {
-    say('Boom!')
-  })
-})`} />
 
 #### Large scale Flow
 
