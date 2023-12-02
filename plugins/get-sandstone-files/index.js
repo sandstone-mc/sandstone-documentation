@@ -1,5 +1,3 @@
-//const SandstoneRootObject = require("sandstone");
-
 /**
  * @param {import("@docusaurus/types").LoadContext} context
  */
@@ -9,23 +7,18 @@ module.exports = function (context) {
 
     async loadContent() {
       const buildInfoRequest = await fetch(
-        "https://unpkg.com/sandstone@1.0.0-beta.0/tsconfig.tsbuildinfo"
+        "https://unpkg.com/sandstone@latest/tsconfig.tsbuildinfo"
       );
       const buildInfo = await buildInfoRequest.json();
-
       const sandstoneFiles = (
         await Promise.all(
-          Object.keys(buildInfo.program.fileInfos).map(async (file) => {
-            const sourceFilePath = file.match(/^\.\.\/src\/([^]+)\.ts$/);
-
+          buildInfo.program.fileNames.map(async (file) => {
+            const sourceFilePath = file.match(/^\.\/src\/([^\x00]+?)\.ts$/);
             if (sourceFilePath && sourceFilePath[1]) {
-              const source = await (
-                await fetch(
-                  `https://unpkg.com/${
-                    buildInfoRequest.url.match(/(sandstone@(\d{1,2}\.?)+)/)?.[0]
-                  }/${sourceFilePath[1]}.d.ts`
-                )
-              ).text();
+              const url = `https://unpkg.com/${
+                buildInfoRequest.url.match(/\/(sandstone@(.+?))\//)?.[1]
+              }/dist/${sourceFilePath[1]}.d.ts`;
+              const source = await (await fetch(url)).text();
               const name = sourceFilePath[1];
 
               return [
@@ -45,7 +38,7 @@ module.exports = function (context) {
         ${sandstoneExports
           .map((e) => `type type__${e} = typeof ${e}`)
           .join("\n")}
-        
+
         declare global {
           ${sandstoneExports.map((e) => `const ${e}: type__${e}`).join("\n  ")}
         }
@@ -53,10 +46,9 @@ module.exports = function (context) {
         "file:///node_modules/@types/sandstone/globalTypes.d.ts",
       ]);
 
-      console.log(sandstoneFiles)
 
       return {
-        sandstoneFiles,
+        sandstoneFiles: sandstoneFiles,
       };
     },
 

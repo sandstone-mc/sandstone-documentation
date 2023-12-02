@@ -31,6 +31,8 @@ const config: Config = {
     locales: ["en"],
   },
 
+  plugins: [require("./plugins/get-sandstone-files")],
+
   presets: [
     [
       "classic",
