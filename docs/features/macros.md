@@ -30,7 +30,7 @@ const name = Data('storage', 'test', 'Name')
 /**
  * @param count How many diamonds to give
  */
-const test = MCFunction('test', [name], (count: Score) => {
+const test = MCFunction('test', [name], (_loop: any, count: Score) => {
   $.give(name, 'minecraft:diamond', count)
 })
 
@@ -62,7 +62,7 @@ const thingMap = Data('storage', 'test', 'Things')
 
 const thing = Data('storage', 'test', 'Thing')
 
-const test = MCFunction('get_thing', (index: Score) => {
+const test = MCFunction('get_thing', (_loop: any, index: Score) => {
   $.data.storage.modify(thing).set.from.storage(thingMap.currentTarget, $`Things[${index}]`)
 })
 
