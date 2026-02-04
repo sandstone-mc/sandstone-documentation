@@ -16,16 +16,14 @@ All snippets of this documentation can be edited, and you can preview the result
 If you want to use Sandstone to create data packs, a local installation will be necessary.
 :::
 
-The first step is to install [Node.js](https://nodejs.org/en/).
-
-I recommend installing a third-party package manager such as [pnpm](https://pnpm.io/installation), as the included one in Node is slow & takes up lots of space. 
+The first step is to install [Bun](https://bun.com/). Node.js is not officially supported anymore.
 
 You will then need a code editor: I personally recommend [Visual Studio Code](https://code.visualstudio.com/Download).
 
-Create an empty folder named "Sandstone Projects": it will contain all your future Sandstone projects. Inside this folder, open a terminal then run the following commands:
+Create an empty folder named "Sandstone Projects": it will contain all your future Sandstone projects. Inside this folder, open a terminal then run the following command:
 
 ```batch
-pnpm i -g sandstone-cli
+bun i -g sandstone-cli
 sand create <my-project>
 ```
 
@@ -40,12 +38,19 @@ Answer the different questions. Congratulations, you created your first Sandston
 To build the data pack, run the following command:
 <Tabs
   groupId="package-manager"
-  defaultValue="sand"
+  defaultValue="bun"
   values={[
+    {label: 'Bun', value: 'bun'},
     {label: 'Sand', value: 'sand'},
     {label: 'Pnpm', value: 'pnpm'},
     {label: 'Npm', value: 'npm'},
 ]}>
+<TabItem value="bun">
+
+```batch
+bun dev:build
+```
+</TabItem>
 <TabItem value="sand">
 
 ```batch
@@ -55,13 +60,13 @@ sand build
 <TabItem value="pnpm">
 
 ```batch
-pnpm build
+pnpm dev:build
 ```
 </TabItem>
 <TabItem value="npm">
 
 ```batch
-npm run build
+npm run dev:build
 ```
 </TabItem>
 </Tabs>
@@ -69,12 +74,19 @@ npm run build
 The downside of `build` is that it only builds your data pack once. To build then rebuild on each change, run `watch` instead:
 <Tabs
   groupId="package-manager"
-  defaultValue="sand"
+  defaultValue="bun"
   values={[
+    {label: 'Bun', value: 'bun'},
     {label: 'Sand', value: 'sand'},
     {label: 'Pnpm', value: 'pnpm'},
     {label: 'Npm', value: 'npm'},
 ]}>
+<TabItem value="bun">
+
+```batch
+bun dev:watch
+```
+</TabItem>
 <TabItem value="sand">
 
 ```batch
@@ -84,13 +96,13 @@ sand watch
 <TabItem value="pnpm">
 
 ```batch
-pnpm watch
+pnpm dev:watch
 ```
 </TabItem>
 <TabItem value="npm">
 
 ```batch
-npm run watch
+npm run dev:watch
 ```
 </TabItem>
 </Tabs>

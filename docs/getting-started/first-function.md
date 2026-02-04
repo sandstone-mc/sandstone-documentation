@@ -29,8 +29,9 @@ To build the data pack, type the following command in your terminal:
 
 <Tabs
   groupId="package-manager"
-  defaultValue="sand"
+  defaultValue="bun"
   values={[
+    {label: 'Bun', value: 'bun'},
     {label: 'Sand', value: 'sand'},
     {label: 'Pnpm', value: 'pnpm'},
     {label: 'Npm', value: 'npm'},
@@ -38,13 +39,13 @@ To build the data pack, type the following command in your terminal:
 <TabItem value="npm">
 
 ```batch
-npm run watch -- --verbose
+npm run dev:watch -- --verbose
 ```
 </TabItem>
 <TabItem value="pnpm">
 
 ```batch
-pnpm watch --verbose
+pnpm dev:watch --verbose
 ```
 </TabItem>
 
@@ -52,6 +53,13 @@ pnpm watch --verbose
 
 ```batch
 sand watch --verbose
+```
+</TabItem>
+
+<TabItem value="sand">
+
+```batch
+bun dev:watch --verbose
 ```
 </TabItem>
 </Tabs>
