@@ -183,8 +183,8 @@ Example:
 
 ```ts
 // Check if there is a sandstone slab on the current block, or a sandstone block under the player's feet
-const condA = Block('sandstone', rel(0, -1, 0));
-const condB = Block('sandstone_slab'); // Unspecified is equivalent to `~ ~ ~`
+const condA = _.block(rel(0, -1, 0), 'sandstone');
+const condB = _.block(rel(0, 0, 0), 'sandstone_slab');
 _.if(_.or(condA, condB), () => {
   say('Jackpot!');
 });
@@ -206,7 +206,7 @@ Example:
 
 ```ts
 // Check if there is a pressure plate on top of a TNT!
-const condA = Block('tnt', rel(0, -1, 0));
+const condA = _.block(rel(0, -1, 0), 'tnt');
 const condB = BuiltinBlockSet('pressure_plates');
 _.if(_.and(condA, condB), () => {
   say('Boom!');
@@ -227,8 +227,8 @@ Example:
 
 ```ts
 // Check if there is neither a sandstone slab on the current block, nor a sandstone block under the player's feet
-const condA = Block('sandstone', rel(0, -1, 0));
-const condB = Block('sandstone_slab'); // Unspecified is equivalent to `~ ~ ~`
+const condA = _.block(rel(0, -1, 0), 'sandstone');
+const condB = _.block(rel(0, 0, 0), 'sandstone_slab'); // Unspecified is equivalent to `~ ~ ~`
 _.if(_.not(_.or(condA, condB)), () => {
   say('Not a jackpot :(');
 });

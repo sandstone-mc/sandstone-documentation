@@ -10,10 +10,10 @@ In Sandstone, NBTs are regular JavaScript objects. JavaScript objects are very c
 For example, to summon an invisible armor stand with the "hello" tag and a pumpkin on his head, you would do the following command:
 ```ts
 summon('minecraft:armor_stand', rel(0, 0, 0), { 
-    Invisible: 1, 
+    Invisible: true, 
     Tags: ['hello'], 
     ArmorItems: [
-      {}, {}, {}, { id: 'minecraft:carved_pumpkin', Count: 1 },
+      {}, {}, {}, { id: 'minecraft:carved_pumpkin', count: 1 },
     ]
 })
 ```
@@ -64,6 +64,7 @@ Here is a summary of all units and their corresponding methods.
 
 type       |  unit   | method
 -----------|---------|-------------
+int        |  `'i'`  | `NBT.int`
 float      |  `'f'`  | `NBT.float` 
 double     |  `'d'`  | `NBT.double`
 byte       |  `'b'`  | `NBT.byte`
