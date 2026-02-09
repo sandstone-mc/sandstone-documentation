@@ -17,11 +17,17 @@ After placing the sound file in `resources/resourcepack/assets/default/sounds/ho
 ## Supported Resources
 - Atlases
 - Block States
+- Equipment
 - Fonts
+- [Item Model Definitions](/docs/features/resources/item_model_definitions)
 - Languages/Translations
 - Models
+- Particles
+- Post Effects
+- Shaders
 - Sounds
 - Texts
 - Textures
+- Waypoint Styles
 
 Anything unsupported can simply be placed in the external resources directory, exported via `RawResource`, or fully abstracted via `CustomResourceClass`!
