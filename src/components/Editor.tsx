@@ -1,18 +1,101 @@
-import React, { useState } from 'react'
+import React, { Component, useEffect } from 'react'
 import MonacoEditor, { Monaco } from '@monaco-editor/react'
 import type { editor, Position } from 'monaco-editor'
 import { useComponentId } from '../utils/getUniqueId'
 
+// Patch document.caretPositionFromPoint to prevent Monaco crashes
+// Monaco throws when this returns null or has null offsetNode
+let monacoPatched = false
+function patchMonacoHitTest() {
+  if (monacoPatched || typeof document === 'undefined') return
+  monacoPatched = true
+
+  const original = document.caretPositionFromPoint?.bind(document)
+  if (original) {
+    document.caretPositionFromPoint = function(x: number, y: number) {
+      try {
+        const result = original(x, y)
+        // Return null safely if offsetNode is missing (Monaco checks for this)
+        if (result && !result.offsetNode) {
+          return null
+        }
+        return result
+      } catch {
+        return null
+      }
+    }
+  }
+}
+
+// Error boundary to catch Monaco crashes and recover gracefully
+class EditorErrorBoundary extends Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error: Error) {
+    console.warn('[Editor] Monaco error caught:', error.message)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          padding: 20,
+          backgroundColor: 'rgb(30, 30, 30)',
+          color: '#888',
+          borderRadius: 4,
+        }}>
+          Editor encountered an error.{' '}
+          <button
+            onClick={() => this.setState({ hasError: false })}
+            style={{
+              background: '#444',
+              border: 'none',
+              color: '#ccc',
+              padding: '4px 8px',
+              borderRadius: 4,
+              cursor: 'pointer',
+            }}
+          >
+            Reload Editor
+          </button>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
 function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: { sandstoneFiles: [content: string, fileName: string][], onError?: ((markers: editor.IMarker[]) => void), onReady?: (() => void), value: string, setValue: (value: string) => void, height: number }) {
   const currentEditorID = useComponentId()
+
+  // Patch browser API to prevent Monaco hit-test crashes
+  useEffect(() => {
+    patchMonacoHitTest()
+  }, [])
+
   const handleEditorDidMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
       target: monaco.languages.typescript.ScriptTarget.ES2016,
       allowNonTsExtensions: true,
       moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-      module: monaco.languages.typescript.ModuleKind.CommonJS,
+      module: monaco.languages.typescript.ModuleKind.ESNext,
       noEmit: true,
-      typeRoots: ['node_modules/@types']
+      typeRoots: ['node_modules/@types'],
+      baseUrl: 'file:///node_modules',
+      paths: {
+        'sandstone': ['sandstone/index.d.ts'],
+        'sandstone/*': ['sandstone/*'],
+      }
     })
 
     // Load Sandstone
@@ -73,34 +156,47 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
   }
 
   return (
-    <MonacoEditor
-      height={height}
-      defaultLanguage="typescript"
-      value={value}
-      defaultPath={"main" + currentEditorID + ".ts"}
-      theme="vs-dark"
-      onChange={setValue}
-      onMount={handleEditorDidMount}
-      options={{
-        folding: true,
-        fontFamily: "var(--ifm-font-family-monospace)",
-        fontLigatures: false,
-        tabCompletion: 'on',
-        fontSize: 15.2,
-        minimap: {
-          enabled: false,
-        },
-        lineNumbers: 'off',
-        automaticLayout: true,
-        scrollBeyondLastLine: false,
-        padding: {
-          top: 18,
-        },
-        scrollbar: {
-          alwaysConsumeMouseWheel: false,
-        }
-      }}
-    />
+    <EditorErrorBoundary>
+      <div style={{
+        height,
+        minHeight: 100,
+        maxHeight: 600,
+        resize: 'vertical',
+        overflow: 'hidden',
+        border: '1px solid #333',
+        borderRadius: 4,
+      }}>
+        <MonacoEditor
+        height="100%"
+        defaultLanguage="typescript"
+        value={value}
+        defaultPath={"main" + currentEditorID + ".ts"}
+        theme="vs-dark"
+        onChange={setValue}
+        onMount={handleEditorDidMount}
+        options={{
+          folding: true,
+          fontFamily: "var(--ifm-font-family-monospace)",
+          fontLigatures: false,
+          tabCompletion: 'on',
+          fontSize: 15.2,
+          minimap: {
+            enabled: false,
+          },
+          lineNumbers: 'off',
+          automaticLayout: true,
+          scrollBeyondLastLine: false,
+          fixedOverflowWidgets: true,
+          padding: {
+            top: 18,
+          },
+          scrollbar: {
+            alwaysConsumeMouseWheel: false,
+          }
+        }}
+        />
+      </div>
+    </EditorErrorBoundary>
   )
 }
 

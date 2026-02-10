@@ -17,7 +17,7 @@ const keys = {
   right: 39,
 } as const;
 
-export function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, values?: any, groupId?: string, className?: string, children: any }): JSX.Element {
+export function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: string, values?: any, groupId?: string, className?: string, children: any }): React.JSX.Element {
   const { lazy, block, defaultValue, values, groupId, className } = props;
   const { tabGroupChoices, setTabGroupChoices } = useTabGroupChoice();
   const children = Children.toArray(
@@ -154,7 +154,7 @@ export function Tabs(props: { lazy?: boolean, block?: unknown, defaultValue?: st
               'tabs__item--active': i === indexToDisplay,
             })}
             key={value}
-            ref={(tabControl) => tabRefs.push(tabControl)}
+            ref={(tabControl) => { tabRefs.push(tabControl) }}
             onKeyDown={handleKeydown}
             onFocus={handleTabChange}
             onClick={handleTabChange}>

@@ -15,14 +15,14 @@ To check a condition, the following syntax is used:
 
 ```ts
 _.if(condition1, () => {
-  say('Condition 1 is true');
+  say('Condition 1 is true')
 })
   .elseIf(condition2, () => {
-    say('Condition 2 is true');
+    say('Condition 2 is true')
   })
   .else(() => {
-    say('Both condition 1 and condition 2 are false');
-  });
+    say('Both condition 1 and condition 2 are false')
+  })
 ```
 
 As you can see, this syntax mimics the original `if / else if / else` construct
@@ -31,18 +31,18 @@ and you can chain as many `elseIf` as needed:
 
 ```ts
 _.if(condition1, () => {
-  say('I am a lonely if');
-});
+  say('I am a lonely if')
+})
 
 _.if(condition2, () => {
-  say(2);
+  say(2)
 })
   .elseIf(condition3, () => {
-    say(3);
+    say(3)
   })
   .elseIf(condition4, () => {
-    say(4);
-  });
+    say(4)
+  })
 ```
 
 ## Conditions
@@ -56,25 +56,27 @@ To check if a score matches a given condition, you can use [score comparison ope
 For example:
 
 ```ts
-const self = Selector('@s');
-const kills = Objective.create('kills', 'playerKillCount');
-const myKills = kills(self);
+const Self = Selector('@s')
+const kills = Objective.create('kills', 'playerKillCount')
+const myKills = kills(Self)
 
 _.if(myKills.greaterThan(10), () => {
-  tellraw('@a', [self, ' is on a rampage!']);
-});
+  tellraw('@a', [Self, ' is on a rampage!'])
+})
 ```
 
 #### Try it out
 
-<InteractiveSnippet height={300} imports={['MCFunction', 'Objective', 'Selector', '_', 'tellraw']} code={`const self = Selector('@s')
+```ts sandstone height=300
+const Self = Selector('@s')
 const kills = Objective.create('kills', 'playerKillCount')
-const myKills = kills(self)
-\nMCFunction('if_score', () => {
+const myKills = kills(Self)
+MCFunction('if_score', () => {
   _.if(myKills.greaterThan(10), () => {
-    tellraw('@a', [self, ' is on a rampage!'])
+    tellraw('@a', [Self, ' is on a rampage!'])
   })
-})`} />
+})
+```
 
 [score comparison operators]: /docs/features/variables/objectives#comparison
 
@@ -87,42 +89,42 @@ In the following example, a command is run every tick for each player holding
 a stick in their hand:
 
 ```ts
-import { _, Selector, MCFunction, tellraw, execute } from 'sandstone';
+import { _, Selector, MCFunction, tellraw, execute } from 'sandstone'
 
-const self = Selector('@s');
+const Self = Selector('@s')
 
 MCFunction('tick', () => {
     // Execute as every player
     execute.as(Selector('@a')).run(() => {
       // Detect the stick
-      _.if(_.data.entity(self, 'SelectedItem{id:'minecraft:stick'}'), () => {
-        tellraw(self, 'Hey! Nice stick you got there.');
-      });
-    });
+      _.if(_.data.entity(Self, 'SelectedItem{id:'minecraft:stick'}'), () => {
+        tellraw(Self, 'Hey! Nice stick you got there.')
+      })
+    })
   },
-  { runEachTick: true }
-);
+  { runEveryTick: true }
+)
 ```
 
 The same can be done for blocks:
 
 ```ts
-import { _, Selector, MCFunction, tellraw, execute, rel } from 'sandstone';
+import { _, Selector, MCFunction, tellraw, execute, rel } from 'sandstone'
 
-const self = Selector('@s');
+const Self = Selector('@s')
 
 MCFunction('tick', () => {
     // Execute at every player
-    execute.as(Selector('@a')).at(self).run(() => {
+    execute.as(Selector('@a')).at(Self).run(() => {
         // Detect honey bottles
         _.if(Data('block', rel(0, -1, 0), 'Items[{id:'minecraft:honey_bottle'}]'), () => {
-            tellraw(self, 'There is some honey beneath you');
+            tellraw(Self, 'There is some honey beneath you')
           }
-        );
-      });
+        )
+      })
   },
-  { runEachTick: true }
-);
+  { runEveryTick: true }
+)
 ```
 
 :::caution
@@ -133,7 +135,7 @@ produces an invalid command due to missing quotes:
 ```ts
 _.if(Data('block', rel(0, -1, 0), 'Items[{id:minecraft:honey_bottle}]'), () => {
   // ...
-});
+})
 ```
 
 This is the resulting command:
@@ -146,16 +148,19 @@ execute if data block ~ ~-1 ~ Items[{id:minecraft:honey_bottle}] run ...
 
 #### Try it out
 
-<InteractiveSnippet height={300} imports={['MCFunction', 'Selector', '_', 'tellraw']} code={`const self = Selector('@s')\n
+```ts sandstone height=300
+const Self = Selector('@s', { type: 'player' })
+
 MCFunction('tick', () => {
   // Execute as every player
-  execute.as(Selector('@a')).at(self).run(() => {
+  execute.as(Selector('@a')).at(Self).run(() => {
     // Detect honey bottles
     _.if(Data('block', rel(0, -1, 0), 'Items[{id:"minecraft:honey_bottle"}]'), () => {
-      tellraw(self, 'There is some honey beneath you')
+      tellraw(Self, 'There is some honey beneath you')
     })
   })
-}, { runEachTick: true })`} />
+}, { runEveryTick: true })
+```
 
 :::
 
@@ -183,11 +188,11 @@ Example:
 
 ```ts
 // Check if there is a sandstone slab on the current block, or a sandstone block under the player's feet
-const condA = _.block(rel(0, -1, 0), 'sandstone');
-const condB = _.block(rel(0, 0, 0), 'sandstone_slab');
+const condA = _.block(rel(0, -1, 0), 'sandstone')
+const condB = _.block(rel(0, 0, 0), 'sandstone_slab')
 _.if(_.or(condA, condB), () => {
-  say('Jackpot!');
-});
+  say('Jackpot!')
+})
 ```
 
 #### And
@@ -206,11 +211,11 @@ Example:
 
 ```ts
 // Check if there is a pressure plate on top of a TNT!
-const condA = _.block(rel(0, -1, 0), 'tnt');
-const condB = BuiltinBlockSet('pressure_plates');
+const condA = _.block(rel(0, -1, 0), 'tnt')
+const condB = BuiltinBlockSet('pressure_plates')
 _.if(_.and(condA, condB), () => {
-  say('Boom!');
-});
+  say('Boom!')
+})
 ```
 
 #### Not
@@ -227,11 +232,11 @@ Example:
 
 ```ts
 // Check if there is neither a sandstone slab on the current block, nor a sandstone block under the player's feet
-const condA = _.block(rel(0, -1, 0), 'sandstone');
+const condA = _.block(rel(0, -1, 0), 'sandstone')
 const condB = _.block(rel(0, 0, 0), 'sandstone_slab'); // Unspecified is equivalent to `~ ~ ~`
 _.if(_.not(_.or(condA, condB)), () => {
-  say('Not a jackpot :(');
-});
+  say('Not a jackpot :(')
+})
 ```
 
 #### Large scale Flow
@@ -242,24 +247,24 @@ In some scenarios a very large condition tree may be necessary, in which case, s
 Example:
 
 ```ts
-const foo = Variable(0);
+const foo = Variable(0)
 
 _.if(foo['<='](100000), () => {
   _.if(foo['<='](100), () => {
     for (let i = 0; i < 100; i++) {
       _.return.run(() => {
         _.if(foo['=='](i), () => {
-          say(`${i}`);
-        });
-      });
+          say(`${i}`)
+        })
+      })
     }
   }).elseIf(_.and(foo['>'](100), foo['<='](200)), () => {
     /// ...
-  });
+  })
   /// ...
 }).else(() => {
   /// ...
-});
+})
 ```
 
 On better than average hardware an example like this would take several minutes to compile due to Visitor complexity; **many** nested command callbacks results in unacceptably slow compile times.

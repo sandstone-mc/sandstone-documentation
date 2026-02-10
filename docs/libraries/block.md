@@ -8,6 +8,8 @@ import { Tabs } from "../../src/components";
 import { InteractiveSnippet } from '../../src/components'
 import TabItem from "@theme/TabItem";
 
+## warning: this isn't updated for beta.1
+
 ## Installation
 
 <Tabs
@@ -44,9 +46,9 @@ npm i @sandstone-mc/block
 ## Getting Started
 
 ```ts
-const acaciaStairs = Block('acacia_stairs', '~ ~ ~', { facing: 'north', shape: 'straight' });
+const acaciaStairs = Block('acacia_stairs', '~ ~ ~', { facing: 'north', shape: 'straight' })
 
-acaciaStairs.set();
+acaciaStairs.set()
 ```
 
 ## Conversions
@@ -72,7 +74,7 @@ Examples:
 
 ```ts
 // Converts the current, in-world block (~ ~ ~) to a number and stores it in a score
-const test = Variable();
+const test = Variable()
 execute.store.result.score(test).run(() => Block().to('num'))
 
 // Converts the current, in-world block (~ ~ ~) to a block display
@@ -144,11 +146,11 @@ the area above them:
 ```ts
 import { _, Selector, MCFunction, tellraw, execute, rel } from 'sandstone'
 
-const self = Selector('@s')
+const Self = Selector('@s')
 
 MCFunction('tick', () => {
     // Execute as every player
-    execute.as(Selector('@a')).at(self).run(() => {
+    execute.as(Selector('@a')).at(Self).run(() => {
         // Detect sandstone under the player
         _.if(
           Blocks(
@@ -160,24 +162,25 @@ MCFunction('tick', () => {
             // Scan Mode
             'all'
           ), () => {
-            tellraw(self, 'Above and below, it is all the same')
+            tellraw(Self, 'Above and below, it is all the same')
           }
         )
       })
   },
-  { runEachTick: true }
+  { runEveryTick: true }
 )
 ```
 
 #### Try it out
 
-<InteractiveSnippet height={300} imports={['MCFunction', 'Selector', '_', 'execute', 'rel', 'tellraw']} code={`const self = Selector('@s')\n
+```ts sandstone height=300
 MCFunction('tick', () => {
   // Execute as every player
   execute.as(Selector('@a')).at('@s').run(() => {
     // Detect sandstone under the player
-    _.if(Block('sandstone', rel(0, -1, 0)), () => {
+    _.if(_.block(rel(0, -1, 0), 'sandstone'), () => {
       tellraw('@s', 'The framework is below your feet!')
     })
   })
-}, { runEachTick: true })`} />
+}, { runEveryTick: true })
+```

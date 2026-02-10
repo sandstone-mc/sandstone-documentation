@@ -44,13 +44,13 @@ advancement.grant('@a').everything()
 
 #### Try it out
 
-<InteractiveSnippet height={200} imports={['MCFunction', 'give', 'effect', 'advancement']} code={`
+```ts sandstone height=200
 MCFunction('example', () => {
   give('@a', 'minecraft:diamond', 64)
   effect.give('@a', 'minecraft:speed', 1)
   advancement.grant('@a').everything()
 })
-`} />
+```
 
 ### Documentation
 
@@ -80,7 +80,7 @@ This feature is very useful: **you don't have to remember the syntax of all comm
 
 #### Try it out
 
-<InteractiveSnippet height={250} imports={['MCFunction', 'effect']} code={`
+```ts sandstone height=200
 MCFunction('optional_arguments', () => {
   // effect.give('@a') -> Invalid!
   effect.give('@a', 'minecraft:haste')
@@ -88,7 +88,7 @@ MCFunction('optional_arguments', () => {
   effect.give('@a', 'minecraft:haste', 10, 1)
   effect.give('@a', 'minecraft:haste', 10, 1, true)
 })
-`} />
+```
 
 ## Execute
 
@@ -110,16 +110,16 @@ execute.as('@a').at('@s').run.setblock(rel(0, 0, 0), 'minecraft:dirt')
 This will result in `execute as @a at @s run setblock ~ ~ ~ minecraft:dirt`. 
 
 #### Try it out:
-<InteractiveSnippet height={280} imports={['MCFunction', 'execute', 'rel']} code={`
+```ts sandstone height=200
 MCFunction('single_execute', () => {
   // Make a random player say Hello
-  execute.as('@r').run.say('Hello!')\n
+  execute.as('@r').run.say('Hello!')
   // Put a block of dirt on a random player
-  execute.as('@r').at('@s').run.setblock(rel(0, 0, 0), 'minecraft:dirt')\n
+  execute.as('@r').at('@s').run.setblock(rel(0, 0, 0), 'minecraft:dirt')
   // Summon a TNT on all players!
   execute.as('@a').at('@s').run.summon('minecraft:tnt', rel(0, 0, 0))
 })
-`} />
+```
 
 In Sandstone, `run` is used to execute *single **and** multiple commands*.
 
@@ -136,7 +136,7 @@ execute.as('@a').at('@s').run(() => {
 ```
 
 Let's see a live example to understand what Sandstone does under the hood.
-<InteractiveSnippet height={250} imports={[]} code={`
+```ts sandstone height=200
 MCFunction('main', () => {
   execute.as('@a').at('@s').run(() => {
     // All this commands are executed "as @a at @s".
@@ -146,6 +146,6 @@ MCFunction('main', () => {
     setblock(rel(0, +1, 0), 'minecraft:air')
   })
 })
-`} />
+```
 
 As you can see, Sandstone automatically created a new MCFunction for you (here, called `main/execute_as`). It contains all your nested commands (all the setblocks), and is called by the `execute` command. Therefore, you achieve the desired effect **without managing several files youself**.

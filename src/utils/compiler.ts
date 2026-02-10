@@ -1,5 +1,5 @@
-let lib: Promise<typeof import("@sandstone-mc/playground")> =
-  "window" in globalThis ? import("@sandstone-mc/playground") : null;
+let lib: Promise<typeof import("@sandstone-mc/playground")> | null = null;
+
 export type CustomHandlerFileObject =
   | { key: number; relativePath: string; content: string }
   | { type: "errors"; relativePath: string; content: string; key: number };
@@ -8,7 +8,8 @@ export async function compileDataPack(
   tsCode: string
 ): Promise<{ result: Record<string, string> }> {
   if (!lib) {
-    lib = import("@sandstone-mc/playground");
+    // Load playground from static file to avoid webpack processing
+    lib = import(/* webpackIgnore: true */ "/playground/main.js");
   }
 
   const { compilePack } = await lib;

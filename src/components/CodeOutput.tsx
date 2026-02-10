@@ -9,10 +9,15 @@ const config = require('../../docusaurus.config').default;
 const theme = config.themeConfig.prism.theme
 
 const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }) => {
-  if (!files.length || typeof window === 'undefined') {
+  if (!files?.length || typeof window === 'undefined') {
     return <></>
   }
-  const filesExtended = files.map(f => {
+  // Filter out files with undefined content to prevent Prism crashes
+  const validFiles = files.filter(f => f.content != null)
+  if (!validFiles.length) {
+    return <></>
+  }
+  const filesExtended = validFiles.map(f => {
     // Remove the 3 first folders
     const folders = f.relativePath.split('/')
     const namespace = folders[2]
@@ -46,9 +51,9 @@ const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }
                   {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <pre className={className} style={{ ...style, padding: '20px' }}>
                       {tokens.map((line, i) => (
-                        <div key={i} {...getLineProps({ line, key: i })}>
-                          {line.map((token, key) => (
-                            <span key={key} {...getTokenProps({ token, key })} />
+                        <div key={i} {...getLineProps({ line })}>
+                          {line.map((token, j) => (
+                            <span key={j} {...getTokenProps({ token })} />
                           ))}
                         </div>
                       ))}
