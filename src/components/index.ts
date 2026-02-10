@@ -1,5 +1,6 @@
+// SSR-safe exports only - Editor and InteractiveSnippetClient are client-only
+// and should be imported directly or dynamically
 export * from './CodeOutput'
-export * from './Editor'
 export * from './InteractiveSnippet'
 export * from './FileTab'
 export * from './Tabs'

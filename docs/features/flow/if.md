@@ -56,24 +56,23 @@ To check if a score matches a given condition, you can use [score comparison ope
 For example:
 
 ```ts
-const Self = Selector('@s')
 const kills = Objective.create('kills', 'playerKillCount')
-const myKills = kills(Self)
+const myKills = kills('@s')
 
 _.if(myKills.greaterThan(10), () => {
-  tellraw('@a', [Self, ' is on a rampage!'])
+  tellraw('@a', ['@s', ' is on a rampage!'])
 })
 ```
 
 #### Try it out
 
 ```ts sandstone height=300
-const Self = Selector('@s')
 const kills = Objective.create('kills', 'playerKillCount')
-const myKills = kills(Self)
+const myKills = kills('@s')
+
 MCFunction('if_score', () => {
   _.if(myKills.greaterThan(10), () => {
-    tellraw('@a', [Self, ' is on a rampage!'])
+    tellraw('@a', [Selector('@s'), ' is on a rampage!'])
   })
 })
 ```
@@ -91,14 +90,12 @@ a stick in their hand:
 ```ts
 import { _, Selector, MCFunction, tellraw, execute } from 'sandstone'
 
-const Self = Selector('@s')
-
 MCFunction('tick', () => {
     // Execute as every player
     execute.as(Selector('@a')).run(() => {
       // Detect the stick
-      _.if(_.data.entity(Self, 'SelectedItem{id:'minecraft:stick'}'), () => {
-        tellraw(Self, 'Hey! Nice stick you got there.')
+      _.if(_.data.entity('@s', 'SelectedItem{id:'minecraft:stick'}'), () => {
+        tellraw('@s', 'Hey! Nice stick you got there.')
       })
     })
   },
@@ -111,14 +108,12 @@ The same can be done for blocks:
 ```ts
 import { _, Selector, MCFunction, tellraw, execute, rel } from 'sandstone'
 
-const Self = Selector('@s')
-
 MCFunction('tick', () => {
     // Execute at every player
-    execute.as(Selector('@a')).at(Self).run(() => {
+    execute.as(Selector('@a')).at('@s').run(() => {
         // Detect honey bottles
         _.if(Data('block', rel(0, -1, 0), 'Items[{id:'minecraft:honey_bottle'}]'), () => {
-            tellraw(Self, 'There is some honey beneath you')
+            tellraw('@s', 'There is some honey beneath you')
           }
         )
       })
@@ -149,14 +144,12 @@ execute if data block ~ ~-1 ~ Items[{id:minecraft:honey_bottle}] run ...
 #### Try it out
 
 ```ts sandstone height=300
-const Self = Selector('@s', { type: 'player' })
-
 MCFunction('tick', () => {
   // Execute as every player
-  execute.as(Selector('@a')).at(Self).run(() => {
+  execute.as(Selector('@a')).at('@s').run(() => {
     // Detect honey bottles
     _.if(Data('block', rel(0, -1, 0), 'Items[{id:"minecraft:honey_bottle"}]'), () => {
-      tellraw(Self, 'There is some honey beneath you')
+      tellraw('@s', 'There is some honey beneath you')
     })
   })
 }, { runEveryTick: true })

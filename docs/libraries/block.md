@@ -146,11 +146,9 @@ the area above them:
 ```ts
 import { _, Selector, MCFunction, tellraw, execute, rel } from 'sandstone'
 
-const Self = Selector('@s')
-
 MCFunction('tick', () => {
     // Execute as every player
-    execute.as(Selector('@a')).at(Self).run(() => {
+    execute.as(Selector('@a')).at('@s').run(() => {
         // Detect sandstone under the player
         _.if(
           Blocks(
@@ -162,7 +160,7 @@ MCFunction('tick', () => {
             // Scan Mode
             'all'
           ), () => {
-            tellraw(Self, 'Above and below, it is all the same')
+            tellraw('@s', 'Above and below, it is all the same')
           }
         )
       })

@@ -1,12 +1,11 @@
 import React from 'react'
 import { Tabs } from './Tabs';
 import TabItem from '@theme/TabItem';
-import { Highlight } from 'prism-react-renderer';
+import { Highlight, themes } from 'prism-react-renderer';
 import { CustomHandlerFileObject } from '../utils/compiler';
 
-
-const config = require('../../docusaurus.config').default;
-const theme = config.themeConfig.prism.theme
+// Use the dark theme directly - matches what's configured in docusaurus.config.ts
+const theme = themes.vsDark
 
 const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }) => {
   if (!files?.length || typeof window === 'undefined') {
