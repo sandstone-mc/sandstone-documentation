@@ -26,12 +26,13 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-github-btn": "^1.4.0",
-    "sandstone": "^1.0.0-alpha.5"
+    "sandstone": "^1.0.0-beta.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
+    "@types/lodash": "^4.17.23",
     "@types/node": "^24.0.0",
     "pathe": "^2.0.3",
     "typescript": "~5.7.0"
