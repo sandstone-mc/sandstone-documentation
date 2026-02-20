@@ -31,7 +31,7 @@ const name = Data('storage', 'test', 'Name')
  * @param count How many diamonds to give
  */
 const test = MCFunction('test', [name], (_loop: any, count: Score) => {
-  $.give(name, 'minecraft:diamond', count)
+  $.give(name, 'minecraft:diamond', undefined, count)
 })
 
 MCFunction('foo', () => {
