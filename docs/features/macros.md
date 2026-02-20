@@ -35,10 +35,10 @@ const test = MCFunction('test', [name], (_loop: any, count: Score) => {
 })
 
 MCFunction('foo', () => {
-  const player = DataVariable('MulverineX')
+  name.set('MulverineX')
   const count = Objective.create('testing')('@s')
 
-  test(player, count)
+  test(count)
 })
 ```
 
