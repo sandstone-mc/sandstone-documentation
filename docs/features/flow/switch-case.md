@@ -4,6 +4,8 @@ title: Switch/Case
 description: How to provide per-case logic for a Score or DataPoint in Sandstone.
 ---
 
+import { InteractiveSnippet } from '../../../src/components'
+
 Sandstone provides a powerful `switch`/`case` abstraction that compiles to efficient Minecraft commands. Depending on what you're switching on, Sandstone automatically chooses the optimal dispatch strategy.
 
 ## Basic Syntax
