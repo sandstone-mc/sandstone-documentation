@@ -17,7 +17,7 @@ _.if(Selector('@e', { type: 'zombie', distance: [null, 25] }), () => _.return.ru
 
 // same as
 
-execute.if.entity(Selector('@e', { type: 'zombie', distance: [null, 25] })).run.return.run.say('zombies found! beware!')
+execute.if.entity(Selector('@e', { type: 'zombie', distance: [null, 25] })).run.returnCmd.run.say('zombies found! beware!')
 
 say('no zombies found, safe!')
 ```

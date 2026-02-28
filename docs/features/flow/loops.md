@@ -52,21 +52,6 @@ _
   })
 ```
 
-### Binary Iterator
-
-```ts
-_.for = (range: [start: number | Score, end: number | Score, maximum?: number], _: 'iterate', callback: (i: Score) => any)
-```
-
-Allows you to use the number directly in your commands via a binary tree
-
-```ts
-_
-  .for([0, 10, 10], 'binary', i => {
-    say(`${i}`)
-  })
-```
-
 ## For (of)
 
 ```ts
