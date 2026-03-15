@@ -165,7 +165,7 @@ To wait a specific time between commands, there are two things to do:
 
 1. Change your function to an asynchronous function, by adding the `async` keyword
 
-2. Add the `await sleep(delay)` line between your commands.
+2. Add the `sleep(delay)` line between your commands.
 
 `delay` can be a number of ticks, or a time string like `'1t'`, `'1s'`, `'1d'`...
 
@@ -173,7 +173,7 @@ Here is a minimal syntax:
 ```ts
 MCFunction('minimal', async () => {
   say('This command runs now')
-  await sleep('5s')
+  sleep('5s')
   say('This command runs 5s later')
 })
 ```
@@ -183,7 +183,7 @@ There are two things to notice. First, our function is now asynchronous. The `as
 MCFunction('minimal', async () => {...})
 ```
 
-Second, we await the `sleep` function
+Second, we run the `sleep` function
 
 ### Example
 
@@ -191,10 +191,10 @@ You could simulate a dialog like this:
 ```ts
 MCFunction('council', async () => {
   tellraw('@a', '[Aragorn] - You have my sword.')
-  await sleep(10) // sleep 10 ticks, half a second.
+  sleep(10) // sleep 10 ticks, half a second.
 
   tellraw('@a', '[Legolas] - And my bow.')
-  await sleep('1s') // sleep 1 second
+  sleep('1s') // sleep 1 second
 
   tellraw('@a', '[Gimly] - AND MY AXE!')
 })
