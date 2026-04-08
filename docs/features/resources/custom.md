@@ -115,7 +115,7 @@ In some cases you may need to export multiple separate datapacks, or an entirely
 ### Separate Datapack
 
 ```ts
-import { PackType } from 'sandstone/pack/packType'
+import { PackType } from 'sandstone/pack'
 
 class DataPackFoo extends PackType {
   constructor() {
@@ -144,7 +144,7 @@ MCFunction('bar', () => {
 ### Custom Pack
 
 ```ts
-import { PackType } from 'sandstone/pack/packType'
+import { PackType } from 'sandstone/pack'
 
 class ModConfig extends PackType {
   constructor() {

@@ -44,7 +44,7 @@ const randomUUID = UUID()
 You can also import the `randomUUID` utility directly for use in other contexts:
 
 ```ts
-import { randomUUID } from 'sandstone/utils'
+import { randomUUID } from 'sandstone'
 
 const uuidArray = randomUUID()  // Returns [number, number, number, number]
 ```

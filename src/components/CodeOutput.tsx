@@ -16,6 +16,43 @@ const CodeOutput_ = ({ files }: { files: CustomHandlerFileObject[] | undefined }
   if (!validFiles.length) {
     return <></>
   }
+
+  // Check if this is an error display
+  const isError = validFiles.length === 1 && validFiles[0].type === 'errors'
+  if (isError) {
+    const errorFile = validFiles[0]
+    return (
+      <div style={{
+        margin: '10px auto',
+        border: '2px solid #c53030',
+        borderRadius: 5,
+        width: '100%',
+        backgroundColor: 'rgb(30, 30, 30)',
+      }}>
+        <div style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #c53030',
+          color: '#fc8181',
+          fontWeight: 600,
+          fontSize: '0.9em',
+        }}>
+          TypeScript Errors
+        </div>
+        <pre style={{
+          margin: 0,
+          padding: '16px',
+          color: '#feb2b2',
+          fontSize: '0.85em',
+          fontFamily: 'var(--ifm-font-family-monospace)',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+        }}>
+          {errorFile.content}
+        </pre>
+      </div>
+    )
+  }
+
   const filesExtended = validFiles.map(f => {
     // Remove the 3 first folders
     const folders = f.relativePath.split('/')

@@ -7,9 +7,24 @@ export type CustomHandlerFileObject =
 export async function compileDataPack(
   tsCode: string
 ): Promise<{ result: Record<string, string> }> {
+  
+  // 1. Docusaurus SSR Guard: Ensure this only runs in the browser environment
+  if (typeof window === "undefined") {
+    throw new Error("compileDataPack can only be executed on the client side.");
+  }
+
   if (!lib) {
-    // Load playground from static file to avoid webpack processing
-    lib = import(/* webpackIgnore: true */ "/playground/main.js");
+    try {
+      // 2. The Native Import Bypass
+      // Using `new Function` hides the import statement from Babel and Webpack entirely, 
+      // forcing the browser's native ES module loader to handle it at runtime.
+      const nativeImport = new Function('url', 'return import(url)');
+      
+      lib = nativeImport("https://unpkg.com/@sandstone-mc/playground@latest/dist/main.js") as Promise<typeof import("@sandstone-mc/playground")>;
+    } catch (e) {
+      console.error("Failed to load @sandstone-mc/playground:", e);
+      throw e;
+    }
   }
 
   const { compilePack } = await lib;
@@ -20,6 +35,7 @@ export async function compileDataPack(
   if (result.success === false) {
     throw new Error(result.error);
   }
+  
   return {
     result: result.files,
   };

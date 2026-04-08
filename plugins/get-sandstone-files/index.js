@@ -61,18 +61,45 @@ module.exports = function (context) {
               source = source.replace(/import\(["']([^"']+)\.js["']\)/g, 'import("$1.d.ts")');
               // Transform import(".") to import("./index.d.ts") for Monaco
               source = source.replace(/import\(["']\.["']\)/g, 'import("./index.d.ts")');
-              // Get relative path from dist folder (normalize to forward slashes for URLs)
+
+              // Keep files at their original paths under dist/
               const relativePath = path.relative(localSandstoneDist, fullPath).replace(/\\/g, '/');
               const name = relativePath.replace(/\.d\.ts$/, '');
-              // Register at node_modules/sandstone for proper module resolution
               const fileName = `file:///node_modules/sandstone/${name}.d.ts`;
-              if (name === 'index' || name === 'commands/index') {
+
+              if (name === 'exports/index' || name === 'exports/commands/index') {
                 console.log(`[get-sandstone-files] Registering ${name} at ${fileName}`);
               }
+              sandstoneFiles.push([source, fileName]);
+            }
+
+            // Also include package.json files for module boundaries
+            const internalPkgJson = path.join(localSandstoneDist, '_internal/package.json');
+            if (fs.existsSync(internalPkgJson)) {
               sandstoneFiles.push([
-                source,
-                fileName,
+                fs.readFileSync(internalPkgJson, 'utf-8'),
+                'file:///node_modules/sandstone/_internal/package.json'
               ]);
+            }
+
+            // Create root package.json with exports field
+            const localPkgJson = path.resolve(__dirname, '../../../sandstone/package.json');
+            if (fs.existsSync(localPkgJson)) {
+              const pkg = JSON.parse(fs.readFileSync(localPkgJson, 'utf-8'));
+              // Rewrite exports to point to .d.ts files
+              const exportsForMonaco = {};
+              for (const [key, value] of Object.entries(pkg.exports || {})) {
+                if (typeof value === 'object' && value.types) {
+                  // Rewrite ./dist/exports/... to ./exports/...
+                  exportsForMonaco[key] = { types: value.types.replace('./dist/', './') };
+                }
+              }
+              const monacoRootPkg = JSON.stringify({
+                name: 'sandstone',
+                version: pkg.version,
+                exports: exportsForMonaco,
+              }, null, 2);
+              sandstoneFiles.push([monacoRootPkg, 'file:///node_modules/sandstone/package.json']);
             }
 
             if (sandstoneFiles.length > 0) {
@@ -97,41 +124,74 @@ module.exports = function (context) {
 
       // Fallback to unpkg for types
       if (!usedLocalTypes) {
-        const buildInfoRequest = await fetch(
-          "https://unpkg.com/sandstone@latest/tsconfig.tsbuildinfo"
-        );
-        const buildInfo = await buildInfoRequest.json();
-        sandstoneFiles = (
-          await Promise.all(
-            buildInfo.program.fileNames.map(async (file) => {
-              const sourceFilePath = file.match(/^\.\/src\/([^\x00]+?)\.ts$/);
-              if (sourceFilePath && sourceFilePath[1]) {
-                const url = `https://unpkg.com/${
-                  buildInfoRequest.url.match(/\/(sandstone@(.+?))\//)?.[1]
-                }/dist/${sourceFilePath[1]}.d.ts`;
-                let source = await (await fetch(url)).text();
-                // Transform .js imports to .d.ts for Monaco resolution
-                source = source.replace(/from ["']([^"']+)\.js["']/g, 'from "$1.d.ts"');
-                source = source.replace(/import\(["']([^"']+)\.js["']\)/g, 'import("$1.d.ts")');
-                // Transform import(".") to import("./index.d.ts") for Monaco
-                source = source.replace(/import\(["']\.["']\)/g, 'import("./index.d.ts")');
-                const name = sourceFilePath[1];
+        // Use unpkg's ?meta endpoint to list all files in dist/
+        const metaRequest = await fetch("https://unpkg.com/sandstone@beta/dist/?meta");
+        const meta = await metaRequest.json();
 
-                return [
-                  source,
-                  `file:///node_modules/sandstone/${name}.d.ts`,
-                ];
-              }
-              return null;
-            })
-          )
-        ).filter((x) => x !== null);
-        console.log(`[get-sandstone-files] Using unpkg sandstone types (${sandstoneFiles.length} files)`);
+        // Extract package version from the response
+        const packageVersion = `sandstone@${meta.version}`;
+        console.log(`[get-sandstone-files] Fetching types from unpkg (${packageVersion})`);
+
+        // Filter for .d.ts files and package.json files
+        const dtsFiles = meta.files.filter(f => f.path.endsWith('.d.ts'));
+        const packageJsonFiles = meta.files.filter(f => f.path.endsWith('package.json'));
+
+        // Fetch all .d.ts files
+        sandstoneFiles = await Promise.all(
+          dtsFiles.map(async (file) => {
+            // file.path is like "/dist/foo/bar.d.ts"
+            const url = `https://unpkg.com/${packageVersion}${file.path}`;
+            let source = await (await fetch(url)).text();
+            // Transform .js imports to .d.ts for Monaco resolution
+            source = source.replace(/from ["']([^"']+)\.js["']/g, 'from "$1.d.ts"');
+            source = source.replace(/import\(["']([^"']+)\.js["']\)/g, 'import("$1.d.ts")');
+            // Transform import(".") to import("./index.d.ts") for Monaco
+            source = source.replace(/import\(["']\.["']\)/g, 'import("./index.d.ts")');
+
+            // Keep files at their original paths under dist/
+            const name = file.path.replace(/^\/dist\//, '').replace(/\.d\.ts$/, '');
+
+            return [
+              source,
+              `file:///node_modules/sandstone/${name}.d.ts`,
+            ];
+          })
+        );
+
+        // Fetch package.json files (like _internal/package.json) for proper module boundaries
+        const packageJsonEntries = await Promise.all(
+          packageJsonFiles.map(async (file) => {
+            const url = `https://unpkg.com/${packageVersion}${file.path}`;
+            const source = await (await fetch(url)).text();
+            const name = file.path.replace(/^\/dist\//, '');
+            return [source, `file:///node_modules/sandstone/${name}`];
+          })
+        );
+        sandstoneFiles.push(...packageJsonEntries);
+
+        // Create root package.json with exports field for Monaco module resolution
+        const rootPackageJson = JSON.stringify({
+          name: 'sandstone',
+          version: meta.version,
+          exports: {
+            '.': { types: './exports/index.d.ts' },
+            './arguments': { types: './exports/arguments/index.d.ts' },
+            './commands': { types: './exports/commands/index.d.ts' },
+            './core': { types: './exports/core/index.d.ts' },
+            './flow': { types: './exports/flow/index.d.ts' },
+            './pack': { types: './exports/pack/index.d.ts' },
+            './variables': { types: './exports/variables/index.d.ts' },
+          },
+        }, null, 2);
+        sandstoneFiles.push([rootPackageJson, 'file:///node_modules/sandstone/package.json']);
+
+        console.log(`[get-sandstone-files] Using unpkg sandstone types (${sandstoneFiles.length} files, including package.json)`);
       }
 
       // Create global declarations by re-exporting from sandstone module
+      // Use the package name so it resolves via exports field
       const globalTypesContent = `
-import type * as Sandstone from './index.d.ts'
+import type * as Sandstone from 'sandstone'
 
 declare global {
   ${sandstoneExports.map((e) => `const ${e}: typeof Sandstone.${e}`).join("\n  ")}

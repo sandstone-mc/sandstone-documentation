@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { usePluginData } from '@docusaurus/useGlobalData'
-import { Editor } from './Editor'
+import { Editor, EditorHandle } from './Editor'
 import { CustomHandlerFileObject, compileDataPack } from '../utils/compiler'
-import type { editor } from 'monaco-editor'
 import { CodeOutput } from './CodeOutput'
 import { debounce } from 'lodash'
 import { useMonacoRecovery } from './MonacoRecoveryContext'
@@ -12,49 +11,53 @@ const BOILERPLATE_NAMESPACES = new Set(['load', '__sandstone__'])
 const BOILERPLATE_FUNCTIONS = new Set(['__init__'])
 const BOILERPLATE_TAG = { namespace: 'minecraft', name: 'load' }
 
-// Find all sandstone exports used in the code using TypeScript AST
-async function detectUsedExports(code: string, allExports: string[]): Promise<string[]> {
-  if (typeof window === 'undefined') return []
-
-  const ts = await import('typescript')
-  const exportSet = new Set(allExports)
-  const used = new Set<string>()
-
-  // Debug: check if rel is in exports
-  console.log('[detectUsedExports] Has rel in exports:', exportSet.has('rel'), 'Total exports:', allExports.length)
-
-  const sourceFile = ts.createSourceFile(
-    'temp.ts',
-    code,
-    ts.ScriptTarget.Latest,
-    true
-  )
-
-  function visit(node: unknown, parent: unknown) {
-    if (ts.isIdentifier(node as Parameters<typeof ts.isIdentifier>[0])) {
-      const name = (node as { text: string }).text
-
-      // Skip if this identifier is the property name in a property access (e.g., .say, .run)
-      // We only want top-level references, not method calls
-      if (parent && ts.isPropertyAccessExpression(parent as Parameters<typeof ts.isPropertyAccessExpression>[0])) {
-        const propAccess = parent as { name: unknown }
-        if (propAccess.name === node) {
-          // This identifier is the property being accessed, skip it
-          ts.forEachChild(node as Parameters<typeof ts.forEachChild>[0], (child) => visit(child, node))
-          return
-        }
-      }
-
-      if (exportSet.has(name)) {
-        used.add(name)
-      }
-    }
-    ts.forEachChild(node as Parameters<typeof ts.forEachChild>[0], (child) => visit(child, node))
+// Parse code once and return normalized code + detected sandstone exports
+// Normalized code strips comments and normalizes whitespace for change detection
+async function analyzeCode(code: string, allExports: string[]): Promise<{ normalized: string; usedExports: string[] }> {
+  if (typeof window === 'undefined') {
+    return { normalized: code.trim(), usedExports: [] }
   }
 
-  visit(sourceFile, null)
-  console.log('[detectUsedExports] Found identifiers:', Array.from(used))
-  return Array.from(used)
+  try {
+    const ts = await import('typescript')
+    const exportSet = new Set(allExports)
+    const used = new Set<string>()
+
+    const sourceFile = ts.createSourceFile('temp.ts', code, ts.ScriptTarget.Latest, true)
+
+    // Get normalized code (strips comments and normalizes whitespace)
+    const printer = ts.createPrinter({ removeComments: true })
+    const normalized = printer.printFile(sourceFile)
+
+    // Find used sandstone exports
+    function visit(node: unknown, parent: unknown) {
+      if (ts.isIdentifier(node as Parameters<typeof ts.isIdentifier>[0])) {
+        const name = (node as { text: string }).text
+
+        // Skip if this identifier is the property name in a property access (e.g., .say, .run)
+        // We only want top-level references, not method calls
+        if (parent && ts.isPropertyAccessExpression(parent as Parameters<typeof ts.isPropertyAccessExpression>[0])) {
+          const propAccess = parent as { name: unknown }
+          if (propAccess.name === node) {
+            ts.forEachChild(node as Parameters<typeof ts.forEachChild>[0], (child) => visit(child, node))
+            return
+          }
+        }
+
+        if (exportSet.has(name)) {
+          used.add(name)
+        }
+      }
+      ts.forEachChild(node as Parameters<typeof ts.forEachChild>[0], (child) => visit(child, node))
+    }
+
+    visit(sourceFile, null)
+
+    return { normalized, usedExports: Array.from(used) }
+  } catch {
+    // If parsing fails, fall back to trimmed raw code
+    return { normalized: code.trim(), usedExports: [] }
+  }
 }
 
 function isBoilerplateFile(relativePath: string): boolean {
@@ -131,13 +134,13 @@ export const InteractiveSnippetClient = (props: InteractiveSnippetProps) => {
     sandstoneExports: string[]
   }
   const [compiledDataPack, setCompiledDataPack] = useState<CustomHandlerFileObject[]>([])
-  const [editorErrors, setEditorErrors] = useState<editor.IMarker[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [isPending, setIsPending] = useState(false)
   const [hasBeenVisible, setHasBeenVisible] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const editorRef = useRef<EditorHandle>(null)
   const lastBuildTime = useRef<number>(0)
   const rateLimitTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isFirstCompile = useRef(true)
 
   // Track visibility with IntersectionObserver
   // Re-runs when resetKey changes to re-detect visibility after recovery
@@ -168,40 +171,58 @@ export const InteractiveSnippetClient = (props: InteractiveSnippetProps) => {
 
   const [previousCode, setPreviousCode] = useState('')
 
-  const doCompile = useCallback(async (code: string, errors: typeof editorErrors) => {
-    setIsPending(false)
-    if (previousCode === code.trim()) {
+  // Track whether the last compile had TS errors (to force recompile when errors clear)
+  const [hadTsErrors, setHadTsErrors] = useState(false)
+
+  const doCompile = useCallback(async (code: string) => {
+
+    // Skip TS check on first compile - assume docs code is error-free
+    // Parse code once to get normalized version and detect used exports
+    const { normalized, usedExports } = await analyzeCode(code, sandstoneExports || [])
+
+    let errors: Awaited<ReturnType<EditorHandle['getTypeScriptDiagnostics']>> = []
+    let hasTsErrors = false
+
+    if (isFirstCompile.current) {
+      isFirstCompile.current = false
+    } else {
+      // Wait for TypeScript to finish analyzing and get fresh diagnostics
+      errors = await editorRef.current?.getTypeScriptDiagnostics() ?? []
+      hasTsErrors = errors.some(error => error.owner === 'typescript' && error.severity > 1)
+    }
+
+    // Skip if normalized code unchanged AND error state unchanged
+    if (previousCode === normalized && hadTsErrors === hasTsErrors) {
       return
     }
+
     setIsLoading(true)
     lastBuildTime.current = Date.now()
 
-    for (const error of errors) {
-      if (error.owner === 'typescript' && error.severity > 1) {
-        console.log('[InteractiveSnippet] TypeScript errors:', errors)
-        setCompiledDataPack([errors.reduce((reduced, error) => ({
-          ...reduced,
-          ...(error.owner === 'typescript' ? {
-            content: `${reduced.content}[${error.startLineNumber}:${error.startColumn}] ${error.message}\n`
-          } : {})
-        }), { type: 'errors', relativePath: 'Failed to Compile:', key: 0, content: '' })])
-        setIsLoading(false)
-        return
-      }
+    if (hasTsErrors) {
+      setPreviousCode(normalized) // Track normalized code so we don't re-process it
+      setHadTsErrors(true)
+      const tsErrors = errors.filter(e => e.owner === 'typescript' && e.severity > 1)
+      const errorContent = tsErrors
+        .map(e => `Line ${e.startLineNumber}: ${e.message}`)
+        .join('\n')
+      setCompiledDataPack([{ type: 'errors', relativePath: '', key: 0, content: errorContent }])
+      setIsLoading(false)
+      return
     }
 
-    // Auto-detect used exports and generate import statement
-    const usedExports = await detectUsedExports(code, sandstoneExports || [])
-    console.log('[InteractiveSnippet] Auto-detected imports:', usedExports)
+    // No TS errors, clear the flag
+    setHadTsErrors(false)
+
+    // Generate import statement from detected exports
     const importStatement = usedExports.length > 0
       ? `import { ${usedExports.join(', ')} } from 'sandstone'\n\n`
       : ''
     const codeWithImports = importStatement + code
-    console.log('[InteractiveSnippet] Code with imports:\n', codeWithImports)
 
     compileDataPack(codeWithImports)
       .then(({ result }) => {
-        setPreviousCode(code.trim())
+        setPreviousCode(normalized)
         setCompiledDataPack(Object.entries(result)
           .filter(([relativePath]) => !isBoilerplateFile(relativePath))
           .map(([relativePath, content], key) => {
@@ -227,13 +248,18 @@ export const InteractiveSnippetClient = (props: InteractiveSnippetProps) => {
         console.log('Got error', e)
         setIsLoading(false)
       })
-  }, [previousCode, sandstoneExports])
+  }, [previousCode, hadTsErrors, sandstoneExports])
 
-  // Debounce 500ms after typing stops, but rate limit to 5s between builds
+  // Debounce 500ms after typing stops, rate limit to 3s between builds
   const DEBOUNCE_MS = 500
-  const RATE_LIMIT_MS = 5000
+  const RATE_LIMIT_MS = 3000
 
-  const compile = useCallback(debounce((code: string, errors: typeof editorErrors) => {
+  // Use ref to hold latest doCompile so debounced function stays stable
+  const doCompileRef = useRef(doCompile)
+  doCompileRef.current = doCompile
+
+  // Stable debounced compile function - uses ref to always call latest doCompile
+  const compile = useCallback(debounce((code: string) => {
     const timeSinceLastBuild = Date.now() - lastBuildTime.current
 
     // Clear any existing rate limit timeout
@@ -243,27 +269,23 @@ export const InteractiveSnippetClient = (props: InteractiveSnippetProps) => {
     }
 
     if (timeSinceLastBuild >= RATE_LIMIT_MS || lastBuildTime.current === 0) {
-      // Can build now
-      doCompile(code, errors)
+      // Can build now - no pending overlay needed, compile starts immediately
+      doCompileRef.current(code)
     } else {
       // Need to wait for rate limit
       const waitTime = RATE_LIMIT_MS - timeSinceLastBuild
       rateLimitTimeout.current = setTimeout(() => {
-        doCompile(code, errors)
+        doCompileRef.current(code)
       }, waitTime)
     }
-  }, DEBOUNCE_MS), [doCompile])
+  }, DEBOUNCE_MS), []) // No dependencies - stable function
 
   useEffect(() => {
     // Only compile when visible to avoid running all snippets on page load
     if (hasBeenVisible) {
-      // Show pending state if code changed and we're waiting for debounce
-      if (previousCode && editorValue.trim() !== previousCode) {
-        setIsPending(true)
-      }
-      compile(editorValue, editorErrors)
+      compile(editorValue)
     }
-  }, [editorValue, editorErrors, hasBeenVisible])
+  }, [editorValue, hasBeenVisible, compile])
 
   return <div ref={containerRef} style={{
     display: 'flex',
@@ -274,7 +296,7 @@ export const InteractiveSnippetClient = (props: InteractiveSnippetProps) => {
       flexFlow: 'column nowrap',
     }}>
       {hasBeenVisible ? (
-        <Editor sandstoneFiles={sandstoneFiles} value={editorValue} setValue={setEditorValue} height={props.height} onError={setEditorErrors} />
+        <Editor ref={editorRef} sandstoneFiles={sandstoneFiles} value={editorValue} setValue={setEditorValue} height={props.height} />
       ) : (
         <div style={{
           height: props.height,
@@ -294,7 +316,7 @@ export const InteractiveSnippetClient = (props: InteractiveSnippetProps) => {
       <StatusIndicator status="loading" />
     ) : (
       <div style={{ position: 'relative' }}>
-        {(isLoading || isPending) && (
+        {isLoading && (
           <div style={{
             position: 'absolute',
             inset: 0,
@@ -313,7 +335,7 @@ export const InteractiveSnippetClient = (props: InteractiveSnippetProps) => {
               fontSize: '16px',
               fontWeight: 500,
             }}>
-              {isLoading ? 'Compiling...' : 'Waiting to compile...'}
+              Compiling...
             </div>
           </div>
         )}

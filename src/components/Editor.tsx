@@ -1,7 +1,12 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component, useEffect, useRef, useImperativeHandle, forwardRef } from 'react'
 import MonacoEditor, { Monaco } from '@monaco-editor/react'
-import type { editor, Position } from 'monaco-editor'
+import type { editor, Position, Uri } from 'monaco-editor'
 import { useComponentId } from '../utils/getUniqueId'
+
+export interface EditorHandle {
+  /** Wait for TypeScript analysis to complete and return diagnostics */
+  getTypeScriptDiagnostics: () => Promise<editor.IMarker[]>
+}
 
 // Patch document.caretPositionFromPoint to prevent Monaco crashes
 // Monaco throws when this returns null or has null offsetNode
@@ -75,15 +80,60 @@ class EditorErrorBoundary extends Component<
   }
 }
 
-function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: { sandstoneFiles: [content: string, fileName: string][], onError?: ((markers: editor.IMarker[]) => void), onReady?: (() => void), value: string, setValue: (value: string) => void, height: number }) {
+type EditorProps = {
+  sandstoneFiles: [content: string, fileName: string][]
+  onError?: (markers: editor.IMarker[]) => void
+  onReady?: () => void
+  value: string
+  setValue: (value: string) => void
+  height: number
+}
+
+const Editor_ = forwardRef<EditorHandle, EditorProps>(({ onError, onReady, sandstoneFiles, value, setValue, height }, ref) => {
   const currentEditorID = useComponentId()
+  const monacoRef = useRef<Monaco | null>(null)
+  const modelUriRef = useRef<Uri | null>(null)
+
+  // Expose method to get TypeScript diagnostics on-demand
+  useImperativeHandle(ref, () => ({
+    getTypeScriptDiagnostics: async () => {
+      const monaco = monacoRef.current
+      const modelUri = modelUriRef.current
+      if (!monaco || !modelUri) {
+        return []
+      }
+
+      try {
+        // Get the TypeScript worker and wait for diagnostics
+        const getWorker = await monaco.languages.typescript.getTypeScriptWorker()
+        const worker = await getWorker(modelUri)
+        const uriString = modelUri.toString()
+
+        // Wait for both syntactic and semantic diagnostics to complete
+        await Promise.all([
+          worker.getSyntacticDiagnostics(uriString),
+          worker.getSemanticDiagnostics(uriString),
+        ])
+
+        // Return markers from Monaco (which includes the TS diagnostics)
+        return monaco.editor.getModelMarkers({ resource: modelUri })
+      } catch (err) {
+        console.error('[Editor] Failed to get TS diagnostics:', err)
+        return []
+      }
+    }
+  }), [])
 
   // Patch browser API to prevent Monaco hit-test crashes
   useEffect(() => {
     patchMonacoHitTest()
   }, [])
 
-  const handleEditorDidMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
+  const handleEditorDidMount = (editorInstance: editor.IStandaloneCodeEditor, monaco: Monaco) => {
+    // Store refs for imperative handle
+    monacoRef.current = monaco
+    modelUriRef.current = editorInstance.getModel()?.uri ?? null
+
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
       target: monaco.languages.typescript.ScriptTarget.ES2016,
       allowNonTsExtensions: true,
@@ -93,8 +143,8 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
       typeRoots: ['node_modules/@types'],
       baseUrl: 'file:///node_modules',
       paths: {
-        'sandstone': ['sandstone/index.d.ts'],
-        'sandstone/*': ['sandstone/*'],
+        'sandstone': ['sandstone/exports/index.d.ts'],
+        'sandstone/*': ['sandstone/exports/*/index.d.ts'],
       }
     })
 
@@ -115,17 +165,22 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
     onReady?.()
 
     if (typeof onError !== 'undefined') {
-      monaco.editor.onDidChangeMarkers(() => {
-        onError(monaco.editor.getModelMarkers({ resource: new (monaco.Uri as any)('main.ts') }))
+      const modelUri = editorInstance.getModel()?.uri
+      monaco.editor.onDidChangeMarkers((uris: { toString(): string }[]) => {
+        // Only process if our model's URI is in the changed set
+        if (modelUri && uris.some(uri => uri.toString() === modelUri.toString())) {
+          const markers = monaco.editor.getModelMarkers({ resource: modelUri })
+          onError(markers)
+        }
       })
     }
 
     let cursorPos: Position
-    editor.onDidChangeCursorPosition((p) => {
+    editorInstance.onDidChangeCursorPosition((p) => {
       // Prevents model changes to move the cursor to the end of the block of code
       if (p.source === 'modelChange') {
         if (cursorPos && !p.position.equals(cursorPos)) {
-          editor.setPosition(cursorPos)
+          editorInstance.setPosition(cursorPos)
         }
       }
       else {
@@ -172,7 +227,7 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
         value={value}
         defaultPath={"main" + currentEditorID + ".ts"}
         theme="vs-dark"
-        onChange={setValue}
+        onChange={(value) => setValue(value ?? '')}
         onMount={handleEditorDidMount}
         options={{
           folding: true,
@@ -183,7 +238,7 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
           minimap: {
             enabled: false,
           },
-          lineNumbers: 'off',
+          lineNumbers: 'on',
           automaticLayout: true,
           scrollBeyondLastLine: false,
           fixedOverflowWidgets: true,
@@ -198,7 +253,7 @@ function Editor_({ onError, onReady, sandstoneFiles, value, setValue, height }: 
       </div>
     </EditorErrorBoundary>
   )
-}
+})
 
 export const Editor = React.memo(Editor_)
 
