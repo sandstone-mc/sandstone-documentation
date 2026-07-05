@@ -41,8 +41,8 @@
   background: var(--panel);
   border: 2px solid var(--panel-dark);
   box-shadow:
-    inset 1px 1px 0 var(--border-light),
-    inset -1px -1px 0 var(--panel-shade);
+    inset 2px 2px 0 var(--border-light),
+    inset -3px -3px 0 var(--panel-shade);
 }
 
 .button {
@@ -93,7 +93,7 @@
 }
 
 .buttonSecondary {
-  --button-color: #232925;
+  --button-color: #48494a;
 }
 
 .buttonSm {
