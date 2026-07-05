@@ -18,15 +18,16 @@ const heroDemoCode = `MCFunction('welcome', () => {
 
 const installCommand = "bun i -g sandstone-cli";
 
-const mixingResourcesCode = `Advancement('my_advancement', {
+const mixingResourcesCode = `const MyAdvancement = Advancement('my_advancement', {
     criteria: {
         tick: {
-            trigger: 'minecraft:tick'
+            trigger: 'minecraft:placed_block'
         }
     },
     rewards: {
         function: MCFunction('my_cool_reward', () => {
             say("You did it!")
+            MyAdvancement.revoke('@s')
         })
     }
 })
@@ -178,19 +179,19 @@ const patternDemos: PatternDemo[] = [
       {
         name: "my_advancement.json",
         content: `{
-    "criteria": {
-        "tick": {
-            "trigger": "minecraft:tick"
-        }
-    },
-    "rewards": {
-        "function": "default:my_cool_reward"
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:placed_block"
     }
+  },
+  "rewards": {
+    "function": "default:my_cool_reward"
+  }
 }`
       },
       {
         name: "my_cool_reward.mcfunction",
-        content: `say You did it!`
+        content: `say You did it!\nadvancement revoke @s only default:my_advancement`
       }
     ]
   }
