@@ -1,0 +1,102 @@
+.theme {
+  --bg: #1a1a1a;
+  --bg-alt: #232323;
+  --panel: #2b2b2b;
+  --panel-light: #3d3d3d;
+  --panel-dark: #1a1a1a;
+  --border-light: rgba(255, 255, 255, 0.35);
+  --border-dark: rgba(0, 0, 0, 0.55);
+  --button-bg: #5c5c5c;
+  --button-highlight: rgba(255, 255, 255, 0.22);
+  --button-shade: rgba(255, 255, 255, 0.1);
+  --panel-shade: rgba(255, 255, 255, 0.15);
+  --text: #e9e9e0;
+  --text-dim: #a8a89c;
+  --grass: #137342;
+  --dirt: #7a4b30;
+  --dirt-dark: #56341f;
+  --sandstone: #d9c98a;
+  --sandstone-dark: #a8935a;
+  --diamond: #6fe6e0;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+:root[data-theme='light'] .theme {
+  --bg: #c6c6c6;
+  --bg-alt: #ababab;
+  --panel: #9c9c9c;
+  --panel-light: #e8e8e8;
+  --panel-dark: #7a7a7a;
+  --border-light: rgba(255, 255, 255, 0.8);
+  --border-dark: rgba(0, 0, 0, 0.4);
+  --button-bg: #d8d8d8;
+  --button-highlight: rgba(255, 255, 255, 0.6);
+  --button-shade: rgba(255, 255, 255, 0.3);
+  --panel-shade: rgba(255, 255, 255, 0.4);
+  --text: #1c1c1c;
+  --text-dim: #4a4a4a;
+}
+
+.panel {
+  background: var(--panel);
+  border: 2px solid var(--panel-dark);
+  box-shadow:
+    inset 1px 1px 0 var(--border-light),
+    inset -1px -1px 0 var(--panel-shade);
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 14px 28px;
+  font-family: var(--ifm-font-family-pixel);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  --button-color: #232925;
+  background: var(--button-color);
+  box-shadow:
+    inset 2px 2px 0 var(--button-highlight),
+    inset -3px -3px 0 var(--button-shade),
+    0 8px 0 color-mix(in srgb, var(--button-color) 65%, black),
+    0 10px 14px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.05s ease, filter 0.1s ease;
+}
+
+.button:hover {
+  filter: brightness(1.15);
+  color: #ffffa0;
+  text-decoration: none;
+}
+
+.button:active {
+  transform: translateY(6px);
+  box-shadow:
+    inset 2px 2px 0 var(--button-highlight),
+    inset -3px -3px 0 var(--button-shade),
+    0 2px 0 color-mix(in srgb, var(--button-color) 65%, black),
+    0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.buttonPrimary {
+  --button-color: var(--grass);
+}
+
+.buttonPrimary:hover {
+  filter: brightness(1.3);
+}
+
+.buttonSecondary {
+  --button-color: #232925;
+}
+
+.buttonSm {
+  padding: 8px 18px;
+  font-size: 0.8rem;
+}

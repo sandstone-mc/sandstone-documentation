@@ -1,0 +1,87 @@
+.header {
+  padding: 4rem 2rem 2rem;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 1rem;
+  font-family: var(--ifm-font-family-pixel);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.steps {
+  padding: 1rem 2rem 4rem;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.step {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.75rem;
+}
+
+.stepBadge {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--button-bg);
+  color: var(--text);
+  font-family: var(--ifm-font-family-pixel);
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow:
+    inset 2px 2px 0 var(--button-highlight),
+    inset -2px -2px 0 var(--button-shade);
+}
+
+.stepBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.stepTitle {
+  margin: 0;
+  font-family: var(--ifm-font-family-pixel);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stepDescription {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.footer {
+  padding: 0 2rem 5rem;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

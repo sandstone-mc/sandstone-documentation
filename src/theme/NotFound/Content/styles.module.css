@@ -1,0 +1,57 @@
+.voidWrapper {
+  composes: theme from '../../../css/theme.module.css';
+  --danger: #b3432f;
+}
+
+.voidWrapper {
+  position: relative;
+  min-height: calc(100vh - var(--ifm-navbar-height, 60px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  overflow: hidden;
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 0.75rem;
+  font-family: var(--ifm-font-family-pixel);
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: var(--danger);
+}
+
+.subtitle {
+  margin: 0 0 0.5rem;
+  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.coords {
+  margin: 0 0 1.75rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.coords code {
+  color: var(--grass);
+  background: transparent;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

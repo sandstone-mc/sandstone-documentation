@@ -1,0 +1,113 @@
+.showcase {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+@media screen and (max-width: 700px) {
+  .showcase {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.sidebarItem {
+  text-align: left;
+  padding: 10px 14px;
+  border: none;
+  background: var(--panel-dark);
+  color: var(--text-dim);
+  font-family: var(--ifm-font-family-pixel);
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow:
+    inset 2px 2px 0 var(--border-light),
+    inset -2px -2px 0 var(--panel-shade);
+  transition: filter 0.1s ease, color 0.1s ease;
+}
+
+.sidebarItem:hover {
+  color: var(--text);
+}
+
+.sidebarItemActive {
+  color: var(--text);
+  background: var(--button-bg);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.description {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.subTabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.subTab {
+  padding: 8px 16px;
+  border: none;
+  background: var(--panel-dark);
+  color: var(--text-dim);
+  font-family: var(--ifm-font-family-pixel);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: filter 0.1s ease, color 0.1s ease;
+}
+
+.subTab:hover {
+  color: var(--text);
+}
+
+.subTabActive {
+  color: var(--text);
+  background: var(--button-bg);
+}
+
+.output {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.outputFile {
+  border: 2px solid var(--panel-dark);
+}
+
+.outputFileName {
+  padding: 6px 12px;
+  background: var(--panel-dark);
+  color: var(--text-dim);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.75rem;
+}
+
+.pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 0.85em;
+}

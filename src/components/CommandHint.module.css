@@ -1,0 +1,49 @@
+.commandHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  max-width: 100%;
+  padding: 10px 16px;
+  border: none;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  background: var(--panel-dark);
+  box-shadow:
+    inset 2px 2px 0 var(--border-light),
+    inset -2px -2px 0 var(--panel-shade);
+  cursor: pointer;
+  transition: filter 0.1s ease;
+}
+
+.commandHint:hover {
+  filter: brightness(1.2);
+}
+
+.commandHint:active {
+  filter: brightness(0.9);
+}
+
+.prompt {
+  color: var(--grass);
+  font-weight: 700;
+}
+
+.command {
+  color: var(--text);
+  letter-spacing: 0.5px;
+  overflow-wrap: anywhere;
+}
+
+.copyHint {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.copyHint.copied {
+  color: var(--grass);
+}

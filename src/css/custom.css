@@ -7,12 +7,17 @@
 
 @font-face {
   font-family: "JetBrains Mono Regular";
-  src: url('/static/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  src: url('/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Monocraft";
+  src: url('/fonts/Monocraft.ttf') format('truetype');
 }
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary: #a6cee2;
   --ifm-color-primary-dark: rgb(33, 175, 144);
   --ifm-color-primary-darker: rgb(31, 165, 136);
   --ifm-color-primary-darkest: rgb(26, 136, 112);
@@ -21,7 +26,8 @@
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-color-secondary: #7c9dd1;
   --ifm-code-font-size: 95%;
-  --ifm-font-family-monospace: 'JetBrains Mono Regular', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace
+  --ifm-font-family-monospace: 'JetBrains Mono Regular', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --ifm-font-family-pixel: 'Monocraft', var(--ifm-font-family-monospace);
 }
 
 .docusaurus-highlight-code-line {
@@ -41,6 +47,155 @@ code {
 }
 
 
+/* ---------- navbar (blocky theme, matches landing page) ---------- */
+
+:root {
+  --nav-bg: #232323;
+  --nav-bg-active: #1a1a1a;
+  --nav-border-light: rgba(255, 255, 255, 0.35);
+  --nav-border-dark: rgba(0, 0, 0, 0.55);
+  --nav-text: #e9e9e0;
+  --nav-text-dim: #a8a89c;
+  --nav-accent: #4c9a2a;
+}
+
+:root[data-theme='light'] {
+  --nav-bg: #c6c6c6;
+  --nav-bg-active: #dadada;
+  --nav-border-light: rgba(255, 255, 255, 0.7);
+  --nav-border-dark: rgba(0, 0, 0, 0.3);
+  --nav-text: #1c1c1c;
+  --nav-text-dim: #4a4a4a;
+  --nav-accent: #37701e;
+}
+
+.navbar {
+  background: var(--nav-bg);
+  box-shadow: none;
+  border-bottom: 4px solid var(--nav-bg-active);
+  box-shadow:
+    inset 0 3px 0 var(--nav-border-light),
+    inset 0 -3px 0 var(--nav-border-dark);
+  font-family: var(--ifm-font-family-pixel);
+}
+
+.navbar__brand {
+  gap: 10px;
+}
+
+.navbar__logo img {
+  image-rendering: pixelated;
+}
+
+.navbar__title {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--nav-text);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.navbar__link {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  color: var(--nav-text-dim);
+  padding: 6px 12px;
+  margin: 0 2px;
+  border-radius: 0;
+}
+
+.navbar__link:hover {
+  color: var(--nav-text);
+  background: var(--nav-bg-active);
+  box-shadow:
+    inset 2px 2px 0 var(--nav-border-dark),
+    inset -2px -2px 0 var(--nav-border-light);
+  text-decoration: none;
+}
+
+.navbar__link--active {
+  color: var(--nav-text);
+  background: var(--nav-bg-active);
+  box-shadow:
+    inset 2px 2px 0 var(--nav-border-dark),
+    inset -2px -2px 0 var(--nav-border-light);
+}
+
+.navbar__link--active::after {
+  content: '';
+  display: block;
+  height: 3px;
+  margin-top: 3px;
+  background: var(--nav-accent);
+}
+
+.navbar .clean-btn:hover {
+  color: var(--nav-accent);
+}
+
+.navbar__toggle {
+  color: var(--nav-text);
+}
+
+.navbar-sidebar {
+  background: var(--nav-bg);
+  font-family: var(--ifm-font-family-pixel);
+}
+
+.navbar-sidebar__brand {
+  border-bottom: 3px solid var(--nav-bg-active);
+  box-shadow: inset 0 -3px 0 var(--nav-border-dark);
+}
+
+.navbar-sidebar__item .menu__link {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  border-radius: 0;
+}
+
+.navbar-sidebar__item .menu__link--active {
+  background: var(--nav-bg-active);
+  box-shadow:
+    inset 2px 2px 0 var(--nav-border-dark),
+    inset -2px -2px 0 var(--nav-border-light);
+}
+
+/* ---------- selection & scrollbar ---------- */
+
+::selection {
+  background: rgba(76, 154, 42, 0.4);
+  color: inherit;
+}
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--nav-bg) var(--nav-bg-active);
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--nav-bg-active);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--nav-bg);
+  border: 3px solid var(--nav-bg-active);
+  box-shadow:
+    inset 1px 1px 0 var(--nav-border-light),
+    inset -1px -1px 0 var(--nav-border-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nav-accent);
+}
 
 /* prism theme vsDark++ */
 

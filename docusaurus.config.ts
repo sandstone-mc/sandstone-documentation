@@ -128,9 +128,9 @@ const config: Config = {
           position: "left",
         },
         {
-          to: "playground/",
-          activeBasePath: "playground",
-          label: "Playground",
+          to: "quickstart/",
+          activeBasePath: "quickstart",
+          label: "Quickstart",
           position: "left",
         },
         {

@@ -8,8 +8,8 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: "link",
-      label: "Playground",
-      href: "/playground/",
+      label: "Quickstart",
+      href: "/quickstart/",
     },
   ],
 };
