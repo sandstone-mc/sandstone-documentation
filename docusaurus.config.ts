@@ -63,6 +63,19 @@ const config: Config = {
       : []),
   ],
 
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        hashed: true,
+        indexDocs: true,
+        indexBlog: false,
+        indexPages: true,
+        docsRouteBasePath: "/docs",
+      },
+    ],
+  ],
+
   presets: [
     [
       "classic",
@@ -73,10 +86,9 @@ const config: Config = {
         },
         docs: {
           sidebarPath: "./sidebars.ts",
-          // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/sandstone-mc/sandstone-documentation/tree/master/",
           remarkPlugins: [require("./plugins/preserve-code-whitespace")],
         },
         // blog: {
@@ -132,6 +144,10 @@ const config: Config = {
           activeBasePath: "quickstart",
           label: "Quickstart",
           position: "left",
+        },
+        {
+          type: "search",
+          position: "right",
         },
         {
           href: "https://github.com/sandstone-mc/sandstone",

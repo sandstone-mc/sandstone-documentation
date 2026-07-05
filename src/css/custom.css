@@ -160,6 +160,40 @@ code {
     inset -2px -2px 0 var(--nav-border-light);
 }
 
+/* search bar */
+
+:root {
+  --search-accent: #137342;
+
+  --ifm-navbar-search-input-background-color: var(--nav-bg-active);
+  --ifm-navbar-search-input-color: var(--nav-text-dim);
+  --ifm-navbar-search-input-placeholder-color: var(--nav-text-dim);
+
+  --search-local-modal-background: var(--nav-bg);
+  --search-local-modal-shadow:
+    inset 2px 2px 0 var(--nav-border-dark),
+    inset -3px -3px 0 var(--nav-border-light);
+  --search-local-hit-background: var(--nav-bg-active);
+  --search-local-hit-shadow: none;
+  --search-local-hit-color: var(--nav-text);
+  --search-local-hit-active-color: var(--nav-text);
+  --search-local-highlight-color: var(--search-accent);
+  --search-local-muted-color: var(--nav-text-dim);
+  --search-local-input-active-border-color: var(--search-accent);
+}
+
+.navbar__search-input {
+  border-radius: 0;
+  font-family: var(--ifm-font-family-monospace);
+  box-shadow:
+    inset 2px 2px 0 var(--nav-border-dark),
+    inset -2px -2px 0 var(--nav-border-light);
+}
+
+.navbar__search-input:focus {
+  color: var(--nav-text);
+}
+
 /* ---------- selection & scrollbar ---------- */
 
 ::selection {
