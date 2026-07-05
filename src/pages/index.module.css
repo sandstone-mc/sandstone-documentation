@@ -91,7 +91,7 @@
 .demoPanelDot {
   width: 8px;
   height: 8px;
-  background: var(--grass);
+  background: var(--diamond);
   box-shadow: 0 0 0 2px var(--panel-dark);
 }
 
@@ -165,8 +165,8 @@
 }
 
 .featureIcon {
-  width: 30px;
-  height: 30px;
+  width: 48px;
+  height: 44px;
   object-fit: contain;
   image-rendering: pixelated;
 }
