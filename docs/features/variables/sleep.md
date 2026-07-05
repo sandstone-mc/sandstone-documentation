@@ -4,8 +4,11 @@ title: Sleep
 description: How to add delay(s) to your functions with Sandstone.
 ---
 
+import { InteractiveSnippet } from '../../../src/components'
+
 Examples:
-```ts
+
+```ts sandstone height=450
 MCFunction('explosive', () => {
   say('explod in 5')
   for (let i = 4; i != 0; i--) {
