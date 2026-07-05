@@ -44,16 +44,12 @@ function checkHit(opts: HitboxOptions) {
   const h = opts.height ?? 2.0
   const type = opts.type ?? '#minecraft:skeletons'
 
-  execute.positioned(rel(-w, -h / 2, -w)).run(() => {
-    execute.as(Selector('@e', {
-      type,
-      dx: w * 2,
-      dy: h,
-      dz: w * 2
-    })).if.entity('@s').run(() => {
-      opts.onHit()
-    })
-  })
+  execute.positioned(rel(-w, -h / 2, -w)).as(Selector('@e', {
+    type,
+    dx: w * 2,
+    dy: h,
+    dz: w * 2
+  })).if.entity('@s').run(() => opts.onHit())
 }
 
 
@@ -130,14 +126,10 @@ const patternDemos: PatternDemo[] = [
     generatedFiles: [
       {
         name: "check_sword_swing.mcfunction",
-        content: `execute positioned ~-1.2 ~-1 ~-1.2 run function default:check_sword_swing/execute_positioned`,
+        content: `execute positioned ~-1.2 ~-1 ~-1.2 as @e[type=#minecraft:skeletons, dx=2.4, dy=2, dz=2.4] if entity @s run function default:check_sword_swing/execute_positioned`,
       },
       {
         name: "check_sword_swing/execute_positioned.mcfunction",
-        content: `execute as @e[type=#minecraft:skeletons, dx=2.4, dy=2, dz=2.4] if entity @s run function default:check_sword_swing/execute_positioned/execute_as`,
-      },
-      {
-        name: "check_sword_swing/execute_positioned/execute_as.mcfunction",
         content: `say Hit detected!\neffect give @s minecraft:glowing 3 0`,
       },
     ],
