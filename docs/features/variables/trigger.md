@@ -6,9 +6,9 @@ description: How to create score-based triggers with Sandstone.
 
 ## Introduction
 
-`Trigger` is a lightweight score-based event system. It creates a dedicated `dummy` scoreboard objective, plus a shared polling function (one per distinct `pollingEvery` value, reused by all your triggers with that same interval, see [`runEvery`](/docs/features/functions#properties)).
+`Trigger` is a lightweight score-based event system. It creates a dedicated `trigger` scoreboard objective, plus a shared polling function (one per distinct `pollingEvery` value, reused by all your triggers with that same interval, see [`runEvery`](/docs/features/functions#minecraft-function-options)).
 
-Whenever an entity's score on that objective is `1` or higher, the next time the polling function runs it invokes your handler for that entity (as `@s`), then resets their score back to `0`.
+Whenever an entity's score on that objective is `1` or higher, the next time the polling function runs it invokes your handler for that entity (as and at `@s`), then resets their score back to `0`.
 
 ```ts
 import { Trigger } from 'sandstone'
@@ -46,15 +46,17 @@ Trigger('heal', healFn)
 
 ### `['num', max, callback]`
 
-Decomposes the score into a switch over its exact value (`1` to `max`), calling `callback` with the matched number.
+Runs different logic for each exact value from `1` to `max`, calling `callback` once per value with the matched number. Best suited for a small set of genuinely distinct branches.
 
 ```ts
-Trigger('choose_kit', ['num', 3, (num) => {
-  _.if(num['=='](1), () => give('@s', 'minecraft:iron_sword'))
-  _.if(num['=='](2), () => give('@s', 'minecraft:bow'))
-  _.if(num['=='](3), () => give('@s', 'minecraft:shield'))
+Trigger('diamonds_pls', ['num', 64, (num) => {
+  give('@s', 'minecraft:diamond', num)
 }], 20)
 ```
+
+:::warning
+This particular example is a bad idea in practice, it uses [`Score#match`](/docs/features/variables/objectives#value-dispatch-match) under the hood which generates one MCFunction *per possible value* (64 files for this range, plus a macro dispatcher: 65 files total), each hardcoding its own literal number. That's fine for a handful of genuinely different branches, but here every "branch" does the exact same thing with a different number which is a job better suited for a [macro](/docs/features/macros).
+:::
 
 ### `['score', callback]`
 
