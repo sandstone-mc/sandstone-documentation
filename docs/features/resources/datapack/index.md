@@ -31,7 +31,7 @@ exported via `RawResource`, or fully abstracted via `CustomResourceClass` - see
 - [Predicates](/docs/features/resources/datapack/predicates)
 - [Recipes](/docs/features/resources/datapack/recipes)
 - Slot Sources
-- [Structures](/docs/features/resources/datapack/structures)
+- Structures
 - Sulfur Cube Archetypes
 - [Tags](/docs/features/resources/datapack/tags)
 - Test Environments & Test Instances (Gametest)
