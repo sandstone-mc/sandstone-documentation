@@ -17,12 +17,14 @@ import { _, Objective, say } from 'sandstone'
 
 const state = Objective.create('state')('@s')
 
-_.switch(state, _
-  .case<Score>(0, () => say('State is zero'))
-  .case(1, () => say('State is one'))
-  .case(2, () => say('State is two'))
-  .default(() => say('Unknown state'))
-)
+MCFunction('switch_demo', () => {
+  _.switch(state, _
+    .case<Score>(0, () => say('State is zero'))
+    .case(1, () => say('State is one'))
+    .case(2, () => say('State is two'))
+    .default(() => say('Unknown state'))
+  )
+})
 ```
 
 ## Switching on Scores
