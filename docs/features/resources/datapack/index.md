@@ -22,15 +22,15 @@ exported via `RawResource`, or fully abstracted via `CustomResourceClass` - see
 - Chat Types
 - [Damage Types](/docs/features/resources/datapack/damage_types)
 - Decorated Pot Patterns
-- [Dialogs](/docs/features/resources/datapack/dialogs)
-- [Enchantments](/docs/features/resources/datapack/enchantments) (and Enchantment Providers)
+- Dialogs
+- Enchantments (and Enchantment Providers)
 - Instruments
 - [Item Modifiers](/docs/features/resources/datapack/item_modifiers)
 - Jukebox Songs
 - [Loot Tables](/docs/features/resources/datapack/loot_tables)
 - [Predicates](/docs/features/resources/datapack/predicates)
 - [Recipes](/docs/features/resources/datapack/recipes)
-- [Slot Sources](/docs/features/resources/datapack/slot_source)
+- Slot Sources
 - [Structures](/docs/features/resources/datapack/structures)
 - Sulfur Cube Archetypes
 - [Tags](/docs/features/resources/datapack/tags)

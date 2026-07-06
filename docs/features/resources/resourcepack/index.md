@@ -23,16 +23,16 @@ and invoking this, Sandstone will automatically register the sound as an event. 
 - Atlases
 - Block States
 - Equipment
-- [Fonts](/docs/features/resources/resourcepack/fonts)
+- Fonts
 - [Item Model Definitions](/docs/features/resources/resourcepack/item_model_definitions)
 - Languages/Translations
 - Models
 - Particles
 - Post Effects
 - Shaders
-- [Sounds](/docs/features/resources/resourcepack/sounds)
+- Sounds
 - Texts
-- [Textures](/docs/features/resources/resourcepack/textures)
+- Textures
 - Waypoint Styles
 
 Resources without a link yet are fully typed and documented via autocompletion/jsdoc in the
