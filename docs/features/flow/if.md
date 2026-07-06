@@ -159,7 +159,7 @@ MCFunction('tick', () => {
 
 [NBT path]: https://minecraft.fandom.com/wiki/NBT_path_format
 
-Data instances also support `.equals(value)`, which compares the stored value against an NBT value, a `Score`, or another Data instance instead of just checking for existence:
+DataPoint instances also support `.equals(value)`, which compares the stored value against an NBT value, a `Score`, or another Data instance instead of just checking for existence:
 
 ```ts
 _.if(Data('storage', 'my_pack:main', 'stage').equals(3), () => {

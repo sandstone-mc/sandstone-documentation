@@ -15,8 +15,7 @@ SoundEvent('hostile', 'slenderman_creeps', undefined, { addToSounds: true })
 ```
 
 After placing the sound file in `resources/resourcepack/assets/default/sounds/hostile/slenderman_creeps.ogg`
-and invoking this, Sandstone will automatically register the sound as an event. See
-[Sounds](/docs/features/resources/resourcepack/sounds) for more.
+and invoking this, Sandstone will automatically register the sound as an event.
 
 ## Supported resources
 
