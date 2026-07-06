@@ -1,5 +1,6 @@
 ---
 id: custom_resource
+sidebar_position: 4
 title: Custom Resources
 description: How to create custom resources (& packs!) with Sandstone.
 ---

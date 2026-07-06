@@ -1,5 +1,6 @@
 ---
 id: existing_resources
+sidebar_position: 3
 title: Existing Resources
 description: How to leverage existing resources with Sandstone.
 ---

@@ -182,12 +182,12 @@ _.forScore(myKills, myKills.greaterThan(0), () => myKills.remove(1), () => {
 
 // If the player has between 10 and 20 kills, tell everyone he's a hero
 const player = Selector('@s')
-_.if(_.and(myKills.greaterOrEqualThan(10), myKills.lessThan(20)), () => {
+_.if(_.and(myKills.greaterThanOrEqualTo(10), myKills.lessThan(20)), () => {
   tellraw('@a', [player, ' is a hero!'])
 })
 
 // However, if he has more than 20 kills, tell everyone he is a legend
-_.if(myKills.greaterOrEqualThan(20), () => {
+_.if(myKills.greaterThanOrEqualTo(20), () => {
   tellraw('@a', [player, { text: ' is a legend!', color: 'red' }])
 })
 
@@ -196,3 +196,19 @@ _.if(myKills.equalTo(0), () => {
   kills(player)
 })
 ```
+
+## Value dispatch (`match`)
+
+`myScore.match(minimum, maximum, callback)` branches on a score's *exact* value. For every integer from `minimum` to `maximum`, it generates a separate MCFunction by calling `callback` with that value, plus one macro dispatcher function that picks the right one at runtime based on the score:
+
+```ts
+myKills.match(0, 2, (value) => {
+  // `value` is a plain number here (0, 1, or 2) 
+  // this callback runs once per generated file, at compile time, not once at runtime.
+  tellraw('@s', `You have exactly ${value} kills`)
+})
+```
+
+:::warning
+Every value in the range gets its own file, generated at build time, `match(0, 64, ...)` creates 65 files (one per value, plus the macro dispatcher: 66 total) whether or not most of them ever come up in practice. This is only worth it when each value needs genuinely different logic. If you just need to plug a number into a command (e.g. giving a variable amount of an item), use a [macro](/docs/features/macros) instead so a single function handles every value. Sandstone logs a console warning at build time if a `match()` range spans more than 1000 values.
+:::
