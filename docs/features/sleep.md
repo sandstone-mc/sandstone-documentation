@@ -4,7 +4,7 @@ title: Sleep
 description: How to add delay(s) to your functions with Sandstone.
 ---
 
-import { InteractiveSnippet } from '../../../src/components'
+import { InteractiveSnippet } from '../../src/components'
 
 Examples:
 
