@@ -1,0 +1,5 @@
+label: 'Datapack'
+position: 2
+link:
+  type: doc
+  id: features/resources/datapack/index

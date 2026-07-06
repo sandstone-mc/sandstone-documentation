@@ -1,0 +1,5 @@
+label: 'Resource Pack'
+position: 1
+link:
+  type: doc
+  id: features/resources/resourcepack/index
