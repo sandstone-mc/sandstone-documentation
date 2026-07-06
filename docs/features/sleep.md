@@ -13,7 +13,7 @@ MCFunction('explosive', () => {
   say('explod in 5')
   for (let i = 4; i != 0; i--) {
     sleep('1s')
-    say(i)
+    say(`${i}`)
   }
   kill('herobrine')
 })
@@ -22,7 +22,7 @@ MCFunction('explod_me', () => {
   say('explod in 5')
   for (let i = 4; i != 0; i--) {
     sleep('1s')
-    say(i)
+    say(`${i}`)
   }
   kill('@s')
 }, {
