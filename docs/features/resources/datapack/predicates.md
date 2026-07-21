@@ -5,7 +5,7 @@ description: How to create predicates with Sandstone.
 ---
 
 ## Introduction
-Sandstone features fully-typed predicates. Like for all resources, you need to provide a name, which can include a namespace and folders. You then provide the definition of the loot table.
+Sandstone features fully-typed predicates. Like for all resources, you need to provide a name, which can include a namespace and folders. You then provide the definition of the predicate.
 
 ## Syntax
 

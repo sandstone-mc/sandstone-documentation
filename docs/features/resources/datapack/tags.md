@@ -6,7 +6,7 @@ description: How to create & use tags with Sandstone.
 
 ## Introduction
 
-A tag groups several resources of the same registry (blocks, items, entity types, functions, damage types, and more) under a single `#namespace:name` reference, which canthen be used anywhere that registry's resources are accepted.
+A tag groups several resources of the same registry (blocks, items, entity types, functions, damage types, and more) under a single `#namespace:name` reference, which can then be used anywhere that registry's resources are accepted.
 
 ```ts
 import { Tag } from 'sandstone'

@@ -32,7 +32,7 @@ LootTable('loot_table_name', {
 })
 ```
 
-As you can see, you must provide a list of pool. A pool is defined by a list of entries and a number of `rolls`. For each entry, you must provide a `type` and. Once a `type` has been specified, the specific properties for this `type` will be available through autocompletion. The pool also has `conditions` and `functions`: read the built-in documentation or the [Wikipedia article on Loot Tables](https://minecraft.wiki/Loot_table#Tags) for more information.
+As you can see, you must provide a list of pool. A pool is defined by a list of entries and a number of `rolls`. For each entry, you must provide a `type`. Once a `type` has been specified, the specific properties for this `type` will be available through autocompletion. The pool also has `conditions` and `functions`: read the built-in documentation or the [Wikipedia article on Loot Tables](https://minecraft.wiki/Loot_table#Tags) for more information.
 
 ### Example
 

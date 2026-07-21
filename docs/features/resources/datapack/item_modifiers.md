@@ -7,7 +7,7 @@ description: How to create item modifiers with Sandstone.
 ## Introduction
 Sandstone features fully-typed item modifiers. Like for all resources, you need to provide a name, which can include a namespace and folders. You then provide the definition of the item modifier.
 
-The minimal syntax for damage types is the following:
+The minimal syntax for item modifiers is the following:
 ```ts
 import { ItemModifier } from 'sandstone'
 
