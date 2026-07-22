@@ -8,7 +8,8 @@ sidebar_position: 3
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { InteractiveSnippet } from '../../src/components'
+import { InteractiveSnippet, ProjectGrid } from '../../src/components'
+import styles from '../../src/components/Showcase/Showcase.module.css'
 
 Let's write your first Minecraft function. Start VSCode, and open the project folder. In the `src` directory, create a new file named `helloworld.ts`, with the following content:
 
@@ -100,4 +101,8 @@ Inside the curly brackets `{...}`, we will specify the commands we want to write
 ```
 This line tells Sandstone that we want to write the `/say` command in the current MCFunction, with the `Hello world!` argument. It will result in the command `say Hello world!`.
 
+## Need Inspiration?
 
+Check out actual projects built by members of the community!
+
+<ProjectGrid limit={3} className={styles.grid} />

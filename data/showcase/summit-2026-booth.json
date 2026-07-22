@@ -1,0 +1,56 @@
+{
+  "slug": "summit-2026-booth",
+  "title": "Summit 2026 Booth",
+  "tagline": "The Sandstone booth at the Smithed Summit 2026, built entirely in TypeScript.",
+  "credits": [
+    {
+      "section": "Development & Leadership",
+      "members": [
+        { "name": "Origaming", "minecraft": "75c4fe91-1f0f-4b98-b34d-0b630b2a4257", "socials": [{ "type": "github", "url": "https://github.com/OrigamingWasTaken" }], "role": "Rhythm showcase" },
+        { "name": "Lilspartan", "minecraft": "65574243-8a4d-48e8-9341-9655db14b122", "socials": [{ "type": "modrinth", "url": "https://modrinth.com/user/Lilspartan" }, { "type": "github", "url": "https://github.com/Lilspartan" }], "role": "Magic Showcase, Elevator, NPCs" },
+        { "name": "MulverineX", "minecraft": "87f0b42b-7777-442b-9be3-d134c6727cf8", "socials": [{ "type": "modrinth", "url": "https://modrinth.com/user/MulverineX" }, { "type": "github", "url": "https://github.com/MulverineX" }], "role": "Sandstone maintainer, Presentation" }
+      ]
+    },
+    {
+      "section": "Building & Art",
+      "members": [
+        { "name": "Comqote", "minecraft": "7b3a539b-224c-40b5-96a5-2f81835980fe", "socials": [{ "type": "instagram", "url": "https://www.instagram.com/comqote/" }], "role": "Main booth build" },
+        { "name": "Ewwwwwan", "minecraft": "5a10b42b-926d-4b35-b282-72e6aa206e7e", "role": "Casino & magic showcase builds, logo, stickers, balloon" },
+        { "name": "Tofetta", "minecraft": "88e07a01-5212-405a-bab6-7425f373b1c1", "role": "Rhythm showcase builds" }
+      ]
+    },
+    {
+      "section": "Shader Development",
+      "members": [
+        { "name": "Meek", "minecraft": "8c0fd7d2-bed5-411f-91b6-eed5558f55cc", "socials": [{ "type": "website", "url": "https://meekhasto.rest/" }, { "type": "github", "url": "https://github.com/Meekiavelique" }], "role": "Skybox shaders for rhythm showcase" }
+      ]
+    },
+    {
+      "section": "Prior Art",
+      "members": [
+        { "name": "SnaveSutit", "minecraft": "10360b5a-27d5-480f-b335-4c58e679072b", "socials": [{ "type": "website", "url": "https://animated-java.dev/" }, { "type": "github", "url": "https://github.com/SnaveSutit" }], "role": "Text rendering" }
+      ]
+    }
+  ],
+  "description": [
+    "**[PLACEHOLDER TEXT]** Lorem ipsum dolor sit amet, *consectetur adipiscing elit*. This paragraph has **bold**, *italic*, and a [link to the Sandstone repo](https://github.com/sandstone-mc/sandstone).",
+    "Quisque faucibus ex sapien vitae pellentesque sem placerat, in id cursus mi pretium tellus duis convallis. You can also mix **bold and _nested italic_ together**, or write a [plain link](https://smithed.net/summit).",
+    "## A Demo Heading (H2)\n\nText right after a heading, to check spacing.",
+    "### A Smaller Demo Heading (H3)\n\nAnd some more text after that one.",
+    "And one last paragraph that has no markdown formatting at all to see that that works well still."
+  ],
+  "images": [
+    { "src": "/img/showcase/summit-2026-booth/castle.webp", "alt": "The booth's castle" },
+    { "src": "/img/showcase/summit-2026-booth/castle_interior.webp", "alt": "Inside the booth's castle" },
+    { "src": "/img/showcase/summit-2026-booth/rhythm_glamshot.webp", "alt": "Rhythm minigame arena with glass walls and a gold target line" },
+    { "src": "/img/showcase/summit-2026-booth/magic_glamshot.webp", "alt": "Magic showcase spellcasting demo" },
+    { "src": "/img/showcase/summit-2026-booth/showcase.webp", "alt": "Showcase area of the booth" }
+  ],
+  "video": null,
+  "links": {
+    "source": "https://github.com/sandstone-mc/summit_2026_booth"
+  },
+  "tags": ["event", "minigame"],
+  "featured": true,
+  "lastUpdated": "2026-07-19"
+}

@@ -58,6 +58,7 @@ const config: Config = {
 
   plugins: [
     require("./plugins/get-sandstone-files"),
+    require("./plugins/showcase"),
     ...(useLocalSandstone
       ? [[require("./plugins/local-sandstone-alias"), { alias: localSandstoneAlias }]]
       : []),
@@ -146,6 +147,12 @@ const config: Config = {
           position: "left",
         },
         {
+          to: "showcase",
+          activeBasePath: "showcase",
+          label: "Showcase",
+          position: "left",
+        },
+        {
           type: "search",
           position: "right",
         },
@@ -156,51 +163,37 @@ const config: Config = {
         },
       ],
     },
-    // footer: {
-    //   style: "dark",
-    //   links: [
-    //     {
-    //       title: "Docs",
-    //       items: [
-    //         {
-    //           label: "Tutorial",
-    //           to: "/docs/intro",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       title: "Community",
-    //       items: [
-    //         {
-    //           label: "Stack Overflow",
-    //           href: "https://stackoverflow.com/questions/tagged/docusaurus",
-    //         },
-    //         {
-    //           label: "Discord",
-    //           href: "https://discordapp.com/invite/docusaurus",
-    //         },
-    //         {
-    //           label: "Twitter",
-    //           href: "https://twitter.com/docusaurus",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       title: "More",
-    //       items: [
-    //         {
-    //           label: "Blog",
-    //           to: "/blog",
-    //         },
-    //         {
-    //           label: "GitHub",
-    //           href: "https://github.com/facebook/docusaurus",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-    // },
+    footer: {
+      style: "dark",
+      links: [
+        {
+          title: "Docs",
+          items: [
+            { label: "Getting Started", to: "/docs" },
+            { label: "Quickstart", to: "/quickstart" },
+            { label: "Showcase", to: "/showcase" },
+          ],
+        },
+        {
+          title: "Community",
+          items: [
+            { label: "Discord", href: "https://discord.gg/4tzM5aXDRe" },
+            { label: "GitHub", href: "https://github.com/sandstone-mc/sandstone" },
+            { label: "npm", href: "https://www.npmjs.com/package/sandstone" },
+            { label: "Sponsor", href: "https://github.com/sponsors/MulverineX" },
+          ],
+        },
+        {
+          title: "Credits",
+          items: [
+            { label: "Design by LilSpartan", href: "https://github.com/Lilspartan" },
+            { label: "Social Icons: Pixel Twemoji", href: "https://github.com/AmberWat/PixelTwemojiMC-9" },
+            { label: "Social Icons: Kyrius", href: "https://modrinth.com/user/Kyrius" },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} Sandstone.`,
+    },
     prism: {
       theme: prismThemes.vsDark,
       darkTheme: prismThemes.dracula,
