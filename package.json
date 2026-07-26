@@ -27,13 +27,13 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-github-btn": "^1.4.0",
-    "sandstone": "^1.1.1"
+    "sandstone": "^1.1.2"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
-    "@sandstone-mc/playground": "^0.3.2",
+    "@sandstone-mc/playground": "^0.3.4",
     "@types/lodash": "^4.17.23",
     "@types/node": "^24.0.0",
     "pathe": "^2.0.3",
