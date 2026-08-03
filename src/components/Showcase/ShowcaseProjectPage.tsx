@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Layout from '@theme/Layout'
+import { PageMetadata } from '@docusaurus/theme-common'
 import Link from '@docusaurus/Link'
 import ReactMarkdown from 'react-markdown'
 import { Panel } from '../Panel'
@@ -26,6 +27,7 @@ export default function ShowcaseProjectPage({ project }: ShowcaseProjectPageProp
 
   return (
     <Layout title={project.title} description={project.tagline}>
+      {heroImage && <PageMetadata image={heroImage.src} />}
       <div className={styles.page}>
         {heroImage && (
           <div className={styles.heroWrapper}>
