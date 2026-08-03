@@ -282,7 +282,7 @@ _.if(_.function_(check), () => { ... })
 _.if(_.predicate('my_pack:is_raining'), () => { ... })
 
 const isRaining = Predicate('is_raining', { condition: 'minecraft:weather_check', raining: true })
-_.if(_.predicate(isRaining), () => { ... })
+_.if(isRaining, () => { ... })
 ```
 
 ### Boolean logic
