@@ -25,12 +25,10 @@ export function Lightbox({ image, onClose }: LightboxProps) {
       <button className={styles.closeButton} onClick={onClose} aria-label="Close">
         ✕
       </button>
-      <img
-        className={styles.image}
-        src={image.src}
-        alt={image.alt}
-        onClick={(event) => event.stopPropagation()}
-      />
+      <div className={styles.content} onClick={(event) => event.stopPropagation()}>
+        <img className={styles.image} src={image.src} alt={image.alt} />
+        {image.alt && <p className={styles.caption}>{image.alt}</p>}
+      </div>
     </div>
   )
 }

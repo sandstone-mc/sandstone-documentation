@@ -10,12 +10,30 @@
   cursor: zoom-out;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 100%;
+  min-height: 0;
+}
+
 .image {
   max-width: 100%;
-  max-height: 100%;
+  max-height: calc(100vh - 12rem);
   object-fit: contain;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   cursor: default;
+}
+
+.caption {
+  margin: 0;
+  max-width: 60ch;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .closeButton {
@@ -27,6 +45,7 @@
   border: none;
   width: 40px;
   height: 40px;
+  font-family: var(--ifm-font-family-pixel);
   font-size: 1.1rem;
   cursor: pointer;
   box-shadow:
