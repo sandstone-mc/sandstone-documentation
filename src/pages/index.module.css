@@ -1,8 +1,5 @@
 .page {
-  composes: theme from '../css/theme.module.css';
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100%;
+  composes: pageWrapper from '../css/theme.module.css';
 }
 
 /* hero */
@@ -69,7 +66,7 @@
 }
 
 .quickstartLink:hover {
-  color: var(--grass);
+  color: var(--water-accent);
   text-decoration: underline;
 }
 
@@ -104,26 +101,9 @@
 }
 
 .sectionHeading {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  composes: sectionHeading from '../css/theme.module.css';
   margin: 0 0 2.5rem;
-  font-family: var(--ifm-font-family-pixel);
   font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: var(--text);
-}
-
-.sectionHeading::after {
-  content: '';
-  flex: 1;
-  height: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--panel-dark) 0 10px,
-    transparent 10px 16px
-  );
 }
 
 .featureGrid {
@@ -185,6 +165,38 @@
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--text-dim);
+}
+
+.showcaseTeaser {
+  padding: 1rem 2rem 3rem;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.showcaseTeaserGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+@media screen and (max-width: 900px) {
+  .showcaseTeaserGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.showcaseTeaserLink {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.showcaseTeaserLink:hover {
+  color: var(--water-accent);
+  text-decoration: underline;
 }
 
 /* patterns */

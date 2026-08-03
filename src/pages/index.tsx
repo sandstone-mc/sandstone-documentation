@@ -4,7 +4,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import { InteractiveSnippet, PatternShowcase, Button, Panel, CommandHint, type PatternDemo } from "../components";
+import { InteractiveSnippet, PatternShowcase, Button, Panel, CommandHint, ProjectGrid, type PatternDemo } from "../components";
 import { useGithubStars } from "../hooks/useGithubStars";
 
 const GITHUB_REPO = "sandstone-mc/sandstone";
@@ -310,6 +310,16 @@ function Home() {
                 <Feature key={idx} {...props} />
               ))}
             </div>
+          </section>
+          <section className={styles.showcaseTeaser}>
+            <h2 className={styles.sectionHeading}>From the Community</h2>
+            <p className={styles.patternsIntro}>
+              Real projects built with Sandstone.
+            </p>
+            <ProjectGrid limit={3} className={styles.showcaseTeaserGrid} />
+            <Link className={styles.showcaseTeaserLink} to={useBaseUrl("showcase")}>
+              View all showcases &rarr;
+            </Link>
           </section>
           <section className={styles.patterns}>
             <h2 className={styles.sectionHeading}>Real Patterns From Real Packs</h2>

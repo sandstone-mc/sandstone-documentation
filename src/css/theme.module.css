@@ -18,6 +18,13 @@
   --sandstone: #d9c98a;
   --sandstone-dark: #a8935a;
   --diamond: #6fe6e0;
+  --water-accent: #a6cee2;
+  --redstone: #d1453d;
+  --gold: #f0c419;
+  --iron: #c9c9c9;
+  --copper: #b8733d;
+  --blocky-border: inset 1px 1px 0 var(--border-light), inset -1px -1px 0 var(--border-dark);
+  --panel-border: inset 2px 2px 0 var(--border-light), inset -3px -3px 0 var(--panel-shade);
   font-family: var(--ifm-font-family-monospace);
 }
 
@@ -37,12 +44,38 @@
   --text-dim: #4a4a4a;
 }
 
+.pageWrapper {
+  composes: theme;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--ifm-font-family-pixel);
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+
+.sectionHeading::after {
+  content: '';
+  flex: 1;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--panel-light) 0 8px,
+    transparent 8px 13px
+  );
+}
+
 .panel {
   background: var(--panel);
   border: 2px solid var(--panel-dark);
-  box-shadow:
-    inset 2px 2px 0 var(--border-light),
-    inset -3px -3px 0 var(--panel-shade);
+  box-shadow: var(--panel-border);
 }
 
 .button {

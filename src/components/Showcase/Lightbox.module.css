@@ -1,0 +1,58 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  cursor: zoom-out;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 100%;
+  min-height: 0;
+}
+
+.image {
+  max-width: 100%;
+  max-height: calc(100vh - 12rem);
+  object-fit: contain;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+.caption {
+  margin: 0;
+  max-width: 60ch;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-family: var(--ifm-font-family-pixel);
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.35),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.55);
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.75);
+}

@@ -1,0 +1,223 @@
+{
+  "slug": "summit-2026-booth",
+  "title": "Summit 2026 Booth",
+  "tagline": "The Sandstone booth at the Smithed Summit 2026, built entirely in TypeScript.",
+  "description": [
+    "The Sandstone booth for Smithed Summit 2026 — built entirely in TypeScript using [Sandstone](https://github.com/sandstone-mc/sandstone), rather than hand-written `.mcfunction` files.\n\nVisitors enter through the sand castle where they can speak to a few informative NPCs that tell them all about Sandstone, the booth, and who was involved.\n\nDown the stairs the booth features a presentation all about Sandstone and what it can do for you. Have a seat and watch this custom presentation rendered entirely using a custom JSX renderer.\n\nContinue down the booth using the elevator and you'll find two showcase projects built in the Sandstone betas:\n\n- **Rhythm Game** - a noteblock driven rhythm minigame with custom skybox shaders for the arenas. Showcases how a larger project can take advantage of Sandstone, with the music, obstacles, and arenas data driven and generated at compile time.\n- **Magic Showcase** - a simple magic system showcase that gives an example of how OOP patterns can help to create content faster and cut down on boilerplate.\n\nSource is public for anyone who wants to see how it's built."
+  ],
+  "images": [
+    {
+      "src": "/img/showcase/summit-2026-booth/castle.webp",
+      "alt": "The booth's castle"
+    },
+    {
+      "src": "/img/showcase/summit-2026-booth/castle_interior.webp",
+      "alt": "Inside the booth's castle"
+    },
+    {
+      "src": "/img/showcase/summit-2026-booth/rhythm_glamshot.webp",
+      "alt": "Rhythm minigame arena with glass walls and a gold target line"
+    },
+    {
+      "src": "/img/showcase/summit-2026-booth/magic_glamshot.webp",
+      "alt": "Magic showcase spellcasting demo"
+    },
+    {
+      "src": "/img/showcase/summit-2026-booth/showcase.webp",
+      "alt": "Showcase area of the booth"
+    }
+  ],
+  "video": null,
+  "links": {
+    "source": "https://github.com/sandstone-mc/summit_2026_booth"
+  },
+  "lastUpdated": "2026-08-03",
+  "credits": [
+    {
+      "section": "Development & Leadership",
+      "members": [
+        {
+          "name": "Origaming",
+          "minecraft": {
+            "uuid": "75c4fe91-1f0f-4b98-b34d-0b630b2a4257"
+          },
+          "role": "Rhythm Game Showcase",
+          "socials": [
+            {
+              "type": "github",
+              "url": "https://github.com/OrigamingWasTaken"
+            }
+          ]
+        },
+        {
+          "name": "Lilspartan",
+          "minecraft": {
+            "uuid": "65574243-8a4d-48e8-9341-9655db14b122"
+          },
+          "role": "Magic Showcase, Elevator, NPCs",
+          "socials": [
+            {
+              "type": "modrinth",
+              "url": "https://modrinth.com/user/Lilspartan"
+            },
+            {
+              "type": "github",
+              "url": "https://github.com/Lilspartan"
+            }
+          ]
+        },
+        {
+          "name": "MulverineX",
+          "minecraft": {
+            "uuid": "87f0b42b-7777-442b-9be3-d134c6727cf8"
+          },
+          "role": "Sandstone Owner, Presentation, Booth Design",
+          "socials": [
+            {
+              "type": "modrinth",
+              "url": "https://modrinth.com/user/MulverineX"
+            },
+            {
+              "type": "github",
+              "url": "https://github.com/MulverineX"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Building & Art",
+      "members": [
+        {
+          "name": "Comqote",
+          "minecraft": {
+            "uuid": "7b3a539b-224c-40b5-96a5-2f81835980fe"
+          },
+          "role": "Castle & Canal builds",
+          "socials": [
+            {
+              "type": "instagram",
+              "url": "https://www.instagram.com/comqote/"
+            }
+          ]
+        },
+        {
+          "name": "Ewwwwwan",
+          "minecraft": {
+            "uuid": "5a10b42b-926d-4b35-b282-72e6aa206e7e"
+          },
+          "role": "Casino Interior & Magic Showcase builds, Logo, Stickers, Balloon"
+        },
+        {
+          "name": "Tofetta",
+          "minecraft": {
+            "uuid": "88e07a01-5212-405a-bab6-7425f373b1c1"
+          },
+          "role": "Rhythm Showcase builds"
+        }
+      ]
+    },
+    {
+      "section": "Shader Development",
+      "members": [
+        {
+          "name": "Meek",
+          "minecraft": {
+            "uuid": "8c0fd7d2-bed5-411f-91b6-eed5558f55cc"
+          },
+          "role": "Skybox Shaders for the Rhythm Game Showcase",
+          "socials": [
+            {
+              "type": "website",
+              "url": "https://meekhasto.rest/"
+            },
+            {
+              "type": "github",
+              "url": "https://github.com/Meekiavelique"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Prior Art",
+      "members": [
+        {
+          "name": "SnaveSutit",
+          "minecraft": {
+            "uuid": "10360b5a-27d5-480f-b335-4c58e679072b"
+          },
+          "role": "Text Display Rendering in Animated Java",
+          "socials": [
+            {
+              "type": "website",
+              "url": "https://animated-java.dev/"
+            },
+            {
+              "type": "github",
+              "url": "https://github.com/SnaveSutit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Music",
+      "members": [
+        {
+          "name": "Symarol",
+          "minecraft": {
+            "uuid": "bd8a4b30-2f86-4da0-b444-2c7a9b096d23"
+          },
+          "role": "Noteblock arrangements of the Porter Robinson tracks",
+          "socials": [
+            {
+              "type": "bluesky",
+              "url": "https://bsky.app/profile/symarol.bsky.social"
+            },
+            {
+              "type": "instagram",
+              "url": "https://www.instagram.com/symarol/"
+            }
+          ]
+        },
+        {
+          "name": "Jamie Paige",
+          "minecraft": {
+            "hash": "3256543ebfedf8fac109b9f7c28d7371f37c6ee26e990c3c9a59195914038372"
+          },
+          "socials": [
+            {
+              "type": "bluesky",
+              "url": "https://bsky.app/profile/jamies.page"
+            },
+            {
+              "type": "website",
+              "url": "https://jamies.page/"
+            }
+          ]
+        },
+        {
+          "name": "Porter Robinson",
+          "minecraft": {
+            "hash": "904ed14c5401852e307e0910bfbab3dda8e3207bdebc1ed4c8e16c2d72efd343"
+          },
+          "socials": [
+            {
+              "type": "instagram",
+              "url": "https://www.instagram.com/porterrobinson"
+            },
+            {
+              "type": "bluesky",
+              "url": "https://bsky.app/profile/porterrobinson.com"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "event",
+    "minigame"
+  ]
+}

@@ -1,0 +1,298 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media screen and (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.outputColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media screen and (min-width: 901px) {
+  .outputColumn {
+    position: sticky;
+    top: 90px;
+  }
+}
+
+.formPanel,
+.outputPanel {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--ifm-font-family-pixel);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+
+.labelIcon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: var(--panel-dark);
+  border: 2px solid var(--border-dark);
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.9rem;
+  padding: 0.55em 0.7em;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: 2px solid var(--sandstone);
+  outline-offset: 1px;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 4.5em;
+}
+
+.iconSelect {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.iconSelectButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: var(--panel-dark);
+  border: 2px solid var(--border-dark);
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.85rem;
+  padding: 0.5em 0.7em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.iconSelectButton:focus {
+  outline: 2px solid var(--sandstone);
+  outline-offset: 1px;
+}
+
+.iconSelectMenu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 160px;
+  max-height: 220px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  background: var(--panel);
+  border: 2px solid var(--panel-dark);
+  box-shadow: var(--panel-border);
+}
+
+.iconSelectOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.85rem;
+  padding: 0.4em 0.5em;
+  cursor: pointer;
+  text-align: left;
+}
+
+.iconSelectOption:hover,
+.iconSelectOption:focus {
+  background: var(--panel-light);
+  outline: none;
+}
+
+.repeatRow {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.repeatRow .textarea {
+  flex: 1;
+}
+
+.row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row .input {
+  flex: 1;
+  min-width: 140px;
+}
+
+.imageRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px dashed var(--border-dark);
+}
+
+.imageRow:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.pathPreview {
+  grid-column: 1 / -1;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  word-break: break-all;
+}
+
+.groupBox {
+  border-left: 3px solid var(--sandstone-dark);
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.memberBox {
+  background: var(--bg-alt);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.removeButton {
+  flex-shrink: 0;
+  width: 2.2em;
+  height: 2.2em;
+  background: var(--panel-dark);
+  border: 2px solid var(--border-dark);
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: var(--ifm-font-family-pixel);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.removeButton:hover {
+  color: var(--redstone);
+}
+
+.tagRemove {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  margin-left: 0.4em;
+  padding: 0;
+  font-family: var(--ifm-font-family-pixel);
+  font-size: 1em;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.jsonOutput {
+  background: var(--panel-dark);
+  border: 2px solid var(--border-dark);
+  padding: 1rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  max-height: 480px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text);
+}
+
+.actionsRow {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.fileButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: var(--panel-dark);
+  border: 2px solid var(--border-dark);
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.85rem;
+  padding: 0.5em 0.9em;
+  cursor: pointer;
+}
+
+.fileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.missingHint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--gold);
+}
