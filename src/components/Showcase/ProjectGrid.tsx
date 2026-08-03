@@ -3,13 +3,14 @@ import { ProjectCard } from './ProjectCard'
 import type { ShowcaseProject } from './types'
 
 interface ProjectGridProps {
+  projects?: ShowcaseProject[]
   limit?: number
   className?: string
 }
 
-export function ProjectGrid({ limit, className }: ProjectGridProps) {
+export function ProjectGrid({ projects, limit, className }: ProjectGridProps) {
   const pluginData = usePluginData('showcase') as { projects: ShowcaseProject[] } | undefined
-  const source = pluginData?.projects ?? []
+  const source = projects ?? pluginData?.projects ?? []
   const visible = limit ? source.slice(0, limit) : source
 
   return (

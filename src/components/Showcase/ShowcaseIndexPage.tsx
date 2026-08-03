@@ -65,7 +65,7 @@ export default function ShowcaseIndexPage({ projects }: ShowcaseIndexPageProps) 
             </div>
           )}
 
-          <ProjectGrid className={styles.grid} />
+          <ProjectGrid projects={visibleProjects} className={styles.grid} />
 
           <Panel className={styles.showcaseCtaPanel}>
             <h2 className={styles.showcaseCtaTitle}>Built something with Sandstone?</h2>
