@@ -1,0 +1,49 @@
+{
+  "slug": "sandstone-npcs",
+  "title": "Sandstone NPCs",
+  "tagline": "Mannequin-based NPCs with dialogue trees for Sandstone datapacks",
+  "description": [
+    "Mannequin-based NPCs for [Sandstone](https://github.com/sandstone-mc/sandstone) datapacks: skinned, posable mannequins with typewriter-style dialogue trees. Fully self-contained, click detection uses a vanilla advancement trigger, no external dependencies required."
+  ],
+  "images": [
+    {
+      "src": "/img/showcase/sandstone-npcs/header.webp",
+      "alt": "Blacksmith and guide NPCs mid-dialogue with typewriter text boxes"
+    },
+    {
+      "src": "/img/showcase/sandstone-npcs/other.webp",
+      "alt": "Merch Guy NPC with a custom skin mid-dialogue"
+    }
+  ],
+  "video": "https://www.youtube.com/embed/I_2UAGAXN04?si=cMmCwA_AVSYpHfJD",
+  "links": {
+    "source": "https://github.com/Lilspartan/sandstone-npcs"
+  },
+  "lastUpdated": "2026-08-01",
+  "credits": [
+    {
+      "section": "Development",
+      "members": [
+        {
+          "name": "Lilspartan",
+          "minecraft": {
+            "uuid": "65574243-8a4d-48e8-9341-9655db14b122"
+          },
+          "socials": [
+            {
+              "type": "github",
+              "url": "https://github.com/Lilspartan"
+            },
+            {
+              "type": "modrinth",
+              "url": "https://modrinth.com/user/Lilspartan"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "library"
+  ]
+}
