@@ -85,6 +85,9 @@ const config: Config = {
           trackingID: "UA-168678555-1",
           anonymizeIP: true,
         },
+        sitemap: {
+          ignorePatterns: ["/showcase-submit"],
+        },
         docs: {
           sidebarPath: "./sidebars.ts",
           // Remove this to remove the "edit this page" links.

@@ -16,6 +16,7 @@ export type IconType =
   | 'smithed'
   | 'twitch'
   | 'twitter'
+  | 'website'
   | 'youtube'
 
 export interface ShowcaseSocial {
@@ -25,7 +26,10 @@ export interface ShowcaseSocial {
 
 export interface ShowcaseAuthor {
   name: string
-  minecraft?: string // Minecraft account UUID, used to fetch a head icon
+  minecraft?: {
+    uuid?: string;
+    hash?: string;
+  } // Minecraft account UUID, used to fetch a head icon
   socials?: ShowcaseSocial[]
   role?: string // What they did on the project, shown as a hover tooltip
 }

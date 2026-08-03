@@ -96,7 +96,7 @@ export default function ShowcaseProjectPage({ project }: ShowcaseProjectPageProp
                             {author.minecraft && (
                               <img
                                 className={styles.authorHead}
-                                src={`https://crafthead.net/helm/${author.minecraft}`}
+                                src={`https://crafthead.net/helm/${author.minecraft.uuid || author.minecraft.hash}`}
                                 alt=""
                               />
                             )}
