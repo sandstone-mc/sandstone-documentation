@@ -16,12 +16,12 @@ The minimal syntax for predicates is the following:
 import { Predicate } from 'sandstone'
 
 Predicate('predicate_name', {
-  condition: '<condition type>',
+  type: '<condition type>',
   ...additionalProperties,
 })
 ```
 
-As you can see, you must provide the `condition` of the predicate. Depending on this condition, several properties will be available.
+As you can see, you must provide the `type` of the predicate. Depending on this condition, several properties will be available.
 
 ### Example
 
@@ -29,4 +29,4 @@ As you can see, you must provide the `condition` of the predicate. Depending on 
 
 ## Additional properties
 
-Predicates do not have additional properties, however they have condition-dependant properties. All those can be found directly via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Predicates](https://minecraft.wiki/Predicate#JSON_structure).
+Predicates do not have additional properties, however they have type-dependant properties. All those can be found directly via autocompletion (as shown above), or by looking at the [Minecraft wiki article on Predicates](https://minecraft.wiki/Predicate#JSON_structure).

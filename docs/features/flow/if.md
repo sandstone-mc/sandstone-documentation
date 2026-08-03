@@ -2,7 +2,7 @@
 id: if
 title: If / Else
 description: How to write if / else statements in Sandstone.
-position: 2
+sidebar_position: 1
 ---
 
 import { InteractiveSnippet } from '../../../src/components'

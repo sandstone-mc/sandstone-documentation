@@ -1,7 +1,8 @@
 ---
 id: switch-case
-title: Switch/Case
+title: Switch / Case
 description: How to provide per-case logic for a Score or DataPoint in Sandstone.
+sidebar_position: 2
 ---
 
 import { InteractiveSnippet } from '../../../src/components'

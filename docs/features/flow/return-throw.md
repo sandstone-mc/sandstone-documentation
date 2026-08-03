@@ -2,6 +2,7 @@
 id: return-throw
 title: Return & Throw
 description: How to manually manage function flow in Sandstone.
+sidebar_position: 5
 ---
 
 You can easily exit a function context early using Sandstone's built-in `return` statement, and exit with an error using `throw`.

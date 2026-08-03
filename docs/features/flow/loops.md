@@ -2,6 +2,7 @@
 id: loops
 title: While / For Loops
 description: How to write while & for loops in Sandstone.
+sidebar_position: 3
 ---
 import { InteractiveSnippet } from '../../../src/components'
 

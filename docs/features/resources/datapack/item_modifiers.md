@@ -12,7 +12,7 @@ The minimal syntax for item modifiers is the following:
 import { ItemModifier } from 'sandstone'
 
 ItemModifier('item_modifier_name', {
-  function: 'set_name',
+  type: 'set_name',
 
   name: { text: 'Funny item' }
 })
