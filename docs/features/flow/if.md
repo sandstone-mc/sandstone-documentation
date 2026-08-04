@@ -277,7 +277,7 @@ _.if(_.chunksLoaded(abs(1000, 0, 1000)), () => {
 `_.mcfunction` checks a function or function tag and matches its return value(s). If given a function tag, all functions in the tag run regardless of the results of prior functions in that tag.
 
 :::warning
-Usually using this is incorrect, almost always either you should be using `_.or`, `_.and`, and the other conditions.
+Usually using this is incorrect, almost always you should be using `_.or`, `_.and`, and the other conditions.
 :::
 
 ```ts
