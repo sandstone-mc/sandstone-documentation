@@ -251,6 +251,17 @@ _.if(
 )
 ```
 
+### Predicate conditions
+
+`_.predicate` checks whether a [predicate](/docs/features/resources/datapack/predicates) succeeds, accepting either a predicate's name or a `Predicate` directly:
+
+```ts
+_.if(_.predicate('my_pack:is_raining'), () => { ... })
+
+const isRaining = Predicate('is_raining', { condition: 'minecraft:weather_check', raining: true })
+_.if(isRaining, () => { ... })
+```
+
 ### Chunk loaded conditions
 
 `_.chunksLoaded` checks whether the chunk containing a given position is loaded.
@@ -263,26 +274,19 @@ _.if(_.chunksLoaded(abs(1000, 0, 1000)), () => {
 
 ### Function conditions
 
-`_.function_` (named with a trailing underscore since `function` is a reserved word) checks a function or function tag and matches its return value(s). If given a function tag, all functions in the tag run regardless of the results of prior functions in that tag.
+`_.mcfunction` checks a function or function tag and matches its return value(s). If given a function tag, all functions in the tag run regardless of the results of prior functions in that tag.
+
+:::warning
+Usually using this is incorrect, almost always either you should be using `_.or`, `_.and`, and the other conditions.
+:::
 
 ```ts
-_.if(_.function_('my_pack:some_function'), () => { ... })
+_.if(_.mcfunction('my_pack:some_function'), () => { ... })
 
 const check = MCFunction('check', () => {
   _.return.run(1)
 })
-_.if(_.function_(check), () => { ... })
-```
-
-### Predicate conditions
-
-`_.predicate` checks whether a [predicate](/docs/features/resources/datapack/predicates) succeeds, accepting either a predicate's name or a `PredicateClass` instance directly:
-
-```ts
-_.if(_.predicate('my_pack:is_raining'), () => { ... })
-
-const isRaining = Predicate('is_raining', { condition: 'minecraft:weather_check', raining: true })
-_.if(isRaining, () => { ... })
+_.if(_.mcfunction(check), () => { ... })
 ```
 
 ### Boolean logic
