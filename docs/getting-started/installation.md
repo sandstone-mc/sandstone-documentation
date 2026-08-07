@@ -16,9 +16,9 @@ All snippets of this documentation can be edited, and you can preview the result
 If you want to use Sandstone to create data packs, a local installation will be necessary.
 :::
 
-The first step is to install [Bun](https://bun.com/). Node.js is not officially supported anymore.
+The first step is to install [Bun](https://bun.com/), required by Sandstone CLI. Due to a [bug](https://github.com/parcel-bundler/watcher/issues/204#issuecomment-5123756423) you must also install [Node.js](https://nodejs.org/en/download).
 
-You will then need a code editor: I personally recommend [Visual Studio Code](https://code.visualstudio.com/Download).
+You will also need a code editor: I personally recommend [Visual Studio Code](https://code.visualstudio.com/Download). If you use VSCode I heavily recommend using the [Pretty TypeScript Errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors) extension.
 
 Create an empty folder named "Sandstone Projects": it will contain all your future Sandstone projects. Inside this folder, open a terminal then run the following command:
 
