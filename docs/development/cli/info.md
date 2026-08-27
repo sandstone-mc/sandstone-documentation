@@ -1,7 +1,8 @@
 ---
-id: cli
-title: CLI
+id: info
+title: Information
 description: The `sand` command-line tool that builds, watches, links, and scaffolds Sandstone projects.
+sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';

@@ -1,7 +1,8 @@
 ---
 id: watch
-title: sand watch
+title: Watch
 description: Build once, then rebuild automatically on file change.
+sidebar_position: 3
 ---
 
 # `sand watch`

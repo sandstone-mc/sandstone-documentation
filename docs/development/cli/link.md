@@ -1,7 +1,8 @@
 ---
 id: link
-title: sand link / sand unlink
+title: Link / Unlink
 description: Wire a local library into a consumer without publishing to npm.
+sidebar_position: 5
 ---
 
 # `sand link` / `sand unlink`

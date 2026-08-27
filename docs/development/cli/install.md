@@ -1,7 +1,8 @@
 ---
 id: install
-title: sand install / uninstall / refresh
+title: Install
 description: Add official Sandstone libraries or Smithed datapack libraries.
+sidebar_position: 7
 ---
 
 # `sand install`

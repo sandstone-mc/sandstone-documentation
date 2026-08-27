@@ -1,7 +1,8 @@
 ---
 id: create
-title: sand create
+title: Create
 description: Scaffold a new Sandstone project from a template.
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';

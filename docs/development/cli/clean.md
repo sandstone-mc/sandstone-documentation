@@ -1,7 +1,8 @@
 ---
 id: clean
-title: sand clean
+title: Clean
 description: Remove symlinks, copied folders, and zip archives placed by a prior build.
+sidebar_position: 6
 ---
 
 # `sand clean`

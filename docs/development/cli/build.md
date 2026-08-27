@@ -1,7 +1,8 @@
 ---
 id: build
-title: sand build
+title: Build
 description: Compile the datapack and resource pack once.
+sidebar_position: 4
 ---
 
 # `sand build`

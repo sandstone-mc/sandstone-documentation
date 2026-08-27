@@ -1,6 +1,6 @@
 ---
 id: save-options
-title: saveOptions
+title: Save Options
 description: Where Sandstone writes the generated files.
 ---
 
