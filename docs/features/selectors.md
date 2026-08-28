@@ -2,6 +2,7 @@
 id: selectors
 title: Selectors
 description: How to create selectors with Sandstone.
+sidebar_position: 3
 ---
 
 You can use Sandstone to create any selector, in an easy and type-safe way.

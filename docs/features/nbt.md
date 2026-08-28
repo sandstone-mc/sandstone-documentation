@@ -2,6 +2,7 @@
 id: nbt
 title: NBTs
 description: How to write NBTs in Sandstone.
+sidebar_position: 5
 ---
 
 ## General Syntax

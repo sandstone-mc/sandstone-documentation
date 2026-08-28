@@ -45,7 +45,7 @@ The above example places the [Carpet Mod](https://modrinth.com/mod/carpet) scarp
 RawResource(resourcePack(), 'assets/minecraft/models/entity/pig.gecko.json', getExistingResource('entity_models/pig.gecko.json'))
 ```
 
-The above example places the [GeckoLib Mod](https://modrinth.com/mod/geckolib) entity model in `(resource pack folder)/assets/minecraft/entity/pig.gecko.json`.
+The above example places the [GeckoLib Mod](https://modrinth.com/mod/geckolib) entity model from `resources/entity_models/` into `(resource pack output)/assets/minecraft/entity/pig.gecko.json`.
 
 ## Custom Resource
 
@@ -155,7 +155,7 @@ class ModConfig extends PackType {
 
 export const modConfig = new ModConfig()
 
-sandstonePack.packTypes.set('mod-config', )
+sandstonePack.packTypes.set('mod-config', modConfig)
 
 RawResource(modConfig, 'techy_haven/main.cfg', `
 foo=bar

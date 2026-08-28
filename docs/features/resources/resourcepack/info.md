@@ -1,7 +1,8 @@
 ---
-id: index
-title: Resource Pack
+id: info
+title: Information
 description: How to create resource pack resources with Sandstone.
+sidebar_position: 1
 ---
 
 ## Introduction

@@ -2,6 +2,7 @@
 id: commands
 title: Commands
 description: How to write commands in Sandstone.
+sidebar_position: 2
 ---
 import { InteractiveSnippet } from '../../src/components'
 

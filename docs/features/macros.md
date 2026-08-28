@@ -1,7 +1,8 @@
 ---
 id: macros
-title: Function Macros
+title: Macro Commands
 description: How to use function macros in Sandstone.
+sidebar_position: 8
 ---
 
 Macros, introduced in 1.20.2 snapshot [23w31a](https://quiltmc.org/en/mc-patchnotes/#23w31a), provide a way to substitute values anywhere in a command. While there exists many anti-patterns in terms of optimization, there are certainly many usecases where macros are very useful for optimization and previously impossible behavior.

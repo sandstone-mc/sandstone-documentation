@@ -1,7 +1,8 @@
 ---
-id: config
-title: Config
+id: info
+title: Information
 description: The `sandstone.config.ts` file that drives every build.
+sidebar_position: 1
 ---
 
 # `sandstone.config.ts`

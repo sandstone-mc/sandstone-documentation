@@ -1,7 +1,8 @@
 ---
-id: index
-title: Datapack
+id: info
+title: Information
 description: The full list of datapack resources supported by Sandstone.
+sidebar_position: 1
 ---
 
 ## Introduction
@@ -18,30 +19,35 @@ exported via `RawResource`, or fully abstracted via `CustomResourceClass` - see
 ## Supported resources
 
 - [Advancements](/docs/features/resources/datapack/advancements)
-- Banner Patterns
 - Chat Types
 - [Damage Types](/docs/features/resources/datapack/damage_types)
-- Decorated Pot Patterns
 - Dialogs
-- Enchantments (and Enchantment Providers)
-- Instruments
 - [Item Modifiers](/docs/features/resources/datapack/item_modifiers)
-- Jukebox Songs
 - [Loot Tables](/docs/features/resources/datapack/loot_tables)
+- Number Providers
 - [Predicates](/docs/features/resources/datapack/predicates)
 - [Recipes](/docs/features/resources/datapack/recipes)
 - Slot Sources
 - Structures
-- Sulfur Cube Archetypes
 - [Tags](/docs/features/resources/datapack/tags)
 - Test Environments & Test Instances (Gametest)
 - Timelines
 - Trade Sets
+- World Clocks
+
+### Data-component-specific
+
+- Banner Patterns
+- Block Transformers
+- Decorated Pot Patterns
+- Enchantments (and Enchantment Providers)
+- Instruments
+- Jukebox Songs
+- Sulfur Cube Archetypes
 - Trial Spawners
 - [Trim Materials & Trim Patterns](/docs/features/resources/datapack/trims)
 - Variants
 - Villager Trades
-- World Clocks
 
 Resources without a link yet are fully typed and documented via autocompletion/jsdoc in the
 meantime, or by looking at the relevant [Minecraft wiki article](https://minecraft.wiki/w/Data_pack).
